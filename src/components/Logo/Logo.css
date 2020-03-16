@@ -1,0 +1,20 @@
+.Logo {
+  display: 'flex';
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  padding: 1%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  /*   background-image: url("../../assets//images/logo.png");
+    background-size: cover;
+    background-repeat: no-repeat ; */
+}
+
+.Logo img {
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}

@@ -1,0 +1,20 @@
+.row {
+    display: flex;
+}
+
+.algn-i-c {
+    align-items: center
+}
+
+.jtfc-c {
+    justify-content: center;
+}
+
+.d-in-bl {
+    display: inline-block;
+}
+
+.c-sec {
+    color: var(--secondary);
+}
+

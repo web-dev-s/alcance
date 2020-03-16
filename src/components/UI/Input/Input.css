@@ -1,0 +1,53 @@
+.Input {
+    width: 100%;
+    padding: 0px;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: transparent;
+}
+
+.Input::placeholder {
+    font-style: normal;
+}
+.Input:focus {
+    outline: none;
+    border:none;
+    background-color: transparent;
+}
+.Input.Invalid {
+    border: 1px solid red;
+    background-color: #FDA49A;
+}
+.Label {
+    /*  font-weight: bold; */
+    display: block;
+    font-style: normal;
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 0px;
+}
+
+.InputElement {
+    outline: none;
+    border: 1px solid #ccc;
+    background-color: white;
+    font-style: normal;
+    font-family: AvenirRoman;
+    padding: 6px 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.InputElement:focus {
+    outline: none;
+    border:none;
+    background-color: #ccc;
+}
+
+.Invalid {
+    border: 1px solid red;
+    background-color: #FDA49A;
+}

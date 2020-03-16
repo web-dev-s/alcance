@@ -1,0 +1,21 @@
+
+.ComponentWidth {
+    /*   transform: translateY(-100%); */
+    overflow-y: auto;
+}
+
+@media (max-width:423px) {
+    .ComponentWidth {
+        width: 90%;
+    }
+}
+@media (max-width:296px) {
+    .ComponentWidth {
+        width: 100%;
+    }
+}
+@media (min-width:500px) {
+    .ComponentWidth {
+        width: 60%;
+    }
+}
