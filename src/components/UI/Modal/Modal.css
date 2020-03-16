@@ -1,0 +1,74 @@
+.Modal {
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    z-index: 500;
+    padding: 16px;
+    left: 15%;
+    top: 30%;
+    width: 70%;
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+    justify-content: center;
+    align-items: center;
+    min-height: 40%;
+    border-radius: 30px;
+}
+
+@media (min-width: 600px) {
+    .Modal {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
+}
+
+.InfoModal {
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    z-index: 500;
+    padding: 16px;
+    left: 15%;
+    right: 15%;
+    top: 5%;
+    width: 70%;
+    max-height: 90%;
+    box-sizing: border-box;
+    
+   
+    justify-content: center;
+    align-items: center;
+    min-height: 40%;
+    border-radius: 10px;
+    flex-grow: 1;
+    /* transition: transform 0.3s ease-in; */
+}
+
+.Open {
+    transform: translateY(0);
+    transition: all 3s ease-in;
+}
+
+.Close {
+    transform: translateY(-100%);
+      transition: all 2s ease-out;  
+  
+}
+
+@media (max-width: 600px) {
+    .InfoModal {
+        width: 80%;
+        left: 10%;
+        right: 10%
+    }
+}
+
+@media (max-width: 400px) {
+    .InfoModal {
+        width: 90%;
+        left: 5%;
+        right: 5%
+    }
+}

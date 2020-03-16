@@ -1,0 +1,79 @@
+@font-face {
+    font-family: 'AileronBlack';
+    src: local('AileronBlack'), url(./Aileron-Black.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronBlackItalic';
+    src: local('AileronBlackItalic'), url(./Aileron-BlackItalic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronBold';
+    src: local('AileronBold'), url(./Aileron-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronBoldItalic';
+    src: local('AileronBoldItalic'), url(./Aileron-BoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronHeavy';
+    src: local('AileronHeavy'), url(./Aileron-Heavy.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronHeavyItalic';
+    src: local('AileronHeavyItalic'), url(./Aileron-HeavyItalic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronItalic';
+    src: local('AileronItalic'), url(./Aileron-Italic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronLight';
+    src: local('AileronLight'), url(./Aileron-Light.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronLightItalic';
+    src: local('AileronLightItalic'), url(./Aileron-LightItalic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronRegular';
+    src: local('AileronRegular'), url(./Aileron-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronSemiBold';
+    src: local('AileronSemiBold'), url(./Aileron-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronSemiBoldItalic';
+    src: local('AileronSemiBoldItalic'), url(./Aileron-SemiBoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronThin';
+    src: local('AileronThin'), url(./Aileron-Thin.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronThinItalic';
+    src: local('AileronThinItalic'), url(./Aileron-ThinItalic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronUltraLight';
+    src: local('AileronUltraLight'), url(./Aileron-UltraLight.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'AileronUltraLightItalic';
+    src: local('AileronUltraLightItalic'), url(./Aileron-UltraLightItalic.ttf) format('truetype');
+}

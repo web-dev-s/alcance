@@ -1,0 +1,67 @@
+Used dependencies in reactJS Paquete Alcance web App:
+
+"dependencies": {
+    "@babel/core": "7.4.5", ->interpreter for js conversion
+    "@material-ui/core": "^4.7.1", ->responsiveness Grid usage
+    "@svgr/webpack": "4.3.0", ->module bundler for JavaScript files (usage in a browser)
+    "axios": "^0.19.0", ->api requests handler module
+    "babel-core": "7.0.0-bridge.0", ->compiler for JS
+    "babel-eslint": "10.0.1", ->wrapper for Babel parser
+    "babel-loader": "8.0.6", ->loader for webpack
+    "babel-plugin-named-asset-import": "^0.3.2",  ->named imports utility
+    "babel-preset-react-app": "^9.0.0", ->preset applied to react app
+    "bfj": "6.1.1", ->Asynchronous streaming functions for large JSON data sets
+    "case-sensitive-paths-webpack-plugin": "2.2.0", ->- Enforces module path case sensitivity in Webpack
+    "css-loader": "2.1.1", ->loader for css files (styles, responsiveness)
+    "dotenv": "8.0.0", ->Storing configuration in the environment separate from code is based on The Twelve-Factor App methodology
+    "dotenv-expand": "5.1.0", -> adds variable expansion on top of dotenv.
+    "eslint": "5.16.0", -> pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript
+    "eslint-config-react-app": "^4.0.1", ->eslint config for react-app
+    "eslint-loader": "2.1.2",->eslint loader 
+    "eslint-plugin-flowtype": "3.9.1",->linting  flow type handler
+    "eslint-plugin-import": "2.17.3", ->linting- imports handler
+    "eslint-plugin-jsx-a11y": "6.2.1", ->linting- jsx handler
+    "eslint-plugin-react": "7.13.0",->linting- react app handler
+    "file-loader": "3.0.1", ->resolves import / require() on a file into a url and emits the file into the output directory
+    "fork-ts-checker-webpack-plugin-alt": "0.4.14", ->Runs typescript type checker and linter on separate process
+    "fs-extra": "8.0.1", ->e adds a few extra file system methods that aren't included in the native fs module
+    "html-webpack-plugin": "4.0.0-alpha.2", ->webpack plugin that simplifies creation of HTML files to serve your webpack bundles
+    "identity-obj-proxy": "3.0.0", -> Build Status npm version test coverage
+    "jest-pnp-resolver": "1.2.1", ->Plug'n'Play resolver for Jest. npm version node version
+    "jest-resolve": "24.8.0", ->testing module plugin
+    "jest-watch-typeahead": "^0.3.1", ->testing module plugin
+    "mini-css-extract-plugin": "0.7.0", -> extracts CSS into separate files. It creates a CSS file per JS file which contains CSS. It supports On-Demand-Loading of CSS and SourceMaps
+    "moment": "^2.24.0", ->Parse, validate, manipulate, and display dates in javascript
+    "optimize-css-assets-webpack-plugin": "5.0.1", ->webpack optimizer
+    "pnp-webpack-plugin": "1.4.3", -> adds support for Plug'n'Play to Webpack
+    "postcss-flexbugs-fixes": "4.1.0", -> tries to fix all of flexbug's issues on different devices render time
+    "postcss-loader": "3.0.0", ->Loader for webpack to process CSS with PostCSS
+    "postcss-preset-env": "6.6.0", ->PostCSS presets
+    "postcss-safe-parser": "4.0.1", ->PostCSS parser
+    "prop-types": "^15.7.2", -> Runtime type checking for React props and similar objects
+    "qr-scanner": "^1.1.1", ->scan your QR codes anytime and anywhere
+    "qrcode.react": "^1.0.0", -> generate QRCode with logo
+    "react": "^16.8.6", -> JavaScript library for building user interfaces
+    "react-app-polyfill": "^1.0.1", -> includes polyfills for various browsers. It includes minimum requirements and commonly used language features used by Create React App projects
+    "react-dev-utils": "^9.0.1", -> includes some utilities used by Create React App
+    "react-dom": "^16.8.6", -> entry point to the DOM and server renderers for React
+    "react-qr-reader": "^2.2.1", -> react component for reading QR codes from the webcam
+    "react-redux": "^7.0.3", ->predictable state container for React JavaScript applications
+    "react-router": "^5.0.0", ->collection of navigational components that compose declaratively with your application
+    "react-router-dom": "^5.0.0", ->Declarative routing for React
+    "react-test-renderer": "^16.8.6", ->provides a React renderer that can be used to render React components to pure JavaScript objects, without depending on the DOM or a native mobile environment
+    "react-webcam": "^4.0.0",->Webcam component for React ( Browsers will throw an error if the page is loaded from insecure origin. I.e. Use https)
+    "reactive-qr": "^0.1.8", ->React component for reading and generating QR codes
+    "redux": "^4.0.1",->predictable state container for JavaScript applications
+    "redux-devtools-extension": "^2.13.8",->set of redux dev tools
+    "redux-thunk": "^2.3.0", ->Thunk middleware for Redux.
+    "resolve": "1.11.0", -> options change how modules are resolved. webpack provides reasonable defaults, but it is possible to change the resolving in detail
+    "sass-loader": "7.1.0", ->.scss loader (not used) 
+    "style-loader": "0.23.1",>styles loader 
+    "terser-webpack-plugin": "1.3.0", -> uses terser to minify JavaScript
+    "url-loader": "1.1.2", -> loader for webpack which transforms files into base64 URIs
+    "webfontloader": "^1.6.28",-> JavaScript library that gives more control over font loading than the Google Fonts API provides
+    "webpack": "4.32.2", -> module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging
+    "webpack-dev-server": "3.5.0", ->Updates the browser on changes
+    "webpack-manifest-plugin": "2.0.4", ->Webpack plugin for generating an asset manifest
+    "workbox-webpack-plugin": "4.3.1" -> provides two webpack plugins: one that generates a complete service worker for you and one that generates a list of assets to precache that is injected into a service worker file

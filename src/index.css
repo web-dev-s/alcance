@@ -1,0 +1,108 @@
+body {
+  margin: 0;
+  padding: 0;
+  /*   font-family: 'AileronItalic', 'AileronBlack', 'AileronBlackItalic', 'AileronBold', 'AileronBoldItalic', 'AileronHeavy', 'AileronHeavyItalic', 'AileronItalic', 'AileronLight', 'AileronLightItalic', 'AileronRegular', 'AileronSemiBold', 'AileronSemiBoldItalic', 'AileronThin', 'AileronThinItalic', 'AileronUltraLight', 'AileronUltraLightItalic';
+ */
+  font-family: 'AvenirBlack', 'AvenirBook', 'AvenirRoman';
+  color: #40495c;
+}
+
+body.overlay {
+  position: absolute;
+  background-color: transparent;
+}
+
+@font-face {
+  font-family: 'AvenirBlack';
+  src: local('AvenirBlack'), url(./fonts/Avenir-Black.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AvenirBook';
+  src: local('AvenirBook'), url(./fonts/Avenir-Book.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AvenirRoman';
+  src: local('AvenirRoman'), url(./fonts/Avenir-Roman.ttf) format('truetype');
+}
+
+/* @font-face {
+  font-family: 'AileronBlack';
+  src: local('AileronBlack'), url(./fonts/Aileron-Black.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronBlackItalic';
+  src: local('AileronBlackItalic'), url(./fonts/Aileron-BlackItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronBold';
+  src: local('AileronBold'), url(./fonts/Aileron-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronBoldItalic';
+  src: local('AileronBoldItalic'), url(./fonts/Aileron-BoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronHeavy';
+  src: local('AileronHeavy'), url(./fonts/Aileron-Heavy.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronHeavyItalic';
+  src: local('AileronHeavyItalic'), url(./fonts/Aileron-HeavyItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronItalic';
+  src: local('AileronItalic'), url(./fonts/Aileron-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronLight';
+  src: local('AileronLight'), url(./fonts/Aileron-Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronLightItalic';
+  src: local('AileronLightItalic'), url(./fonts/Aileron-LightItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronRegular';
+  src: local('AileronRegular'), url(./fonts/Aileron-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronSemiBold';
+  src: local('AileronSemiBold'), url(./fonts/Aileron-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronSemiBoldItalic';
+  src: local('AileronSemiBoldItalic'), url(./fonts/Aileron-SemiBoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronThin';
+  src: local('AileronThin'), url(./fonts/Aileron-Thin.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronThinItalic';
+  src: local('AileronThinItalic'), url(./fonts/Aileron-ThinItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronUltraLight';
+  src: local('AileronUltraLight'), url(./fonts/Aileron-UltraLight.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AileronUltraLightItalic';
+  src: local('AileronUltraLightItalic'), url(./fonts/Aileron-UltraLightItalic.ttf) format('truetype');
+} */

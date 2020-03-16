@@ -1,0 +1,32 @@
+.MainClass {
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    z-index: 500;
+    padding: 16px;
+    left: 15%;
+    right: 15%;
+    top: 5%;
+    width: 70%;
+    max-height: 90%;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in;
+    justify-content: center;
+    align-items: center;
+    min-height: 40%;
+    border-radius: 10px;
+    /*  display: 'flex';
+    flex-grow: 1;
+    flex: 1; */
+    /* transition: transform 0.3s ease-in; */
+    overflow: scroll;
+}
+
+.Open {
+    transform: translateY(0);
+}
+
+.Close {
+    transform: translateY(-100%);
+}
