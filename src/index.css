@@ -3,6 +3,7 @@ body {
   padding: 0;
   /*   font-family: 'AileronItalic', 'AileronBlack', 'AileronBlackItalic', 'AileronBold', 'AileronBoldItalic', 'AileronHeavy', 'AileronHeavyItalic', 'AileronItalic', 'AileronLight', 'AileronLightItalic', 'AileronRegular', 'AileronSemiBold', 'AileronSemiBoldItalic', 'AileronThin', 'AileronThinItalic', 'AileronUltraLight', 'AileronUltraLightItalic';
  */
+  box-sizing: border-box;
   font-family: 'AvenirBlack', 'AvenirBook', 'AvenirRoman';
   color: #40495c;
 }

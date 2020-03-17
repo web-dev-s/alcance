@@ -51,9 +51,7 @@ const input = (props) => {
             break;
         default:
             inputElement = <input
-
                 style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
-
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed} />;
@@ -62,11 +60,11 @@ const input = (props) => {
     return (
         <div className={classes.Input} style={{ ...props.containerStyle }}>
             <label className={classes.Label} style={{ ...props.labelStyle }}>{props.label}</label>
-            <div className={inputClasses.join(' ')}
-                style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginLeft: '4%', marginRight: '4%', ...props.inputStyle }}>
-                <div style={{ display: 'flex', flexDirection: 'row', height: '25px', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '1px', }}>
-                    <img src={props.leftImage} alt="logo" style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
-                </div>
+            <div className={inputClasses.join(' ')} style={{ ...props.middleContainerStyle }}
+                style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', ...props.inputStyle }}>
+                {props.leftImage && <div style={{ display: 'flex', flexDirection: 'row', maxHeight: '25px', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '0px', marginRight: '4%' }}>
+                    <img src={props.leftImage} alt="logo" style={{ width: '100%', height: '100%', resizeMode: 'contain', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '0px' }} />
+                </div>}
                 <div style={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
                     {inputElement}
                 </div>

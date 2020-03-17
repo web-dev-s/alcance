@@ -10,7 +10,7 @@ const FlashingButton = (props) => {
 
 
     return (<div style={{
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stetch', alignSelf: 'center', alignContent: 'center',
+        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', alignSelf: 'center', alignContent: 'center',
         /*   marginTop: '5px', marginBottom: '5px', marginLeft: '10px', marginRight: '10px', */
         width: '100%', height: '100%'
     }}>

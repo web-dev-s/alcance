@@ -73,5 +73,7 @@ export const color = {
     instragram: "#e50069",
     textInput: '#0a1d41',
     transparent: 'transparent',
+    brown: '#463100',
+    alcanceOrange: '#F8BC3C', 
     // lightGray:'#b5c8dd'
 };

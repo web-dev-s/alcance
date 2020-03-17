@@ -17,8 +17,6 @@ import ReactResizeDetector from 'react-resize-detector';
 import FlashingButton from '../../components/UI/FlashingButton/FlashingButton';
 import useWindowDimensions from '../../hooks/useWindowsDimensions';
 
-//import * as P from '../../../shared/encode';
-//import * as C from '../../../shared/crypto-pbkdf2-example';
 
 const Auth = (props) => {
     const { height, width } = useWindowDimensions();
@@ -306,15 +304,6 @@ const Auth = (props) => {
         }
     });
 
-
-    // eslint-disable-line
-    useEffect(() => {
-        //  retreiveUsed_CredetialsLocal(props.userType)
-        if (props.authRedirectPath !== '/') { props.onSetAuthRedirectPath('/dashboard'); }
-
-    }, [props]);
-
-
     useEffect(() => {
         setErrorMessage(<p style={{ textAlign: 'center' }}>{props.error}</p>);
     }, [props.error]);
@@ -378,8 +367,8 @@ const Auth = (props) => {
         setPasswordTouched(true);
     };
 
-    const onRegisterClient = (e) => { }
-    const onRegisterComercio = (e) => { }
+    const onRegisterClient = (e) => { props.onSetAuthRedirectPath('/client'); }
+    const onRegisterComercio = (e) => { props.onSetAuthRedirectPath('/comercio'); }
     const loggingIn = event => {
         event.preventDefault();
         if (!emailValid) return alert('email not valid');
@@ -848,7 +837,7 @@ const Auth = (props) => {
                                             </div>
                                         </div>
                                     </div>}
-                                    {choice == 2 &&  <div style={{ margin: 0, paddingLeft: '3px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', textAlign: 'center', }}>
+                                    {choice == 2 && <div style={{ margin: 0, paddingLeft: '3px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', textAlign: 'center', }}>
                                         <div style={{ margin: 0, paddingBottom: '15px', paddingLeft: '3px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', backgroundColor: 'white', }}>
                                             <text style={{ color: color.alcanceOrange, fontSize: '16px', textAlign: 'left', marginTop: '2%', marginBottom: '4%', textAlign: 'left' }} >{'COMERCIO'}</text>
 

@@ -83,7 +83,7 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "set PORT=3005 && set HTTPS=true&& node scripts/start.js",
+    "start": "set PORT=3007 && set HTTPS=true&& node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/tests.js --env=jsdom --verbose=true"
   },
