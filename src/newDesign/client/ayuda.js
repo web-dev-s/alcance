@@ -23,7 +23,7 @@ import password from '../../assets/images/password.png';
 import clock from '../../assets/images/clock.png';
 import customerSupport from '../../assets/images/customer-support.png';
 import QRCode from 'qrcode.react';
-import Card from '../../components/UI/Card/Card';
+import Cards from '../../components/UI/Card/Card';
 import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 
@@ -153,114 +153,41 @@ const UserTypeClient = props => {
         </div >
     }
 
+    const styles = {
+        style1: {
+            fontFamily: 'AvenirBlack', fontWeight: '900', color: '#4b443a', fontSize: '18.6px', paddingTop: '20px', paddingBottom: '15px', textAlign: 'left'
+        },
+        style2: {
+            fontFamily: 'AvenirBook', fontWeight: '700', alignItems: 'center', color: '#5e5a4f', fontSize: '13px',/*  paddingLeft: '25px', paddingRight: '24px',  */lineHeight: '25px', textAlign: 'justify'
+        },
+        style3: {
+            fontFamily: 'AvenirBlack', fontWeight: '900', color: '#4b443a', fontSize: '22px', paddingTop: '35px', paddingBottom: '8px', textAlign: 'left',
+        },
+        style4: {
+            fontFamily: 'AvenirBook', fontWeight: '700', display: 'block', justifyContent: 'center', alignItems: 'center', color: '#5e5a4f', fontSize: '16px'
+        },
+        style5: {
+            fontFamily: 'AvenirRoman', color: '#4b443a', fontSize: '24px', paddingTop: '20px', paddingBottom: '15px', fontWeight: '800'
+        },
+        style6: {
+            fontFamily: 'AvenirBook', lineHeight: '25px', display: 'block', justifyContent: 'center', alignItems: 'center', color: '#5e5a4f', fontSize: '16px', marginLeft: '20px'
+        },
+        style7: {
+            fontFamily: 'AvenirBook', lineHeight: '25px', display: 'block', justifyContent: 'center', alignItems: 'center', color: '#5e5a4f', fontSize: '16px', marginLeft: '20px', marginTop: '30px', marginBottom: '50px'
+        },
+        style8: {
+            fontFamily: 'AvenirBook', lineHeight: '25px', display: 'block', color: '#5e5a4f', fontSize: '16px', marginLeft: '30px', paddingLeft: '20px'
+        },
+        style9: {
+            fontFamily: 'AvenirBook', lineHeight: '25px', display: 'block', color: '#5e5a4f', fontSize: '16px', marginLeft: '30px', paddingLeft: '20px', paddingRight: '50px'
+        }
+    };
 
-
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px',paddingTop:'48px'  }}>
         <Modal show={openDialog} modalClosed={() => mesageModalClosed()}>
             {showMessage}
         </Modal>
-        <MobileView style={{ width: '100%' }}>
-            <div style={{
-                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-                marginTop: '2%'
-            }}>
-                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '4%' }}>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</text>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Jose Miguel'}{'.'}</text>
-                    </div>
-                    <div style={{
-                        boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
-                        border: '1px solid lightgray', borderRadius: '4px',
-                        display: 'block', overflowY: 'auto', padding: '5px',
-                        maxHeight: '800px',
-                        minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
-                        justifyContent: 'center', textAlign: 'center',
-                        minHeight: '60%',
-
-                        maxWidth: '99%',
-                        paddingBottom: '5px',
-                        width: '100%',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        marginBottom: '25px',
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                            {/*     <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
-                                    <img src={balanceIMG} alt="balanceIMG" />
-                                </div> */}
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                            <text style={{ color: color.alcanceOrange, fontSize: '14px', paddingBottom:'10px' }}>{'SALDO'}</text>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
-
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $ <b style={{ color: +balance > 0 ? 'green' : 'red' }} >
-                                            {balance}
-                                        </b>   USD</text>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $  <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                            {+balance * 41624.00 || 0}
-                                        </b>  MXN</text>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $ <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                            {+balance * 41624.00 || 0}
-                                        </b>   BS</text>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => alert('CAMBIAR')}
-                                            label={'CAMBIAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }}
-                                            textStyle={{ fontSize: '12px' }}
-                                        />
-                                    </div>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => alert('RECARGAR')}
-                                            label={'RECARGAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }} textStyle={{ fontSize: '12px' }}
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <NewLinkCard title={'GENERAR CÓDIGO '} clicked={() => { props.history.push('client_codigo') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'OPERACIONES RECIENTES'} clicked={() => { props.history.push('client_operaciones') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'PAGO'} clicked={() => { props.history.push('client_pago') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'CÓDIGO REMESA'} clicked={() => { props.history.push('client_remesa') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'AYUDA'} clicked={() => { props.history.push('client_ayuda') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-
-                </div>
-            </div>
-        </MobileView>
-
-
-
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
+        <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
             <BrowserView>
                 < div style={{ display: 'contents', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap' }}>
                     <Grid container item spacing={4} justify="flex-start" alignItems="flex-start">
@@ -423,7 +350,80 @@ const UserTypeClient = props => {
                     </Grid>
                 </div>
             </BrowserView>
+            <MobileView>
+                <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
+                    < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', textAlign: 'left' }}>
+                            <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}` }}>
+                                <text style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Ayuda'}</text>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'1. ¿Hay un límite de dinero que pueda enviar en un día?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                                >{'Por seguridad, el monto máximo se puede enviar son US$500 o su equivalente por día.'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'2. ¿Puedo enviar dólares de Estados Unidos?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                                >{'Puedes acreditar saldo en USD, pero el uso es en la moneda local.'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'3. ¿Puedo usar mi saldo para hacer compras en tiendas en línea?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                                >{'Por el momento no es posible.'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'4. Si tengo un problema, ¿a quién contacto?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start', }}
+                                >{'Mándanos un mensaje a solucion@paquetealcance.ve'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'5. ¿En qué comercios puedo usar mi saldo?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                                >{'En este momento, todas las tiendas Salvafoods aceptan Paquetealcance, pronto informaremos de nuevas opciones (bodegones, farmacias, restaurantes)'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'6. ¿Puedo retirar en efectivo?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                                >{'No, en este momento no es posible, te informaremos cuando se pueda hacer'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'7. ¿Es posible enviar dinero hacia otros países?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                                >{'Estamos trabajando para hacer la red más amplia, por el momento, solamente ofrecemos el servicio hacia Venezuela desde México, USA y Canadá'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'8. ¿Expira mi saldo?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                                >{'No, pero tienes un año calendario para usarlo, en caso contrario se cobrará una comisión equivalente a US$4.50'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                                >{'9. ¿Me afecta el cambio de mi celular?'}</p>
+                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                                >{'No, si pierdes tu equipo, descarga la aplicación en tu nuevo equipo y tu saldo se verá reflejado en el nuevo.'}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
 
+                                <text style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}>
+                                    <text style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start', color: color.alcanceOrange }}>{'Nota:'}</text>
+                                    {' no nos hacemos responsable por el mal uso que pueda hacerse con la aplicación en caso de que no se reporte.'}</text>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </MobileView>
         </div >
     </div >);
 }

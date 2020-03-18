@@ -10,7 +10,7 @@ import { updateObject, checkValidity, color } from '../../shared/utility';
 import FlashingButton from '../../components/UI/FlashingButton/FlashingButton';
 /* import Spinner from '../../components/UI/Spinner/Spinner'; */
 import Modal from '../../components/UI/Modal/Modal';
-import classes from './client.css';
+import classes from './comercio.css';
 import Input from '../../components/UI/Input/Input';
 import balanceIMG from '../../assets/images/balance.png';
 import arrow from '../../assets/images/chevron-right.png';
@@ -23,9 +23,10 @@ import password from '../../assets/images/password.png';
 import clock from '../../assets/images/clock.png';
 import customerSupport from '../../assets/images/customer-support.png';
 import QRCode from 'qrcode.react';
-import Card from '../../components/UI/Card/Card';
+import Cards from '../../components/UI/Card/Card';
 import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
+import QrReader from 'react-qr-reader';
 
 const UserTypeClient = props => {
 
@@ -40,6 +41,14 @@ const UserTypeClient = props => {
     const [rechargeCodeMessage, setRechargeCodeMessage] = useState('');
     const [generatedQR, setGeneratedQR] = useState(null);
 
+
+
+    const [facingMode, setFacingMode] = useState('environment');
+    const [readQR, setReadQR] = useState(false);
+    const [readedQR, setReadedQR] = useState(null);
+    const [qrReaderCamera, setQRReaderCamera] = useState(true);
+    const [reqAmount, setReqAmount] = useState('');
+
     const { userType, userId } = props;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     //  useEffect(() => { props.onClientDetails(props.userId.toString()).then(res => { if (res.status === '501') { setBalance(0); } if (res.status === '200') { setBalance(res.data.result[0].Balance); }; }); props.onClientTList(props.userId).then(res => { if (res.status === '501') { setTransList([]); } if (res.status === '200') { const list = _.orderBy(res.data.result, 'Date', 'desc'); setTransList([...list]); } }); const interval = setInterval(() => { setCheckTime(Date.now()) }, 5000); return () => { clearInterval(interval) } }, []);
@@ -51,6 +60,14 @@ const UserTypeClient = props => {
     //          props.onClientCheckPendingPayments(userId).then(res => { if (res.status === '200') { setStopChecking(true); setPendingPayment({ id: res.data.result[0].ID, amount: res.data.result[0].Amount }); } });
     //      }
     //  }, [props, checkTime, userType, userId, stopChecking]);
+    const handleScan = data => {
+        if (data) {
+            //  console.log(' handleScan read:' + data); setReadesQR(data);
+            if (!isNaN(data)) { setReadedQR(data); setQRReaderCamera(false); }
+        }
+        return;
+    }
+    const handleError = err => { console.log(err) };
 
     const chargeAcount = () => {
         props.onClientChargeAccount(props.userId, rechargeCode).then(res => {
@@ -89,6 +106,7 @@ const UserTypeClient = props => {
         setOpenDialog(false); setPendingPayment(null); setStopChecking(true);
         setTimeout(() => { setStopChecking(false) }, 5000);
     };
+
     let showMessage = <div style={{ zIndex: '200', justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ display: 'flex', justifyContent: 'space-around', }}>
             <h2 style={{ marginTop: '12px', color: 'black', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
@@ -130,6 +148,14 @@ const UserTypeClient = props => {
         </div>
     </div >;
 
+    const comercio_requestPayment = () => {
+        if (isNaN(+reqAmount) || reqAmount === null) return;
+        const client_ID = readedQR;
+        props.onComercioAddPaymentRequest(userId, client_ID, reqAmount).then(res => {
+            //   console.log('requestPayment read: ' + reqAmount + '=>' + JSON.stringify(res));
+            setReadQR(false); setReqAmount(0); setQRReaderCamera(true);
+        });
+    }
 
     const Card = (props) => {
         return < div style={{
@@ -152,115 +178,11 @@ const UserTypeClient = props => {
             {props.children}
         </div >
     }
-
-
-
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', }}>
         <Modal show={openDialog} modalClosed={() => mesageModalClosed()}>
             {showMessage}
         </Modal>
-        <MobileView style={{ width: '100%' }}>
-            <div style={{
-                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-                marginTop: '2%'
-            }}>
-                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '4%' }}>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</text>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Jose Miguel'}{'.'}</text>
-                    </div>
-                    <div style={{
-                        boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
-                        border: '1px solid lightgray', borderRadius: '4px',
-                        display: 'block', overflowY: 'auto', padding: '5px',
-                        maxHeight: '800px',
-                        minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
-                        justifyContent: 'center', textAlign: 'center',
-                        minHeight: '60%',
-
-                        maxWidth: '99%',
-                        paddingBottom: '5px',
-                        width: '100%',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        marginBottom: '25px',
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                            {/*     <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
-                                    <img src={balanceIMG} alt="balanceIMG" />
-                                </div> */}
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                            <text style={{ color: color.alcanceOrange, fontSize: '14px', paddingBottom:'10px' }}>{'SALDO'}</text>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
-
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $ <b style={{ color: +balance > 0 ? 'green' : 'red' }} >
-                                            {balance}
-                                        </b>   USD</text>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $  <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                            {+balance * 41624.00 || 0}
-                                        </b>  MXN</text>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $ <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                            {+balance * 41624.00 || 0}
-                                        </b>   BS</text>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => alert('CAMBIAR')}
-                                            label={'CAMBIAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }}
-                                            textStyle={{ fontSize: '12px' }}
-                                        />
-                                    </div>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => alert('RECARGAR')}
-                                            label={'RECARGAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }} textStyle={{ fontSize: '12px' }}
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <NewLinkCard title={'GENERAR CÓDIGO '} clicked={() => { props.history.push('client_codigo') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'OPERACIONES RECIENTES'} clicked={() => { props.history.push('client_operaciones') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'PAGO'} clicked={() => { props.history.push('client_pago') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'CÓDIGO REMESA'} clicked={() => { props.history.push('client_remesa') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'AYUDA'} clicked={() => { props.history.push('client_ayuda') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-
-                </div>
-            </div>
-        </MobileView>
-
-
-
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
+        <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
             <BrowserView>
                 < div style={{ display: 'contents', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap' }}>
                     <Grid container item spacing={4} justify="flex-start" alignItems="flex-start">
@@ -423,7 +345,67 @@ const UserTypeClient = props => {
                     </Grid>
                 </div>
             </BrowserView>
+            <MobileView>
+                <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
+                    < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
 
+                        <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
+                            <text style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Solicitar pago'}</text>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', textAlign: 'left', marginTop: '20px' }}>
+
+                            <div style={{ width: '98%' }}>
+
+                                <div style={{ display: 'flex', padding: '2%', }}>
+                                    <QrReader
+                                        delay={300}
+                                        onError={handleError}
+                                        onScan={handleScan}
+                                        facingMode={facingMode.toString()}
+                                        style={{ width: '100%', height: '100%', backgroundColor: 'yellow' }}
+                                    />
+                                </div>
+
+
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+                                    <p>{readedQR}</p>
+                                    <Input
+                                        key={1}
+                                        label={'Monto:'}
+                                        labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
+                                        containerStyle={{
+                                            borderBottom: '2px solid #ccc',
+                                            display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center',
+                                            width: '100%', paddingTop: '2px', minHeight: '50px', fontSize: '12px', marginRight: '5px', marginLeft: '5px', marginTop: '20px'
+                                        }}
+                                        middleContainerStyle={{ border: 'none', }}
+                                        inputStyle={{ minHeight: '50px', border: 'none', fontSize: '14px' }}
+                                        // leftImage={require("../../assets/images/user.png")}
+                                        elementType='input'
+
+                                        value={reqAmount}
+                                        // invalid={!emailValid}
+                                        // shouldValidate={{ required: true, isEmail: true }}
+                                        // touched={emailTouched}
+                                        changed={event => setReqAmount(event.currentTarget.value)}
+                                    />
+
+                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', fontFamily: 'AvenirBlack', width: '70%', height: '60%' }}                                        >
+                                        <FlashingButton
+                                            clicked={(e) => { comercio_requestPayment(e) }}
+                                            label={'SOLICITAR'}
+                                            style={{
+                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '40px', fontWeight: 'bold',
+                                                textAlign: ' center',
+                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                            }} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </MobileView>
         </div >
     </div >);
 }

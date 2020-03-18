@@ -58,10 +58,10 @@ const input = (props) => {
     }
 
     return (
-        <div className={classes.Input} style={{ ...props.containerStyle }}>
-            <label className={classes.Label} style={{ ...props.labelStyle }}>{props.label}</label>
-            <div className={inputClasses.join(' ')} style={{ ...props.middleContainerStyle }}
-                style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', ...props.inputStyle }}>
+        <div className={classes.Input} style={{  ...props.containerStyle }}>
+            <text className={classes.Label} style={{ ...props.labelStyle }}>{props.label}</text>
+            <div className={inputClasses.join(' ')} 
+                style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', ...props.inputStyle, ...props.middleContainerStyle }}>
                 {props.leftImage && <div style={{ display: 'flex', flexDirection: 'row', maxHeight: '25px', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '0px', marginRight: '4%' }}>
                     <img src={props.leftImage} alt="logo" style={{ width: '100%', height: '100%', resizeMode: 'contain', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '0px' }} />
                 </div>}

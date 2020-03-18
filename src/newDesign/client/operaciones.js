@@ -23,7 +23,7 @@ import password from '../../assets/images/password.png';
 import clock from '../../assets/images/clock.png';
 import customerSupport from '../../assets/images/customer-support.png';
 import QRCode from 'qrcode.react';
-import Card from '../../components/UI/Card/Card';
+import Cards from '../../components/UI/Card/Card';
 import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 
@@ -155,112 +155,11 @@ const UserTypeClient = props => {
 
 
 
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', }}>
         <Modal show={openDialog} modalClosed={() => mesageModalClosed()}>
             {showMessage}
         </Modal>
-        <MobileView style={{ width: '100%' }}>
-            <div style={{
-                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-                marginTop: '2%'
-            }}>
-                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '4%' }}>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</text>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Jose Miguel'}{'.'}</text>
-                    </div>
-                    <div style={{
-                        boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
-                        border: '1px solid lightgray', borderRadius: '4px',
-                        display: 'block', overflowY: 'auto', padding: '5px',
-                        maxHeight: '800px',
-                        minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
-                        justifyContent: 'center', textAlign: 'center',
-                        minHeight: '60%',
-
-                        maxWidth: '99%',
-                        paddingBottom: '5px',
-                        width: '100%',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        marginBottom: '25px',
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                            {/*     <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
-                                    <img src={balanceIMG} alt="balanceIMG" />
-                                </div> */}
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                            <text style={{ color: color.alcanceOrange, fontSize: '14px', paddingBottom:'10px' }}>{'SALDO'}</text>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
-
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $ <b style={{ color: +balance > 0 ? 'green' : 'red' }} >
-                                            {balance}
-                                        </b>   USD</text>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $  <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                            {+balance * 41624.00 || 0}
-                                        </b>  MXN</text>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $ <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                            {+balance * 41624.00 || 0}
-                                        </b>   BS</text>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => alert('CAMBIAR')}
-                                            label={'CAMBIAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }}
-                                            textStyle={{ fontSize: '12px' }}
-                                        />
-                                    </div>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => alert('RECARGAR')}
-                                            label={'RECARGAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }} textStyle={{ fontSize: '12px' }}
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <NewLinkCard title={'GENERAR CÓDIGO '} clicked={() => { props.history.push('client_codigo') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'OPERACIONES RECIENTES'} clicked={() => { props.history.push('client_operaciones') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'PAGO'} clicked={() => { props.history.push('client_pago') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'CÓDIGO REMESA'} clicked={() => { props.history.push('client_remesa') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'AYUDA'} clicked={() => { props.history.push('client_ayuda') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-
-                </div>
-            </div>
-        </MobileView>
-
-
-
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
+        <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
             <BrowserView>
                 < div style={{ display: 'contents', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap' }}>
                     <Grid container item spacing={4} justify="flex-start" alignItems="flex-start">
@@ -423,7 +322,56 @@ const UserTypeClient = props => {
                     </Grid>
                 </div>
             </BrowserView>
+            <MobileView>
+                <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
+                    < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
 
+                        <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
+                            <text style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Operaciones recientes'}</text>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', textAlign: 'left', marginTop: '20px' }}>
+                            <List dense style={{ minWidth: '99%' }}>
+                                {transList && transList.length ? transList.map((item, idx) => {
+                                    /*     const labelId = `checkbox-list-secondary-label-${item.Name || item.PassportNumber}`;
+                                        let checked = false; */
+                                    return (
+                                        <ListItem key={idx} button style={{ display: 'flex', width: '100%' }}>
+                                            <img alt={`Avatar n°${idx + 1}`} src={+item.Amount > 0 ? receiveMoney : giveMoney} style={{ width: '10px', height: '10px', marginRight: '2px', resize: 'contain', justifyContent: 'center', transform: 'rotate(180deg)' }} />
+
+                                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                                                <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1' }}>
+                                                    <ListItemText id={idx + '3'} primary={+item.Amount > 0 ? 'Recibiste' : 'Enviaste'} style={{ color: +item.Amount > 0 ? 'green' : 'red', fontWeight: '900', paddingLeft: '5px', marginBottom: 0 }} />
+                                                    <ListItemText id={idx + '2'} primary={'$' + item.Amount} style={{ color: +item.Amount > 0 ? 'green' : 'red', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
+                                                    {(item.ComercioID) && <ListItemText id={idx + '13'} primary={+item.Amount > 0 ? 'de ' : 'a ' + item.ComercioID} style={{ color: +item.Amount > 0 ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
+                                                    }
+                                                    {(item.ControlID) && <ListItemText id={idx + '13'} primary={+item.Amount > 0 ? 'de ' : 'a ' + item.ControlID} style={{ color: +item.Amount > 0 ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
+                                                    }
+                                                    {(item.PassportNumber) &&
+                                                        <ListItemText id={idx + '1'} primary={'(' + item.PassportNumber + ')'} style={{ color: 'blue', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
+                                                    }
+                                                </div>
+                                                <div style={{ display: 'flex', flex: 1, flexDirection: 'row', alignItems: 'left' }}>
+                                                    <ListItemText id={idx + '1'} primary={' in ' + item.Date} style={{ color: 'darkGray' /* +item.Amount > 0 ? 'green' : 'red'  */, paddingLeft: '5px', display: 'flex', marginTop: 0 }} />
+                                                </div>
+                                                {/*  {(item.Name || item.PassportNumber) && <ListItemText id={idx + '1'} primary={' from ' + item.Name + '(' + item.PassportNumber + ')'} style={{ color: +item.Amount > 0 ? 'blue' : 'green' }} />} */}
+
+                                            </div>
+
+
+                                        </ListItem>
+                                    );
+                                }) : <ListItem key={1} button>
+                                        <ListItemAvatar>
+                                            <Avatar alt={`Avatar n°1`} src={balanceIMG} />
+                                        </ListItemAvatar>
+                                        <ListItemText id={1} primary={'No tienes operaciones recientes'} style={{ color: 'black', fontWeight: '900', paddingTop: '30px', paddingBottom: '30px' }} />
+                                    </ListItem>}
+                            </List>
+                        </div>
+
+                    </div>
+                </div>
+            </MobileView>
         </div >
     </div >);
 }

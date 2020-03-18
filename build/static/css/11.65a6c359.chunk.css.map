@@ -1,0 +1,1 @@
+{"version":3,"sources":["client.css"],"names":[],"mappings":"AAAA,0BAEI,gBAAiB,CACjB,SAAU,CACV,gBAAiB,CACjB,cAAe,CACf,eACJ","file":"11.65a6c359.chunk.css","sourcesContent":[".container {\r\n    /*  margin-top: 40px; */\r\n    padding-top: 28px;\r\n    width: 90%;\r\n    min-height: 500px;\r\n    margin-left: 5%;\r\n    margin-right: 5%;\r\n}"]}
