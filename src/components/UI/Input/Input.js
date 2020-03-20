@@ -67,8 +67,7 @@ const input = (props) => {
                 </div>}
                 <div style={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
                     {inputElement}
-                </div>
-
+                </div> 
             </div>
         </div>
     );

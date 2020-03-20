@@ -18,7 +18,7 @@ const NewLinkCard = (props) => {
         <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}
 
         >
-            <FlashingDiv flash={isFlashing} onAnimationEnd={(e) => { setIsFlashing(false); props.clicked(e) }}>
+            <FlashingDiv flash={isFlashing} onAnimationEnd={(e) => { setIsFlashing(false);  }}>
                 <div style={{
                     boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
                     border: '1px solid lightgray', borderRadius: '4px',
@@ -39,7 +39,7 @@ const NewLinkCard = (props) => {
                 >
 
                     <div
-                        onClick={(e) => { setIsFlashing(!isFlashing); }}
+                        onClick={(e) => { setIsFlashing(!isFlashing);props.clicked(e) }}
                         style={{
                             display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginLeft: '4%',
                             ...props.textWrapperStyle

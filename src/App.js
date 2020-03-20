@@ -29,8 +29,7 @@ const App = props => {
       <Route path="/client_pago" render={props => <UserClient_Pago {...props} />} />
       <Route path="/client_remesa" render={props => <UserClient_Remesa {...props} />} />
       <Route path="/client_ayuda" render={props => <UserClient_Ayuda {...props} />} />
-
-
+ 
 
       <Route path="/comercio" render={props => <UserComercio {...props} />} />
       <Route path="/comercio_operaciones" render={props => <UserComercio_Oper {...props} />} />
