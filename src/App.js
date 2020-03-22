@@ -22,40 +22,61 @@ const UserComercio = React.lazy(() => { return import('./newDesign/comercio/come
 const App = props => {
   let routes = (
     <Switch>
-      <Route path="/auth" render={props => <Auth {...props} history={props.history} />} />
-      <Route path="/client" render={props => <UserClient {...props} />} />
-      <Route path="/client_codigo" render={props => < UserClient_Codigo {...props} />} />
-      <Route path="/client_operaciones" render={props => <UserClient_Oper {...props} />} />
-      <Route path="/client_pago" render={props => <UserClient_Pago {...props} />} />
-      <Route path="/client_remesa" render={props => <UserClient_Remesa {...props} />} />
-      <Route path="/client_ayuda" render={props => <UserClient_Ayuda {...props} />} />
- 
+      
+        <Route path="/auth" render={props => <Auth {...props} history={props.history} />} />
 
-      <Route path="/comercio" render={props => <UserComercio {...props} />} />
-      <Route path="/comercio_operaciones" render={props => <UserComercio_Oper {...props} />} />
-      <Route path="/comercio_pago" render={props => <UserComercio_SolicPago {...props} />} />
-      <Route path="/" exact component={Intro} />
-      <Redirect to="/" />
+        <Route path="/" exact component={Intro} />
+        <Redirect to="/" />
+      
     </Switch>
   );
 
   if (props.isAuthenticated) {
+    if (props.userType == 'client') {
+      routes = (
+        <Switch>
+           
+            <Route path="/logout" component={Logout} />
+            <Route path="/client" render={props => <UserClient {...props} />} />
+            <Route path="/client_codigo" render={props => < UserClient_Codigo {...props} />} />
+            <Route path="/client_operaciones" render={props => <UserClient_Oper {...props} />} />
+            <Route path="/client_pago" render={props => <UserClient_Pago {...props} />} />
+            <Route path="/client_remesa" render={props => <UserClient_Remesa {...props} />} />
+            <Route path="/client_ayuda" render={props => <UserClient_Ayuda {...props} />} />
 
-    routes = (
-      <Switch>
-        <Route path="/logout" component={Logout} />
-        <Route path="/" exact component={Intro} />
+            <Route path="/" exact component={Intro} />
 
-        <Redirect to="/" />
-      </Switch>
-    );
+            <Redirect to="/" />
+           
+        </Switch>
+      );
+    }
+    else {
+      routes = (
+        <Switch>
+          
+            <Route path="/logout" component={Logout} />
+            <Route path="/comercio" render={props => <UserComercio {...props} />} />
+            <Route path="/comercio_operaciones" render={props => <UserComercio_Oper {...props} />} />
+            <Route path="/comercio_pago" render={props => <UserComercio_SolicPago {...props} />} />
+
+            <Route path="/" exact component={Intro} />
+
+            <Redirect to="/" />
+          
+        </Switch>
+      );
+
+    }
+
   }
   return (
 
     <div>
-      <Layout history={props.history} match={{ userInfo: '/dashboard/userInfo', register: '/register' }}  >
+    {/*   <Layout history={props.history} match={{ userInfo: '/dashboard/userInfo', register: '/register' }}  >
+       */} 
         <Suspense fallback={<Spinner />}> {routes}  </Suspense>
-      </Layout>
+     {/*  </Layout> */}
     </div>
   );
 
@@ -63,7 +84,8 @@ const App = props => {
 const mapStateToProps = state => {
 
   return {
-    isAuthenticated: state.auth.authenticated
+    isAuthenticated: state.auth.authenticated,
+    userType: state.auth.userType
   }
 }
 export default withRouter(connect(mapStateToProps, null)(App));

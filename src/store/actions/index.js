@@ -1,30 +1,31 @@
 
 
 export {
-    auth,
-    logout,
-    authFail,
-    setAuthRedirectPath,
-    authCheckState,
+  authLogin,
+  authRegister,
+  logout,
+  authFail,
+  setAuthRedirectPath,
+  authCheckState,
   /*   storeUsed_CredetialsLocal */
 } from './auth';
 
 export {
 
-    clientChargeAccount,
-    clientGetTransactionHistory,
-    clientApprovePaymentTransfer,
-    clientGetDetails,
-    clientCheckPendingPayments,
+  clientChargeAccount,
+  clientGetTransactionHistory,
+  clientApprovePaymentTransfer,
+  clientGetDetails,
+  clientCheckPendingPayments,
 
-    comercioGetTransactionHistory,
-    comercioAddPaymentRequest,
-    comercioGetDetails,
+  comercioGetTransactionHistory,
+  comercioAddPaymentRequest,
+  comercioGetDetails,
 
 
-    controlGetDetails,
-    controlGetTransactionHistory,
-    controlGenerateCode,
-    setShowUserInfo,
-    setProfileImage
+  controlGetDetails,
+  controlGetTransactionHistory,
+  controlGenerateCode,
+  setShowUserInfo,
+  setProfileImage
 } from './alcance'

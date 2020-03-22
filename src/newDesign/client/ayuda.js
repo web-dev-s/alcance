@@ -23,8 +23,8 @@ import password from '../../assets/images/password.png';
 import clock from '../../assets/images/clock.png';
 import customerSupport from '../../assets/images/customer-support.png';
 import QRCode from 'qrcode.react';
-import Cards from '../../components/UI/Card/Card';
-import NewLinkCard from '../../components/UI/Card/newLinkCard';
+import HeaderComponent from '../comComponents/HeaderComponent';
+import FooterComponent from '../comComponents/FooterComponent';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 
 const UserTypeClient = props => {
@@ -352,6 +352,7 @@ const UserTypeClient = props => {
             </BrowserView>
             <MobileView>
                 <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
+                <HeaderComponent/>
                     < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', textAlign: 'left' }}>
                             <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}` }}>
@@ -422,7 +423,11 @@ const UserTypeClient = props => {
 
 
                     </div>
+               
                 </div>
+                <FooterComponent
+                        mainContainerStyle={{ bottom: '0px' }}
+                        onBackClick={() => props.history.push('/client')} />
             </MobileView>
         </div >
     </div >);
@@ -436,7 +441,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
 
         onClientDetails: (id) => dispatch(actions.clientGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),

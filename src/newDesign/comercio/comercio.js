@@ -300,8 +300,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
+         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
 
         onClientDetails: (id) => dispatch(actions.clientGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),
         onComercioDetails: (id) => dispatch(actions.comercioGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),

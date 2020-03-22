@@ -44,7 +44,7 @@ const NewLinkCard = (props) => {
                             display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginLeft: '4%',
                             ...props.textWrapperStyle
                         }}>
-                        <text style={{ fontSize: '0.9rem', color: color.alcanceOrange }}>{props.title}</text>
+                        <label style={{ fontSize: '0.9rem', color: color.alcanceOrange }}>{props.title}</label>
                         <div style={{ display: 'flex', flexDirection: 'row', flex: 0, justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
                             <img src={arrow} alt="arrow" style={{ transform: 'rotate(0deg)', height: '25px', resize: 'contain' }} />
                         </div>

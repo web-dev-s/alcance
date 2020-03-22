@@ -93,7 +93,7 @@ const Description = (props) => {
                             <img src={require("../../assets/images/question.png")} alt="logo" style={{ width: '25px', height: '30px', resizeMode: 'contain', }} />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '80%', }}>
-                            <text style={styles.style1}>¿CÓMO FUNCIONA PAQUETE ALCANCE? </text>
+                             <label style={styles.style1}>¿CÓMO FUNCIONA PAQUETE ALCANCE?  </label>
                         </div>
                     </div>
 
@@ -179,9 +179,9 @@ const Description = (props) => {
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
 
-                            <text style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}>
-                                <text style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start', color: color.alcanceOrange }}>{'Nota:'}</text>
-                                {' no nos hacemos responsable por el mal uso que pueda hacerse con la aplicación en caso de que no se reporte.'}</text>
+                             <label style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}>
+                                 <label style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start', color: color.alcanceOrange }}>{'Nota:'} </label>
+                                {' no nos hacemos responsable por el mal uso que pueda hacerse con la aplicación en caso de que no se reporte.'} </label>
                         </div>
                     </div>
 
@@ -189,9 +189,9 @@ const Description = (props) => {
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', marginLeft: '20px', marginBottom: '8%' }} >
                         <p style={{ ...styles.style3, alignSelf: 'flex-start' }}>Contacto</p>
-                        <text style={{ ...styles.style4, alignSelf: 'flex-start', }}>
-                            <text style={{ fontFamily: 'AvenirBlack', fontWeight: '900', }}>{'Email:  '}</text>
-                            {'contacto@paquetealcance.com'}</text>
+                         <label style={{ ...styles.style4, alignSelf: 'flex-start', }}>
+                             <label style={{ fontFamily: 'AvenirBlack', fontWeight: '900', }}>{'Email:  '} </label>
+                            {'contacto@paquetealcance.com'} </label>
                     </div>
                 </div>
 

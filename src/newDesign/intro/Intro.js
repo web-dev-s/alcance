@@ -17,17 +17,16 @@ const Intro = props => {
 
   if (true) {
     mainPage = (
-      <Uxi>
-        {!props.isAuthenticated && <Auth {...props} />}
-        
-      </Uxi>
+      <>
+        {!props.isAuthenticated && <Auth {...props} />}        
+      </>
     );
   }
 
   return (
-    <Uxi>
+    <>
       {mainPage}
-    </Uxi>
+    </>
   );
 };
 

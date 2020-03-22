@@ -27,8 +27,11 @@ import Card from '../../components/UI/Card/Card';
 import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 
+import HeaderComponent from '../comComponents/HeaderComponent';
+import FooterComponent from '../comComponents/FooterComponent';
+import useWindowDimensions from '../../hooks/useWindowsDimensions';
 const UserTypeClient = props => {
-
+    const { height, width } = useWindowDimensions();
     const [checkTime, setCheckTime] = useState();
     const [stopChecking, setStopChecking] = useState(false);
     const [pendingPayment, setPendingPayment] = useState(null);
@@ -155,277 +158,250 @@ const UserTypeClient = props => {
 
 
 
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-        <Modal show={openDialog} modalClosed={() => mesageModalClosed()}>
+    return (<>
+        {/*  <Modal show={openDialog} modalClosed={() => mesageModalClosed()}>
             {showMessage}
-        </Modal>
-        <MobileView style={{ width: '100%' }}>
-            <div style={{
-                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-                marginTop: '2%'
-            }}>
-                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '4%' }}>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</text>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Jose Miguel'}{'.'}</text>
-                    </div>
-                    <div style={{
-                        boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
-                        border: '1px solid lightgray', borderRadius: '4px',
-                        display: 'block', overflowY: 'auto', padding: '5px',
-                        maxHeight: '800px',
-                        minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
-                        justifyContent: 'center', textAlign: 'center',
-                        minHeight: '60%',
-
-                        maxWidth: '99%',
-                        paddingBottom: '5px',
-                        width: '100%',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        marginBottom: '25px',
+        </Modal> */}
+        <MobileView style={{ width: width, height: height, marginTop: '48px' }}>
+            < div style={{ position: 'absolute', width: '100%',/*  height: '100%', */ overflow: 'hidden' }}>
+                <div key={'mainContainer'}
+                       /*  className={classes.container}  */ style={{
+                        display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
+                        minHeight: (+height).toString() + 'px',
+                        minWidth: width,
+                        color: color.brown,
                     }}>
-                        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                            {/*     <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
+                      <HeaderComponent/>
+                    <div style={{
+                        display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
+                        maxHeight: (+height).toString() + 'px',
+                        overflowY: 'auto', paddingBottom: '45px',
+                        position: 'absolute', top: '45px', bottom: '0px', left: '5px', right: '5px',
+                      
+                    }}  >
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',  paddingTop:'15px',paddingBottom:'15px', marginBottom: '4%' }}>
+                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</label>
+                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Jose Miguel'}{'.'}</label>
+                        </div>
+                        <div style={{
+                            boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
+                            border: '1px solid lightgray', borderRadius: '4px',
+                             /*  display: 'block', */   overflowY: 'auto', padding: '5px', 
+                            minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
+                            justifyContent: 'center', textAlign: 'center',
+
+                            display: 'flex', flex: '0 0 30%',
+                            maxWidth: '99%',
+                            paddingBottom: '5px',
+                            width: '100%',
+                            position: 'relative',
+                            overflow: 'hidden',
+                            marginBottom: '15px',
+                        }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                                {/*     <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
                                     <img src={balanceIMG} alt="balanceIMG" />
                                 </div> */}
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                            <text style={{ color: color.alcanceOrange, fontSize: '14px', paddingBottom:'10px' }}>{'SALDO'}</text>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+                                    <label style={{ color: color.alcanceOrange, fontSize: '14px', paddingBottom: '10px' }}>{'SALDO'}</label>
+                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
 
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $ <b style={{ color: +balance > 0 ? 'green' : 'red' }} >
-                                            {balance}
-                                        </b>   USD</text>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $  <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                            {+balance * 41624.00 || 0}
-                                        </b>  MXN</text>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                        $ <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                            {+balance * 41624.00 || 0}
-                                        </b>   BS</text>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => alert('CAMBIAR')}
-                                            label={'CAMBIAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }}
-                                            textStyle={{ fontSize: '12px' }}
-                                        />
+                                        <label style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                            $ <b style={{ color: +balance > 0 ? 'green' : 'red' }} >
+                                                {balance}
+                                            </b>   USD</label>
+                                        <label style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                            $  <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
+                                                {+balance * 41624.00 || 0}
+                                            </b>  MXN</label>
+                                        <label style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                            $ <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
+                                                {+balance * 41624.00 || 0}
+                                            </b>   BS</label>
                                     </div>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => alert('RECARGAR')}
-                                            label={'RECARGAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }} textStyle={{ fontSize: '12px' }}
-                                        />
+                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
+                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
+                                        >
+                                            <FlashingButton
+                                                clicked={(e) => alert('CAMBIAR')}
+                                                label={'CAMBIAR'}
+                                                style={{
+                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                    textAlign: ' center',
+                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                }}
+                                                textStyle={{ fontSize: '12px' }}
+                                            />
+                                        </div>
+                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
+                                        >
+                                            <FlashingButton
+                                                clicked={(e) => alert('RECARGAR')}
+                                                label={'RECARGAR'}
+                                                style={{
+                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                    textAlign: ' center',
+                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                }} textStyle={{ fontSize: '12px' }}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <NewLinkCard title={'GENERAR CÓDIGO '} clicked={() => { props.history.push('client_codigo') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'OPERACIONES RECIENTES'} clicked={() => { props.history.push('client_operaciones') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'PAGO'} clicked={() => { props.history.push('client_pago') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'CÓDIGO REMESA'} clicked={() => { props.history.push('client_remesa') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
-                    <NewLinkCard title={'AYUDA'} clicked={() => { props.history.push('client_ayuda') }}
-                        textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
-                    />
+                        <NewLinkCard title={'GENERAR CÓDIGO '} clicked={() => { props.history.push('client_codigo') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                        <NewLinkCard title={'OPERACIONES RECIENTES'} clicked={() => { props.history.push('client_operaciones') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                        <NewLinkCard title={'PAGO'} clicked={() => { props.history.push('client_pago') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                        <NewLinkCard title={'CÓDIGO REMESA'} clicked={() => { props.history.push('client_remesa') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                        <NewLinkCard title={'AYUDA'} clicked={() => { props.history.push('client_ayuda') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                    </div> 
+                    <FooterComponent
+                        mainContainerStyle={{ bottom: '0px' }}
+                        onBackClick={() => props.history.push('/logout')} />
 
-                </div>
+
+                </div >
+
+
             </div>
         </MobileView>
 
 
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
-            <BrowserView>
-                < div style={{ display: 'contents', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap' }}>
-                    <Grid container item spacing={4} justify="flex-start" alignItems="flex-start">
-                        <Grid zeroMinWidth container item md={6} lg={4} spacing={1}   >
-                            <Card title={'Saldo'} backgroundimage={wallet} >
-                                <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                                    <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
-                                        <img src={balanceIMG} alt="balanceIMG" />
+        <BrowserView>
+            < div style={{ position: 'absolute', width: '400px',/*  height: '100%', */ overflow: 'hidden' }}>
+
+                <div key={'mainContainer'}
+                    className={classes.container} style={{
+                        display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
+                        backgroundImage: " linear-gradient( rgba(96, 70, 17, 0.7), rgba(96, 70, 17, 0.7) ),url(" + require("../../assets/images/wallpaper.png") + ")",
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: 'rgba(96, 70, 17, 0.7)',
+                        minHeight: (+height).toString() + 'px',
+                        minWidth: width,
+                        color: color.brown,
+                    }}>
+                    <div style={{
+                        display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
+                        maxHeight: (+height).toString() + 'px',
+                        overflowY: 'auto',
+                        position: 'absolute', top: 0, bottom: '0px', left: '5px', right: '5px',
+                    }}
+
+                    >
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '4%' }}>
+                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</label>
+                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Jose Miguel'}{'.'}</label>
+                        </div>
+                        <div style={{
+                            boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
+                            border: '1px solid lightgray', borderRadius: '4px',
+                            display: 'block', overflowY: 'auto', padding: '5px',
+                            maxHeight: '800px',
+                            minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
+                            justifyContent: 'center', textAlign: 'center',
+                            minHeight: '60%',
+
+                            maxWidth: '99%',
+                            paddingBottom: '5px',
+                            width: '100%',
+                            position: 'relative',
+                            overflow: 'hidden',
+                            marginBottom: '25px',
+                        }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                                {/*     <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
+                                    <img src={balanceIMG} alt="balanceIMG" />
+                                </div> */}
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+                                    <label style={{ color: color.alcanceOrange, fontSize: '14px', paddingBottom: '10px' }}>{'SALDO'}</label>
+                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
+
+                                        <label style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                            $ <b style={{ color: +balance > 0 ? 'green' : 'red' }} >
+                                                {balance}
+                                            </b>   USD</label>
+                                        <label style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                            $  <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
+                                                {+balance * 41624.00 || 0}
+                                            </b>  MXN</label>
+                                        <label style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                            $ <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
+                                                {+balance * 41624.00 || 0}
+                                            </b>   BS</label>
                                     </div>
-                                    <div>
-                                        <div  >
-                                            <p style={{ color: +balance > 0 ? 'blue' : 'orange' }} >
-                                                <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                                    {+balance * 41624.00 || 0}
-                                                </b> $ Bolívares</p>
-                                            <p style={{ color: +balance > 0 ? 'blue' : 'orange' }} >
-                                                <b style={{ color: +balance > 0 ? 'green' : 'red' }} >
-                                                    {balance}
-                                                </b> $ USD</p>
-                                        </div>
-                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '98%', height: '30%' }}
+                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
+                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
                                         >
                                             <FlashingButton
                                                 clicked={(e) => alert('CAMBIAR')}
                                                 label={'CAMBIAR'}
-                                                style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
+                                                style={{
+                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                    textAlign: ' center',
+                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                }}
+                                                textStyle={{ fontSize: '12px' }}
+                                            />
                                         </div>
-                                        {/* 
-                                            <Button color="primary"
-                                                style={{ marginTop: '12px', marginBottom: '12px', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '90%', height: '30%' }}
-                                                onClick={(e) => alert('CAMBIAR')}>
-                                                CAMBIAR
-                                        </Button> */}
-                                    </div>
-                                </div>
-                            </Card>
-                        </Grid>
-                        <Grid zeroMinWidth container item md={12} lg={4} spacing={1}  >
-                            <Card title={'Operaciones recientes'} minWidth={'90%'} backgroundimage={clock} >
-                                <List dense style={{ minWidth: '99%' }}>
-                                    {transList && transList.length ? transList.map((item, idx) => {
-                                        /*     const labelId = `checkbox-list-secondary-label-${item.Name || item.PassportNumber}`;
-                                            let checked = false; */
-                                        return (
-                                            <ListItem key={idx} button style={{ display: 'flex', width: '100%' }}>
-                                                <img alt={`Avatar n°${idx + 1}`} src={+item.Amount > 0 ? receiveMoney : giveMoney} style={{ width: '10px', height: '10px', marginRight: '2px', resize: 'contain', justifyContent: 'center', transform: 'rotate(180deg)' }} />
-
-                                                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                                                    <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1' }}>
-                                                        <ListItemText id={idx + '3'} primary={+item.Amount > 0 ? 'Recibiste' : 'Enviaste'} style={{ color: +item.Amount > 0 ? 'green' : 'red', fontWeight: '900', paddingLeft: '5px', marginBottom: 0 }} />
-                                                        <ListItemText id={idx + '2'} primary={'$' + item.Amount} style={{ color: +item.Amount > 0 ? 'green' : 'red', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
-                                                        {(item.ComercioID) && <ListItemText id={idx + '13'} primary={+item.Amount > 0 ? 'de ' : 'a ' + item.ComercioID} style={{ color: +item.Amount > 0 ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
-                                                        }
-                                                        {(item.ControlID) && <ListItemText id={idx + '13'} primary={+item.Amount > 0 ? 'de ' : 'a ' + item.ControlID} style={{ color: +item.Amount > 0 ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
-                                                        }
-                                                        {(item.PassportNumber) &&
-                                                            <ListItemText id={idx + '1'} primary={'(' + item.PassportNumber + ')'} style={{ color: 'blue', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
-                                                        }
-                                                    </div>
-                                                    <div style={{ display: 'flex', flex: 1, flexDirection: 'row', alignItems: 'left' }}>
-                                                        <ListItemText id={idx + '1'} primary={' in ' + item.Date} style={{ color: 'darkGray' /* +item.Amount > 0 ? 'green' : 'red'  */, paddingLeft: '5px', display: 'flex', marginTop: 0 }} />
-                                                    </div>
-                                                    {/*  {(item.Name || item.PassportNumber) && <ListItemText id={idx + '1'} primary={' from ' + item.Name + '(' + item.PassportNumber + ')'} style={{ color: +item.Amount > 0 ? 'blue' : 'green' }} />} */}
-
-                                                </div>
-
-
-                                            </ListItem>
-                                        );
-                                    }) : <ListItem key={1} button>
-                                            <ListItemAvatar>
-                                                <Avatar alt={`Avatar n°1`} src={balanceIMG} />
-                                            </ListItemAvatar>
-                                            <ListItemText id={1} primary={'No tienes operaciones recientes'} style={{ color: 'black', fontWeight: '900', paddingTop: '30px', paddingBottom: '30px' }} />
-                                        </ListItem>}
-                                </List>
-                            </Card>
-                        </Grid>
-                        <Grid zeroMinWidth container item md={6} lg={4} spacing={1}   >
-                            <Card title={'Comprar o pagar'} minWidth={'90%'} backgroundimage={paymentMethod}>
-                                <div style={{ display: 'flex', width: '100%' }} >
-                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', textAlign: 'center', width: '100%' }}>
-                                        <div style={{ marginTop: '12px', marginBottom: '0px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '100%', height: '30px' }}                                            >
+                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
+                                        >
                                             <FlashingButton
-                                                clicked={(e) => setGeneratedQR(<QRCode value={props.userId} style={{ marginTop: '12px', }} />)}
-                                                label={'GEN CÓDIGO QR'}
-                                                style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
+                                                clicked={(e) => alert('RECARGAR')}
+                                                label={'RECARGAR'}
+                                                style={{
+                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                    textAlign: ' center',
+                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                }} textStyle={{ fontSize: '12px' }}
+                                            />
                                         </div>
-                                        <div style={{ padding: '5px', paddingTop: '15%', paddingBottom: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-                                            {generatedQR}
-                                            {generatedQR &&
-                                                <p style={{ fontFamily: 'AvenirRoman', textTransform: 'initial', marginLeft: '10px', marginRight: '5px', marginTop: '20px', textAlign: 'center' }}>Preséntate con este código al comercio.</p>}
+                                    </div>
 
-                                        </div>
-                                    </div>
                                 </div>
-                            </Card>
-                        </Grid>
-                        <Grid zeroMinWidth container item md={6} lg={4} spacing={1}   >
-                            <Card title={'Código remesas'} minWidth={'90%'} backgroundimage={password}>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', textAlign: 'center' }}>
-                                        {(rechargeCodeMessage !== null) && rechargeCodeMessage}
-                                        <p style={{ fontFamily: 'AvenirRoman', textTransform: 'initial', marginLeft: '10px', marginRight: '5px', textAlign: 'center' }}>Introduzca el codigo de la remesa que recibiste:</p>
-                                        <Input
-                                            containerStyle={{ width: '90%' }}
-                                            inputStyle={{ paddingTop: '10px', minHeight: '40px', fontSize: '16px', marginLeft: '10px', paddingLeft: '10px', marginRight: '5px', }}
-                                            elementType='input'
-                                            elementConfig={{ type: 'text', placeholder: 'Código', }}
-                                            value={rechargeCode}
-                                            /*   invalid={!formElement.config.valid}
-                                              shouldValidate={formElement.config.validation} */
-                                            changed={e => setRechargeCode(e.currentTarget.value)}
-                                            onBlur={(e) => { setRechargeCode('') }}
-                                        />
-                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', fontFamily: 'AvenirBlack', width: '40%', height: '30%' }}                                        >
-                                            <FlashingButton
-                                                clicked={(e) => { chargeAcount() }}
-                                                label={'ENVIAR'}
-                                                style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                                        </div>
-                                        {/*  <Button color="primary"
-                                                style={{ marginTop: '12px', marginBottom: '12px', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack' }}
-                                                onClick={(e) => chargeAcount()}>
-                                                ENVIAR
-                    </Button> */}
-                                    </div>
-                                </div>
-                            </Card>
-                        </Grid>
-                        <Grid zeroMinWidth container item md={6} lg={4} spacing={1}   >
-                            <Card title={'Configuración y ayuda'} minWidth={'90%'} backgroundimage={customerSupport}>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '100%', height: '60%' }}                                        >
-                                        <FlashingButton
-                                            clicked={(e) => {
-                                                props.onSetShowUserInfo(true);
-                                                props.history.push(props.match.userInfo);
-                                            }}
-                                            label={'CONFIGURACIÓN'}
-                                            style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                                    </div>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '100%', height: '50%' }}                                        >
-                                        <FlashingButton
-                                            clicked={(e) => { alert('AYUDA') }}
-                                            label={'AYUDA'}
-                                            style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                                    </div>
-                                    {/*  <Button color="primary"
-                                            style={{ marginTop: '12px', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontSize: ' bold', textAlign: ' center', fontFamily: 'AvenirBlack', width: '100%', height: '40%' }}
-                                            onClick={(e) => alert('CONFIGURACIÓN')}
-                                        >CONFIGURACIÓN  </Button>
-                                        <Button color="primary"
-                                            style={{ marginTop: '12px', marginBottom: '12px', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontSize: ' bold', textAlign: ' center', fontFamily: 'AvenirBlack', width: '100%', height: '50%' }}
-                                            onClick={(e) => alert('AYUDA')}
-                                        >AYUDA </Button> */}
-                                </div>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                </div>
-            </BrowserView>
+                            </div>
+                        </div>
 
-        </div >
-    </div >);
+                        <NewLinkCard title={'GENERAR CÓDIGO '} clicked={() => { props.history.push('client_codigo') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                        <NewLinkCard title={'OPERACIONES RECIENTES'} clicked={() => { props.history.push('client_operaciones') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                        <NewLinkCard title={'PAGO'} clicked={() => { props.history.push('client_pago') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                        <NewLinkCard title={'CÓDIGO REMESA'} clicked={() => { props.history.push('client_remesa') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        />
+                        <NewLinkCard title={'AYUDA'} clicked={() => { props.history.push('client_ayuda') }}
+                            textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
+                        /> </div>
+
+                    <FooterComponent onBackClick={() => props.history.push('/logout')} />
+
+
+                </div >
+
+            </div>
+        </BrowserView>
+
+
+    </>);
 }
 const mapStateToProps = state => {
     return {
@@ -436,7 +412,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
 
         onClientDetails: (id) => dispatch(actions.clientGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),
