@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Uxi from '../../hoc/Uxi/Uxi';
 import Auth from '../Auth/Auth';
-import Description from './Description';
-
+/* import logo from '../../assets/images/logo.png' */
+import Description from './DescriptionNew';
+import {  color } from '../../shared/utility';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
@@ -11,12 +12,7 @@ import axios from '../../axios-orders';
 
 const Home = props => {
   // eslint-disable-line
-  useEffect(() => {
-    if (props.authRedirectPath !== '/') {
-      props.onSetAuthRedirectPath('/dashboard');
-    }
-  }, [props]);
-
+  useEffect(() => { if (props.authRedirectPath !== '/') { props.onSetAuthRedirectPath('/dashboard'); } }, [props]);
   let mainPage = props.error ? <p>MainPage can't be loaded!</p> : <Spinner />;
 
   if (true) {

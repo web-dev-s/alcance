@@ -3,28 +3,35 @@ import { updateObject } from '../../shared/utility';
 
 const initialState = {
     authenticated: null,
-    userId: null,
+    userToken: null,
     userType: null,
     error: null,
     loading: false,
-    authRedirectPath: '/dashboard'
+    authRedirectPath: ''
 };
 
 const authStart = (state, action) => {
+    console.log('======auth START=============')
     return updateObject(state, { error: null, loading: true });
 };
 
 const authSuccess = (state, action) => {
-    return updateObject(state, {
-        userId: action.userId,
+
+    console.log('======auth SUCCES=============')
+    return  updateObject(state, {
+        userToken: action.userToken,
         userType: action.userType,
         error: null,
         loading: false,
         authenticated: true
     });
+
 };
 
+
 const authFail = (state, action) => {
+    console.log('======auth FAIL=============')
+    console.log(action.error)
     return updateObject(state, {
         error: action.error,
         loading: false,
@@ -34,11 +41,12 @@ const authFail = (state, action) => {
     });
 };
 
-const authLogout = (state, action) => {   
-    return updateObject(state, { userId: null, userType: null, authenticated: false, });
+const authLogout = (state, action) => {
+    return updateObject(state, { userToken: null, userType: null, authenticated: false, });
 };
 
 const setAuthRedirectPath = (state, action) => {
+    console.log('======setAuthRedirectPath=============', action.path)
     return updateObject(state, { authRedirectPath: action.path })
 }
 

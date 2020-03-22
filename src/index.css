@@ -1,34 +1,24 @@
 body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   /*   font-family: 'AileronItalic', 'AileronBlack', 'AileronBlackItalic', 'AileronBold', 'AileronBoldItalic', 'AileronHeavy', 'AileronHeavyItalic', 'AileronItalic', 'AileronLight', 'AileronLightItalic', 'AileronRegular', 'AileronSemiBold', 'AileronSemiBoldItalic', 'AileronThin', 'AileronThinItalic', 'AileronUltraLight', 'AileronUltraLightItalic';
  */
+  width: 100vw;
+  max-width: 100%;
+  word-wrap: break-word;
+  box-sizing: border-box;
   font-family: 'AvenirBlack', 'AvenirBook', 'AvenirRoman';
   color: #40495c;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  color:inherit;
-}
-
-a{
-  text-decoration: none;
-}
-
-:root {
-  --primary: #F8BC3C;
-  --secondary: #463100;
-  --gray: #9D9D9D;
-  --red: #D52121;
-  --green: #2FAE19;
 }
 
 body.overlay {
   position: absolute;
   background-color: transparent;
+}
+
+:root {
+  --gray: #D2D2D2
 }
 
 @font-face {
@@ -125,60 +115,3 @@ body.overlay {
   font-family: 'AileronUltraLightItalic';
   src: local('AileronUltraLightItalic'), url(./fonts/Aileron-UltraLightItalic.ttf) format('truetype');
 } */
-
-:global .row {
-  display: flex;
-}
-
-:global .algn-i-c {
-  align-items: center
-}
-
-:global .jtfc-c {
-  justify-content: center;
-}
-
-:global .d-in-bl {
-  display: inline-block;
-}
-
-:global .c-sec {
-  color: var(--secondary);
-}
-
-:global .mlf-auto {
-  margin-left: auto;
-  margin-right: auto
-}
-
-:global .mb-5p {
-  margin-bottom: 5%;
-}
-
-:global .mt-5p {
-  margin-top: 5%;
-}
-
-:global .uppercase {
-  text-transform: uppercase;
-}
-
-:global .fs-sm {
-  font-size: .95rem;
-}
-
-:global .fs-xm {
-  font-size: 1.2rem;
-}
-
-:global .fs-xsm {
-  font-size: .8rem;
-}
-
-:global .ta-c {
-  text-align: center
-}
-
-:global .c-prm {
-  color:var(--primary);
-}

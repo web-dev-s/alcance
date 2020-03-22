@@ -1,10 +1,30 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
-import avatar  from '../../assets/images/blankProfile.png';
+import avatar from '../../assets/images/blankProfile.png';
 
-const initialState = { 
-    profileImage:avatar,
-    showUserInfo: false,  
+const initialState = {
+    profileImage: '',
+    showUserInfo: {
+        User_Type: '',
+        Name: '',
+        Surname: '',
+        Phone: '',
+        Email: '',
+        BirthDate: '',
+        IDCard: '',
+        BusinessAddress: '',
+        BalanceMXN: '',
+        BalanceUSD: '',
+        BalanceBS: '', 
+        BusinessName: '',
+        State: '',
+        Code: ''
+    },
+    loading: false,
+    error:false
+
+
+
 };
 /*  // eslint-disable-line
 const clientChargeAccount = (state, action) => {
@@ -42,11 +62,11 @@ const authLogout = (state, action) => {
 };
 */
 const setShowUserInfo = (state, action) => {
- 
+
     return updateObject(state, { showUserInfo: action.showUserInfo })
 }
 const setProfileImage = (state, action) => {
- 
+
     return updateObject(state, { profileImage: action.profileImage })
 }
 const setAuthRedirectPath = (state, action) => {

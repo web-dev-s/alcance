@@ -12,25 +12,7 @@ export const S2_BASE_URL = 'https://www.luzy-s2.net:5079/luzy_api/procedures/';
 export const S2_BASE_URL_WITH_PORT = 'https://www.luzy-s2.net:5079/luzy_api/';
 export const S2_CHAT_BASE_URL = 'https://www.luzy-s2.net:5079/';
 // INITIAL_SERVER_TYPE:"s2",
-
-// S3_BASE_URL: 'https://www.luzy-s3.net:5079/luzy_api/procedures/',
-// S3_CHAT_BASE_URL: 'https://www.luzy-s3.net:5079/',
-// S3_BASE_URL_WITH_PORT: 'https://www.luzy-s3.net:5079/luzy_api/',
-
-// //production
-// // S3_BASE_URL: 'https://www.luzy-s2.net:5079/luzy_api/procedures/',
-// // S3_CHAT_BASE_URL: 'https://www.luzy-s2.net:5079/luzy_api/',
-// // S3_BASE_URL_WITH_PORT: 'https://www.luzy-s2.net:5079/',
-
-//production
-// S3_BASE_URL: 'https://www.luzy-s2.net:5079/luzy_api/procedures/',
-// S3_CHAT_BASE_URL: 'https://www.luzy-s2.net:5079/luzy_api/',
-// S3_BASE_URL_WITH_PORT: 'https://www.luzy-s2.net:5079/',
-
-//production
-// S3_BASE_URL: 'https://www.luzy-s2.net:5079/luzy_api/procedures/',
-// S3_CHAT_BASE_URL: 'https://www.luzy-s2.net:5079/luzy_api/',
-// S3_BASE_URL_WITH_PORT: 'https://www.luzy-s2.net:5079/', 
+ 
 export const VEN_SIGNUP = 'ven_SignUp';
 export const VEN_LOGIN = 'ven_LogIn';
 

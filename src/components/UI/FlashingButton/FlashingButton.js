@@ -10,17 +10,17 @@ const FlashingButton = (props) => {
 
 
     return (<div style={{
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stetch', alignSelf: 'center', alignContent: 'center',
+        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', alignSelf: 'center', alignContent: 'center',
         /*   marginTop: '5px', marginBottom: '5px', marginLeft: '10px', marginRight: '10px', */
         width: '100%', height: '100%'
     }}>
         <div style={{
             justifyContent: 'center', alignContent: 'stretch',
-            padding: '0.3%',
+            padding: '0.3%', position: 'relative'
         }}
-            onClick={(e) => { setIsFlashing(!isFlashing); props.clicked(e) }}
+            onClick={(e) => { setIsFlashing(!isFlashing);/*  props.clicked(e) */ }}
         >
-            <FlashingDiv flash={isFlashing} onAnimationEnd={() => setIsFlashing(false)}>
+            <FlashingDiv flash={isFlashing} onAnimationEnd={(e) => { setIsFlashing(false); props.clicked(e) }}>
                 {!props.clickableImage && <div style={{
                     display: 'flex', flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', alignSelf: 'center',
                     paddingTop: '5px', paddingBottom: '5px', paddingLeft: '10px', paddingRight: '10px',
@@ -29,8 +29,7 @@ const FlashingButton = (props) => {
                     border: '1px solid lightgray', borderRadius: '8px',
                     ...props.style
                 }}>
-                    {props.label && <label style={{ margin: '0', paddingTop:'3px', alignText: 'center',/*  fontSize:'1.1vmin'  */ textOverflow: 'ellipsis',...props.textStyle  }}>{props.label}</label>}
-
+                    {props.label && <label style={{ margin: '0', paddingTop: '3px', alignText: 'center',/*  fontSize:'1.1vmin'  */ textOverflow: 'ellipsis', ...props.textStyle }}>{props.label}</label>}
 
                     {props.image && <img src={props.image} alt='buttonImg' style={{ maxHeight: '30px', /*  height: '100%', */ resize: 'contain', alignSelf: 'center', ...props.imageStyle }} />}
 
@@ -41,10 +40,10 @@ const FlashingButton = (props) => {
                         height: '100%',
                         shadow: '0 2px 3px #ccc',
                         resize: 'contain', alignSelf: 'center',
-                         ...props.imageStyle
+                        ...props.imageStyle
                     }} />}
 
-
+                {props.customContent && props.children}
             </FlashingDiv>
         </div>
 

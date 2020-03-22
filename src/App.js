@@ -2,64 +2,92 @@ import React, { useEffect, Suspense } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import Layout from './hoc/Layout/Layout';
-import Home from './containers/Home/Home';
+import Layout from './hoc/Layout/NewLayout';
 import Logout from './containers/Auth/Logout/Logout';
 import Spinner from './components/UI/Spinner/Spinner';
+import Intro from './newDesign/intro/Intro';
 /* import {isIE} from 'react-device-detect'; */
 
-const Auth = React.lazy(() => { return import('./containers/Auth/Login/Login'); });
-const Register = React.lazy(() => { return import('./containers/Auth/Register'); });
-const DashBoardScreen = React.lazy(() => { return import('./containers/DashboardScreen/DashBoardScreen'); });
-const Payment = React.lazy(() => { return import('./components/Payment/Payment'); });
-const UserInfo = React.lazy(() => { return import('./containers/UserInfo/UserInfo'); });
+const Auth = React.lazy(() => { return import('./newDesign/auth/Auth'); });
+const UserClient = React.lazy(() => { return import('./newDesign/client/client'); });
+const UserClient_Codigo = React.lazy(() => { return import('./newDesign/client/codigo'); });
+const UserProfile = React.lazy(() => { return import('./Denisa/components/profile/Profile'); });
+const UserClient_Oper = React.lazy(() => { return import('./newDesign/client/operaciones'); });
+const UserClient_Pago = React.lazy(() => { return import('./newDesign/client/pago'); });
+const UserClient_Remesa = React.lazy(() => { return import('./newDesign/client/remesa'); });
+const UserClient_Ayuda = React.lazy(() => { return import('./newDesign/client/ayuda'); });
+const UserComercio_Oper = React.lazy(() => { return import('./newDesign/comercio/operaciones'); });
+const UserComercio_SolicPago = React.lazy(() => { return import('./newDesign/comercio/solicitarPago'); });
 
+const UserComercio = React.lazy(() => { return import('./newDesign/comercio/comercio'); });
 const App = props => {
-
   let routes = (
     <Switch>
-      <Route path="/auth" render={props => <Auth {...props} />} />
-      <Route path="/register" render={props => <Register {...props} />} />
-      <Route path="/" exact component={Home} />
+
+      <Route path="/auth" render={props => <Auth {...props} history={props.history} />} />
+
+      <Route path="/" exact component={Intro} />
       <Redirect to="/" />
+
     </Switch>
   );
 
-  console.log(props);
-  
   if (props.isAuthenticated) {
+    if (props.userType === 'client') {
+      routes = (
+        <Switch>
 
-    routes = (
-      <Switch>
-        {/*    <Route path="/dashboard" render={props => <DashBoardScreen {...props} />} /> */}
-        <Route path="/payment" component={Payment} />
-        <Route path="/logout" component={Logout} />
-        {/*   <Route path="/auth" render={props => <Auth {...props} />} />
- */}
-        <Route path="/" exact component={Home} />
-        <Route path="/dashboard" exact render={props => <DashBoardScreen {...props} match={{ url: '/dashboard' }} />} />
-        <Route path={'/dashboard/userInfo'} render={props => <UserInfo {...props} match={{ url: '/dashboard/userInfo', register: '/register' }} />} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/client" render={props => <UserClient {...props} />} />
+          <Route path="/client_codigo" render={props => < UserClient_Codigo {...props} />} />
+          <Route path="/client_operaciones" render={props => <UserClient_Oper {...props} />} />
+          <Route path="/client_pago" render={props => <UserClient_Pago {...props} />} />
+          <Route path="/client_remesa" render={props => <UserClient_Remesa {...props} />} />
+          <Route path="/client_ayuda" render={props => <UserClient_Ayuda {...props} />} />
+          <Route path="/client_profile" render={props => <UserProfile {...props} />} />
+          <Route path="/" exact component={Intro} />
 
+          <Redirect to="/" />
 
-        <Redirect to="/" />
-      </Switch>
-    );
+        </Switch>
+      );
+    }
+    else {
+      routes = (
+        <Switch>
+
+          <Route path="/logout" component={Logout} />
+          <Route path="/comercio" render={props => <UserComercio {...props} />} />
+          <Route path="/comercio_operaciones" render={props => <UserComercio_Oper {...props} />} />
+          <Route path="/comercio_pago" render={props => <UserComercio_SolicPago {...props} />} />
+
+          <Route path="/" exact component={Intro} />
+
+          <Redirect to="/" />
+
+        </Switch>
+      );
+
+    }
+
   }
-
   return (
 
     <div>
-      {/*    <Layout history={props.history} match={{ userInfo: '/dashboard/userInfo',register:'/register' }}  > */}
-      <Suspense fallback={<Spinner />}> {routes}  </Suspense>
-      {/*  </Layout> */}
+      <Layout history={props.history} match={{ userInfo: '/dashboard/userInfo', register: '/register' }}  >
+
+        <Suspense fallback={<Spinner />}> {routes}  </Suspense>
+      </Layout>
     </div>
   );
 
 }
+
 const mapStateToProps = state => {
 
   return {
-    isAuthenticated: state.auth.authenticated
+    isAuthenticated: state.auth.authenticated,
+    userType: state.auth.userType
   }
 }
 export default withRouter(connect(mapStateToProps, null)(App));
