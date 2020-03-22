@@ -326,7 +326,7 @@ const UserTypeClient = props => {
             </BrowserView>
             <MobileView>
                 <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
-                <HeaderComponent/> 
+              
                     
                     < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
 
@@ -394,9 +394,7 @@ const UserTypeClient = props => {
                                 style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
                         </div>
                     </div>
-                    <FooterComponent
-                        mainContainerStyle={{ bottom: '0px' }}
-                        onBackClick={() => props.history.push('/client')} />
+                    
                 </div>
 
 

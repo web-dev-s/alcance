@@ -183,11 +183,92 @@ const UserTypeClient = props => {
         }
     };
 
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px',paddingTop:'48px'  }}>
-        <Modal show={openDialog} modalClosed={() => mesageModalClosed()}>
-            {showMessage}
-        </Modal>
-        <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
+    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', paddingTop: '48px' }}>
+
+            <MobileView>
+            <HeaderComponent />
+            <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
+               
+                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', textAlign: 'left' }}>
+                        <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}` }}>
+                            <text style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Ayuda'}</text>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'1. ¿Hay un límite de dinero que pueda enviar en un día?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                            >{'Por seguridad, el monto máximo se puede enviar son US$500 o su equivalente por día.'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'2. ¿Puedo enviar dólares de Estados Unidos?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                            >{'Puedes acreditar saldo en USD, pero el uso es en la moneda local.'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'3. ¿Puedo usar mi saldo para hacer compras en tiendas en línea?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                            >{'Por el momento no es posible.'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'4. Si tengo un problema, ¿a quién contacto?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start', }}
+                            >{'Mándanos un mensaje a solucion@paquetealcance.ve'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'5. ¿En qué comercios puedo usar mi saldo?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                            >{'En este momento, todas las tiendas Salvafoods aceptan Paquetealcance, pronto informaremos de nuevas opciones (bodegones, farmacias, restaurantes)'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'6. ¿Puedo retirar en efectivo?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                            >{'No, en este momento no es posible, te informaremos cuando se pueda hacer'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'7. ¿Es posible enviar dinero hacia otros países?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                            >{'Estamos trabajando para hacer la red más amplia, por el momento, solamente ofrecemos el servicio hacia Venezuela desde México, USA y Canadá'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'8. ¿Expira mi saldo?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                            >{'No, pero tienes un año calendario para usarlo, en caso contrario se cobrará una comisión equivalente a US$4.50'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+                            <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
+                            >{'9. ¿Me afecta el cambio de mi celular?'}</p>
+                            <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
+                            >{'No, si pierdes tu equipo, descarga la aplicación en tu nuevo equipo y tu saldo se verá reflejado en el nuevo.'}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
+
+                            <text style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}>
+                                <text style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start', color: color.alcanceOrange }}>{'Nota:'}</text>
+                                {' no nos hacemos responsable por el mal uso que pueda hacerse con la aplicación en caso de que no se reporte.'}</text>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <FooterComponent
+                mainContainerStyle={{ bottom: '0px' }}
+                onBackClick={() => props.history.push('/client')} />
+        </MobileView>
+        
+        
+         <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
+
             <BrowserView>
                 < div style={{ display: 'contents', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap' }}>
                     <Grid container item spacing={4} justify="flex-start" alignItems="flex-start">
@@ -350,85 +431,7 @@ const UserTypeClient = props => {
                     </Grid>
                 </div>
             </BrowserView>
-            <MobileView>
-                <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
-                <HeaderComponent/>
-                    < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', textAlign: 'left' }}>
-                            <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}` }}>
-                                <text style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Ayuda'}</text>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'1. ¿Hay un límite de dinero que pueda enviar en un día?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
-                                >{'Por seguridad, el monto máximo se puede enviar son US$500 o su equivalente por día.'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'2. ¿Puedo enviar dólares de Estados Unidos?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
-                                >{'Puedes acreditar saldo en USD, pero el uso es en la moneda local.'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'3. ¿Puedo usar mi saldo para hacer compras en tiendas en línea?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
-                                >{'Por el momento no es posible.'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'4. Si tengo un problema, ¿a quién contacto?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start', }}
-                                >{'Mándanos un mensaje a solucion@paquetealcance.ve'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'5. ¿En qué comercios puedo usar mi saldo?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
-                                >{'En este momento, todas las tiendas Salvafoods aceptan Paquetealcance, pronto informaremos de nuevas opciones (bodegones, farmacias, restaurantes)'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'6. ¿Puedo retirar en efectivo?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
-                                >{'No, en este momento no es posible, te informaremos cuando se pueda hacer'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'7. ¿Es posible enviar dinero hacia otros países?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
-                                >{'Estamos trabajando para hacer la red más amplia, por el momento, solamente ofrecemos el servicio hacia Venezuela desde México, USA y Canadá'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'8. ¿Expira mi saldo?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
-                                >{'No, pero tienes un año calendario para usarlo, en caso contrario se cobrará una comisión equivalente a US$4.50'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
-                                <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
-                                >{'9. ¿Me afecta el cambio de mi celular?'}</p>
-                                <p style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}
-                                >{'No, si pierdes tu equipo, descarga la aplicación en tu nuevo equipo y tu saldo se verá reflejado en el nuevo.'}</p>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
 
-                                <text style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}>
-                                    <text style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start', color: color.alcanceOrange }}>{'Nota:'}</text>
-                                    {' no nos hacemos responsable por el mal uso que pueda hacerse con la aplicación en caso de que no se reporte.'}</text>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-               
-                </div>
-                <FooterComponent
-                        mainContainerStyle={{ bottom: '0px' }}
-                        onBackClick={() => props.history.push('/client')} />
-            </MobileView>
         </div >
     </div >);
 }

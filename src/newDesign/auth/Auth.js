@@ -373,20 +373,25 @@ const Auth = (props) => {
 
     const onRegisterClient = (e) => {
         console.log('===email check valid:==============');
-        if (!checkValidity(authFormClient.name.value, { required: true, isEmail: true, minLength: 2 })) return setErrorMessage('Email not valid');
+        console.log();
+       
+        if (!checkValidity(authFormClient.email.value, { required: true, isEmail: true, minLength: 2 })) return setErrorMessage('Email not valid');
 
         const dataSent = {
             in_Name: authFormClient.name.value,
             in_Surname: authFormClient.surnme.value,
-            in_Email: authFormClient.email.value,
+            in_BirthDate: authFormClient.birthDate.value,
+            in_IDCard: authFormClient.id.value,
             in_Phone: authFormClient.phone.value,
+
+            in_Email: authFormClient.email.value,            
             in_Password: authFormClient.password.value,
-            in_UserType: 'comercio',
-            in_IDCard: '',
-            in_State: authFormClient.state,
-            in_BusinessName: authFormClient.legalName,
-            in_BusinessAddress: authFormClient.department,
-            in_BirthDate: ''
+            in_UserType: 'client',
+           
+            in_State: '',
+            in_BusinessName: '',
+            in_BusinessAddress:'' ,
+           
         }
 
 
@@ -394,27 +399,30 @@ const Auth = (props) => {
     }
     const onRegisterComercio = (e) => {
         console.log('===email check valid:==============');
-        if (!checkValidity(authFormComercio.name.value, { required: true, isEmail: true, minLength: 2 })) return setErrorMessage('Email not valid');
+        if (!checkValidity(authFormComercio.email.value, { required: true, isEmail: true, minLength: 2 })) return setErrorMessage('Email not valid');
 
         const dataSent = {
+           
+            in_BusinessName: authFormComercio.legalName.value,
+            in_BusinessAddress: authFormComercio.department.value,
+            in_State: authFormComercio.state.value,
+
             in_Name: authFormComercio.name.value,
             in_Surname: authFormComercio.surnme.value,
-            in_Phone: authFormComercio.phone.value,
             in_Email: authFormComercio.email.value,
+            in_Phone: authFormComercio.phone.value,
             in_Password: authFormComercio.password.value,
             in_UserType: "comercio",
-            in_IDCard: authFormComercio.id.value,
-            in_State: '',
-            in_BusinessName: '',
-            in_BusinessAddress: '',
+            in_IDCard: '',
+           
             in_BirthDate: ''
         }
 
-
+        console.log(dataSent);
         props.onAuthRegister(dataSent, props.history);
 
 
-        props.history.push('/comercio')
+      //  props.history.push('/comercio')
     }; // props.onSetAuthRedirectPath('/comercio'); }
     const loggingIn = event => {
         event.preventDefault();

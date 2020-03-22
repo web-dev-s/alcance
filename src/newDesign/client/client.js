@@ -171,7 +171,7 @@ const UserTypeClient = props => {
                         minWidth: width,
                         color: color.brown,
                     }}>
-                      <HeaderComponent/>
+                     {/*  <HeaderComponent/> */}
                     <div style={{
                         display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
                         maxHeight: (+height).toString() + 'px',
@@ -267,9 +267,9 @@ const UserTypeClient = props => {
                             textWrapperStyle={{ marginTop: '10px', marginBottom: '10px' }}
                         />
                     </div> 
-                    <FooterComponent
+                  {/*   <FooterComponent
                         mainContainerStyle={{ bottom: '0px' }}
-                        onBackClick={() => props.history.push('/logout')} />
+                        onBackClick={() => props.history.push('/logout')} /> */}
 
 
                 </div >

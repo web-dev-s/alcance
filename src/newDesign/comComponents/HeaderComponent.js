@@ -18,7 +18,7 @@ const HeaderComponent = (props) => {
        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '30px', }}>
            <FlashingButton
                clickableImage
-               clicked={() => { props.onBackClick && props.onBackClick() }}
+               clicked={() => { props.onDrawerPress && props.onDrawerPress() }}
                image={require("../../assets/images/drawer.png")}
            />
 
@@ -28,7 +28,7 @@ const HeaderComponent = (props) => {
                clickableImage
                clicked={() => {/*  window.location.reload();  */ }}
                image={require("../../assets/images/logo.png")}
-               imageStyle={{width:'120px', resizeMode:'contain'}}
+               imageStyle={{height:'30px', resizeMode:'contain'}}
            />
 
        </div>

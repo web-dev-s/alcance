@@ -73,10 +73,10 @@ const App = props => {
   return (
 
     <div>
-    {/*   <Layout history={props.history} match={{ userInfo: '/dashboard/userInfo', register: '/register' }}  >
-       */} 
+       <Layout history={props.history} match={{ userInfo: '/dashboard/userInfo', register: '/register' }}  >
+       
         <Suspense fallback={<Spinner />}> {routes}  </Suspense>
-     {/*  </Layout> */}
+      </Layout> 
     </div>
   );
 

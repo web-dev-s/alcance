@@ -150,7 +150,7 @@ export const authRegister = (action, history, ) => {
                     if (response.data.result[0].Token&&response.data.result[0].Token.length>2) {
                         localStorage.setItem('userType', response.data.result[0].User_Type);
                         localStorage.setItem('userToken', response.data.result[0].Token);
-                        localStorage.setItem('emailUsed', authData.email);
+                        localStorage.setItem('emailUsed', response.data.result[0].Email);
                         localStorage.setItem('passwordUsed', authData.password);
 
                         const info = {
