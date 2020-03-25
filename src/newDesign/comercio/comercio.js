@@ -79,8 +79,8 @@ const UserTypeComercio = props => {
             }}>
                 < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', width: '100%' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '4%' }}>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</text>
-                        <text style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Salva Foods'}{'.'}</text>
+                        <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</label>
+                        <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Salva Foods'}{'.'}</label>
                     </div>
                     <div style={{
                         boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
@@ -103,12 +103,12 @@ const UserTypeComercio = props => {
                                     <img src={balanceIMG} alt="balanceIMG" />
                                 </div> */}
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                                <text style={{ color: color.alcanceOrange, fontSize: '14px', paddingBottom: '10px' }}>{'SALDO'}</text>
+                                <label style={{ color: color.alcanceOrange, fontSize: '14px', paddingBottom: '10px' }}>{'SALDO'}</label>
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
-                                    <text style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                    <label style={{ color: +balance > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
                                         $ <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
                                             {+balance * 41624.00 || 0}
-                                        </b>   BS</text>
+                                        </b>   BS</label>
                                 </div>
 
                             </div>
@@ -300,8 +300,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
+         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
 
         onClientDetails: (id) => dispatch(actions.clientGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),
         onComercioDetails: (id) => dispatch(actions.comercioGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),

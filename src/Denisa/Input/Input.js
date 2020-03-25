@@ -71,7 +71,7 @@ const input = (props) => {
     let icons = null;
     if (props.inputIcons)
     {
-        icons = props.inputIcons.map(icon => (<img src={icon.source}
+        icons = props.inputIcons.map((icon,idx) => (<img key={idx} src={icon.source}
             className={icon.classes}
             alt="icon"
             key={icon.source}

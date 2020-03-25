@@ -1,4 +1,5 @@
 .Input {
+    outline: none !important;
     width: 100%;
     padding: 0px;
     margin: 0px;
@@ -13,7 +14,7 @@
 }
 
 .Input:focus {
-    outline: none;
+    outline: none !important;
     border: none;
     background-color: transparent;
 }
@@ -25,6 +26,7 @@
 
 .Label {
     /*  font-weight: bold; */
+    outline: none;
     display: block;
     font-style: normal;
     margin-bottom: 8px;
@@ -33,7 +35,7 @@
 }
 
 .InputElement {
-    outline: none;
+    outline: none !important;
     border: 1px solid #ccc;
     background-color: white;
     font-style: normal;
@@ -46,12 +48,13 @@
 }
 
 .InputElement:focus {
-    outline: none;
+    outline: none !important;
     border: none;
     background-color: #ccc;
 }
 
 .Invalid {
+    outline: none !important;
     border: 1px solid red;
     background-color: #FDA49A;
 }

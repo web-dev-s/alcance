@@ -487,7 +487,7 @@ const Register = (props) => {
     for (let key in authForm2) { formElementsArray2.push({ id: key, config: authForm2[key] }); }
     for (let key in authForm3) { formElementsArray3.push({ id: key, config: authForm3[key] }); }
     let form1 = formElementsArray1.map((formElement, idx) => (
-        <div style={{ display: 'column', flexDirection: 'row', fontFamily: 'AvenirRoman', alignItems: 'center' }} key={formElement.id}>
+        <div key={'a1'+idx} style={{ display: 'column', flexDirection: 'row', fontFamily: 'AvenirRoman', alignItems: 'center' }} key={formElement.id}>
             <Input
                 key={formElement.idx}
                 containerStyle={{ width: '100%' }}
@@ -508,7 +508,7 @@ const Register = (props) => {
         </div>
     ));
     let form2 = formElementsArray2.map((formElement, idx) => (
-        <div style={{ display: 'column', flexDirection: 'row', fontFamily: 'AvenirRoman', alignItems: 'center' }} key={formElement.id}>
+        <div key={'a2'+idx} style={{ display: 'column', flexDirection: 'row', fontFamily: 'AvenirRoman', alignItems: 'center' }} key={formElement.id}>
             {(idx === 3) && <p style={{ textAlign: 'left', paddingLeft: '12px', fontWeight: '800' }}>Representante legal</p>}
 
             <Input
@@ -532,7 +532,7 @@ const Register = (props) => {
         </div>
     ));
     let form3 = formElementsArray3.map((formElement, idx) => (
-        <div style={{ display: 'column', flexDirection: 'row', fontFamily: 'AvenirRoman', alignItems: 'center' }} key={formElement.id}>
+        <div key={'a3'+idx} style={{ display: 'column', flexDirection: 'row', fontFamily: 'AvenirRoman', alignItems: 'center' }} key={formElement.id}>
             <Input
                 key={idx}
                 containerStyle={{ width: '100%' }}

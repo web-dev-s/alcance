@@ -23,19 +23,13 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, composeWithDevTools(
     applyMiddleware(thunk)
 ));
-const app = /* require("https-localhost") */(
+const app =  (
     <Provider store={store}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
     </Provider>
 );
-
-// const app = ...
  
-/* const httpsLocalhost = require("https-localhost")()
-const port = 3005;
-const certs = httpsLocalhost.getCerts()
-const server = https.createServer(certs, app).listen(port); */
 ReactDOM.render(app, document.getElementById('root'));
 registerServiceWorker();

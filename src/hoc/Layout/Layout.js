@@ -5,7 +5,7 @@ import Uxi from '../Uxi/Uxi';
 import classes from './Layout.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
-import { BrowserView, MobileView } from "react-device-detect"; 
+import { BrowserView, MobileView } from "react-device-detect";
 import drawerMobile from '../../assets/images/drawerMobile.png';
 import logo from '../../assets/images/logo.png';
 import FlashingButton from '../../components/UI/FlashingButton/FlashingButton';
@@ -65,7 +65,7 @@ const Layout = props => {
                 </div>
               </div>
             }
-           {/*  {
+            {/*  {
               <div onClick={navigateBack} style={{
                 flex: 1, display: 'flex', justifyContent: 'center', alignContent: 'center', alignItems: 'center', alignSelf: 'center',
                 maxWidth: '518px', height: '40px', paddingLeft: '2%', paddingRight: '2%'
@@ -87,7 +87,7 @@ const Layout = props => {
                 </div>
               </div>
             }
-           {/*  {
+            {/*  {
               !props.isAuthenticated &&
               <div style={{
                 maxWidth: '100px', height: '40px', display: 'flex', flexDirection: 'row', alignSelf: 'flex-end',

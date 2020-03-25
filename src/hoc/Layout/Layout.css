@@ -23,7 +23,7 @@
 }
 
 .MobileToolbar {
-    height: 28px;
+    height: 48px;
     width: calc(100% - 0%);
     position: fixed;
     top: 0px;

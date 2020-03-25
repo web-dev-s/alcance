@@ -17,7 +17,8 @@ const input = (props) => {
                 className={classes.Input}
                 {...props.elementConfig}
                 value={props.value}
-                onChange={props.changed} />;
+                onChange={props.changed}
+                onFocus={props.onFocus} />;
             break;
         case ('textarea'):
             inputElement = <textarea
@@ -25,16 +26,19 @@ const input = (props) => {
 
                 {...props.elementConfig}
                 value={props.value}
-                onChange={props.changed} />;
+                onChange={props.changed}
+                onFocus={props.onFocus} />;
             break;
         case ('select'):
             inputElement = (
                 <select
                     style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
                     value={props.value}
-                    onChange={props.changed}>
+                    onChange={props.changed}
+                    onFocus={props.onFocus}
+                >
                     {props.elementConfig.options.map(option => (
-                        <option key={option.value} value={option.value}>
+                        <option key={option.value} value={option.value} className={inputClasses.join(' ')} style={{ border: 'none', outline: 'none', width: '100%', ...props.optionStyle, }}>
                             {option.displayValue}
                         </option>
                     ))}
@@ -47,27 +51,30 @@ const input = (props) => {
 
                 {...props.elementConfig}
                 value={props.value}
-                onChange={props.changed} />;
+                onChange={props.changed}
+                onFocus={props.onFocus}
+            />;
             break;
         default:
             inputElement = <input
                 style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
                 {...props.elementConfig}
                 value={props.value}
-                onChange={props.changed} />;
+                onChange={props.changed}
+                onFocus={props.onFocus} />;
     }
 
     return (
-        <div className={classes.Input} style={{  ...props.containerStyle }}>
-            <text className={classes.Label} style={{ ...props.labelStyle }}>{props.label}</text>
-            <div className={inputClasses.join(' ')} 
+        <div className={classes.Input} style={{ ...props.containerStyle }} key={props.key?props.key:Math.random()}>
+            <label className={classes.Label} style={{ ...props.labelStyle }}>{props.label} </label>
+            <div className={inputClasses.join(' ')}
                 style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', ...props.inputStyle, ...props.middleContainerStyle }}>
-                {props.leftImage && <div style={{ display: 'flex', flexDirection: 'row', maxHeight: '25px', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '0px', marginRight: '4%' }}>
-                    <img src={props.leftImage} alt="logo" style={{ width: '100%', height: '100%', resizeMode: 'contain', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '0px' }} />
+                {props.leftimage && <div style={{ display: 'flex', flexDirection: 'row', maxHeight: '25px', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '0px', marginRight: '4%' }}>
+                    <img src={props.leftimage} alt="logo" style={{ width: '100%', height: '100%', resizeMode: 'contain', display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '0px' }} />
                 </div>}
                 <div style={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
                     {inputElement}
-                </div> 
+                </div>
             </div>
         </div>
     );

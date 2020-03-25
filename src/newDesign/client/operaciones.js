@@ -27,6 +27,8 @@ import Cards from '../../components/UI/Card/Card';
 import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 
+import HeaderComponent from '../comComponents/HeaderComponent';
+import FooterComponent from '../comComponents/FooterComponent';
 const UserTypeClient = props => {
 
     const [checkTime, setCheckTime] = useState();
@@ -155,7 +157,7 @@ const UserTypeClient = props => {
 
 
 
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', }}>
+    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '18%' }}>
         <Modal show={openDialog} modalClosed={() => mesageModalClosed()}>
             {showMessage}
         </Modal>
@@ -323,7 +325,8 @@ const UserTypeClient = props => {
                 </div>
             </BrowserView>
             <MobileView>
-                <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
+                <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: '2%' }}>
+
                     < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
 
                         <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
@@ -370,6 +373,7 @@ const UserTypeClient = props => {
                         </div>
 
                     </div>
+
                 </div>
             </MobileView>
         </div >
@@ -384,7 +388,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
 
         onClientDetails: (id) => dispatch(actions.clientGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),

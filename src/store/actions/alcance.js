@@ -77,6 +77,81 @@ export const userRegistration = (userData) => {
     };
 };
 
+
+
+
+export const generateTransferCode = actionData => {
+    return (dispatch, getState) => {
+        /*  let state = getState();  */
+    
+
+        return makeRequest(
+            APIConstant.S3_BASE_URL + APIConstant.VEN_GENERATE_TRANSFER_CODE,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+                console.log('-----------generateTransferCode---------------------')
+                console.log(response)
+
+                if (response && response.data && response.data.status === '200') {
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 //details:
 export const clientGetDetails = actionData => {
     // console.log('clientGetDetails Client details:' + JSON.stringify(actionData));
@@ -684,3 +759,7 @@ export const setProfileImage = actionData => {
 
     };
 };
+
+
+
+

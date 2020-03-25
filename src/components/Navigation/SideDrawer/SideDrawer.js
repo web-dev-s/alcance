@@ -7,7 +7,7 @@ import classes from './SideDrawer.css';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import { BrowserView, MobileView, } from "react-device-detect";
 import Uxi from '../../../hoc/Uxi/Uxi';
-
+import defaultAvatar from '../../../assets/images/user.png'
 const sideDrawer = (props) => {
     let attachedClasses = [classes.SideDrawer, classes.Close];
     if (props.open) {
@@ -26,7 +26,7 @@ const sideDrawer = (props) => {
                         props.isAuthenticated &&
                         <div onClick={props.avatarPress} style={{ flex: '0.5', height: '40px', paddingLeft: '5px', paddingRight: '5px', paddingBottom: '5%' }}>
                             <div style={{ flex: 1, height: '40px', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
-                                <img src={props.profileImage} alt="avatar" style={{ height: '40px', width: '40px', borderRadius: '50%', resize: 'contain', }} />
+                                <img src={props.profileImage?props.profileImage:defaultAvatar} alt="avatar" style={{ height: '40px', width: '40px', borderRadius: '50%', resize: 'contain', }} />
                             </div>
                         </div>
                     }
@@ -51,7 +51,7 @@ const sideDrawer = (props) => {
                         props.isAuthenticated &&
                         <div onClick={props.avatarPress} style={{ flex: '0.5', height: '40px', paddingLeft: '5px', paddingRight: '5px', paddingBottom: '5%' }}>
                             <div style={{ flex: 1, height: '40px', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
-                                <img src={props.profileImage} alt="avatar" style={{ height: '40px', width: '40px', borderRadius: '50%', resize: 'contain', }} />
+                                <img src={props.profileImage?props.profileImage:defaultAvatar} alt="avatar" style={{ height: '40px', width: '40px', borderRadius: '50%', resize: 'contain', }} />
                             </div>
                         </div>
                     }

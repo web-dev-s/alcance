@@ -1,0 +1,57 @@
+.profileImageWrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px;
+}
+
+.profileImage {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    background: red;
+    /* background-image: url(https://www.luzy-s1.net/tax4uweb/assets/LOGO.png); */
+    background-size: cover;
+    background-position: center;
+}
+
+.UserInfoRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 10px;
+    width: 100%;
+    position: relative;
+    align-items: center;
+}
+
+.leftIcon {
+    max-height: 25px;
+    /* position: absolute;
+    top:50%;
+    left:0;
+    transform:translateY(-50%); */
+    margin-right: 15px;
+}
+
+.centeredRow {
+    display: flex;
+    align-items: center;
+}
+
+.rightIcon {
+    max-height: 25px;
+}
+
+input, input:focus {
+    border: none;
+}
+
+.invalid {
+    color: red;
+}
