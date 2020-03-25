@@ -72,11 +72,7 @@ const Layout = props => {
           <div style={{ paddingTop: '5px', /* overflow: 'hidden', */ }}>
             {props.children}
           </div>
-
-        }
-
-
-        </main>
+          </main>
         {(props.isAuthenticated) && <FooterComponent
           mainContainerStyle={{ bottom: '0px' }}
           onBackClick={() => props.history.push('/' + props.userType)} />}

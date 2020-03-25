@@ -122,8 +122,6 @@ const Layout = props => {
           <div style={{ marginTop: '48px', paddingTop: '5px', /* overflow: 'hidden', */ marginBottom: '10%', paddingBottom: '10%' }}>
             {props.children}
           </div>
-
-
         </main>
 
       </MobileView >

@@ -183,7 +183,7 @@ const UserTypeClient = props => {
         }
     };
 
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', paddingTop: '48px' }}>
+    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', paddingTop: '48px' , marginTop: '18%'}}>
 
             <MobileView>
             <HeaderComponent />

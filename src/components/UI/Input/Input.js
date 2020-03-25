@@ -18,7 +18,7 @@ const input = (props) => {
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed}
-                onFocus={props.onFocus} />;
+                onFocus={ props.onFocus&& props.onFocus } />;
             break;
         case ('textarea'):
             inputElement = <textarea
@@ -26,16 +26,16 @@ const input = (props) => {
 
                 {...props.elementConfig}
                 value={props.value}
-                onChange={props.changed}
-                onFocus={props.onFocus} />;
+                onChange={() => props.changed && props.changed}
+                onFocus={() =>  props.onFocus&& props.onFocus } />
             break;
         case ('select'):
             inputElement = (
                 <select
                     style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
                     value={props.value}
-                    onChange={props.changed}
-                    onFocus={props.onFocus}
+                    onChange={() => props.changed && props.changed}
+                    onFocus={() =>  props.onFocus&& props.onFocus }
                 >
                     {props.elementConfig.options.map(option => (
                         <option key={option.value} value={option.value} className={inputClasses.join(' ')} style={{ border: 'none', outline: 'none', width: '100%', ...props.optionStyle, }}>
@@ -51,8 +51,8 @@ const input = (props) => {
 
                 {...props.elementConfig}
                 value={props.value}
-                onChange={props.changed}
-                onFocus={props.onFocus}
+                onChange={() => props.changed && props.changed}
+                onFocus={() =>  props.onFocus&& props.onFocus }
             />;
             break;
         default:
@@ -60,12 +60,12 @@ const input = (props) => {
                 style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
                 {...props.elementConfig}
                 value={props.value}
-                onChange={props.changed}
-                onFocus={props.onFocus} />;
+                onChange={() => props.changed && props.changed}
+                onFocus={() =>  props.onFocus&& props.onFocus } />;
     }
 
     return (
-        <div className={classes.Input} style={{ ...props.containerStyle }} key={props.key?props.key:Math.random()}>
+        <div className={classes.Input} style={{ ...props.containerStyle }} >
             <label className={classes.Label} style={{ ...props.labelStyle }}>{props.label} </label>
             <div className={inputClasses.join(' ')}
                 style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', ...props.inputStyle, ...props.middleContainerStyle }}>

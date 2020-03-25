@@ -37,7 +37,7 @@ export const VEN_CONTROL_GENERATE_CODE = 'ven_GenerateCode';
 export const VEN_SIGNUP = 'ven_SignUp';
 export const VEN_LOGIN = 'ven_LogIn';
 export const VEN_GENERATE_TRANSFER_CODE = 'ven_GenerateTransferCode';
-
+export const VEN_GET_ALL_TRANSACTIONS='ven_GetAllOperationsForUser';
 
 
 

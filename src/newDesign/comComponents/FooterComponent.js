@@ -9,9 +9,7 @@ import { updateObject, checkValidity, color } from '../../shared/utility';
 import { BrowserView, MobileView } from "react-device-detect";
 import ReactResizeDetector from 'react-resize-detector';
 import FlashingButton from '../../components/UI/FlashingButton/FlashingButton';
-const FooterComponent = (props) => {
-
-    return (<div style={{ backgroundColor: color.white, position: 'fixed', bottom: '0px', left: 0, right: 0, height: '45px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', 
+const FooterComponent = (props) => { return (<div style={{ backgroundColor: color.white, position: 'fixed', bottom: '0px', left: 0, right: 0, height: '45px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', 
     backgroundColor: '#FFFFFF',boxShadow: '0px 0px 10px rgba(248, 188, 60, 0.6)',borderRadius: '10px 10px  0px  0px', 
     ...props.mainContainerStyle }}>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '30px', }}>

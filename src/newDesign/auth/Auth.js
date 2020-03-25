@@ -633,7 +633,7 @@ const Auth = (props) => {
                                                             <Grid zeroMinWidth container item direction='column' justify="center" alignItems="center" xs={12} md={12} lg={12} spacing={0}>
                                                                 <Grid zeroMinWidth container item direction='row' justify="center" alignItems="center" xs={12} md={12} lg={12} spacing={0}>
                                                                     <Input
-                                                                        key={1}
+                                                                      
                                                                         containerStyle={{
                                                                             borderBottom: '2px solid #ccc',
                                                                             display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',
@@ -653,7 +653,7 @@ const Auth = (props) => {
                                                                 </Grid>
                                                                 <Grid zeroMinWidth container item direction='row' justify="center" alignItems="center" xs={12} md={12} lg={12} spacing={0}>
                                                                     {!isForgottenPassword && <Input
-                                                                        key={2}
+                                                                        
                                                                         containerStyle={{
                                                                             backgroundColor: 'white', paddingBottom: '2px', borderBottom: '2px solid #ccc',
                                                                             display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch',

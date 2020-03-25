@@ -17,12 +17,36 @@ import share from '../../assets/images/share.png';
 import error from '../../assets/images/error.png'
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 
-const UserTypeClient = props => {
+const Client_Codigo = props => {
     const [amount, setAmount] = useState();
     const [currency, setCurrency] = useState('US');
+    const [balance, setBalance] = useState(+props.showUserInfo.BalanceUSD);
 
-    const [code, setCode] = useState('123456789');
+    const [code, setCode] = useState('');
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        const { BalanceUSD, BalanceMXN, BalanceBS } = props.showUserInfo;
+        switch (currency) {
+            case 'US': setBalance(+BalanceUSD);
+            case 'MXN': setBalance(+BalanceMXN);
+            case 'BS': setBalance(+BalanceBS);
+            default: { setCurrency('US'); setBalance(+BalanceUSD); }
+        }
+
+    }, []);
+    useEffect(() => {
+        const { BalanceUSD, BalanceMXN, BalanceBS } = props.showUserInfo;
+        switch (currency) {
+            case 'US': setBalance(+BalanceUSD);
+            case 'MXN': setBalance(+BalanceMXN);
+            case 'BS': setBalance(+BalanceBS);
+            default: { setCurrency('US'); setBalance(+BalanceUSD); }
+        }
+
+    }, [currency]);
+
+
     const generateCode = () => {
         if (!+amount > 0) return setMessage('Monto no puede ser inferior a 1');
         if (!(currency.length > 1)) return setMessage('Seleccione el tipo de moneda');
@@ -38,7 +62,8 @@ const UserTypeClient = props => {
                 .then(res => {
 
                     if (res.status == 200) {
-                        setCode(res.data.Code);
+                        if (res.data && res.data.result)
+                            setCode(res.data.result[0].Code);
                     }
                     if (res.status == 501) {
                         setMessage(res.message);
@@ -59,6 +84,7 @@ const UserTypeClient = props => {
         document.execCommand('copy');
         textField.remove();
     };
+
     return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', }}>
 
         <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
@@ -83,19 +109,19 @@ const UserTypeClient = props => {
                                     width: '100%', paddingTop: '2px', minHeight: '50px', fontSize: '12px', marginRight: '5px', marginLeft: '5px',
                                 }}
                                 middleContainerStyle={{ border: 'none', }}
-                                inputStyle={{ minHeight: '50px', border: 'none', fontSize: '14px' }}
+                                inputStyle={{ minHeight: '50px', border: 'none', fontSize: '14px', outline: 'none' }}
                                 // leftImage={require("../../assets/images/user.png")}
                                 elementType='input'
-
+                                elementConfig={{ type: 'number', placeholder: 'monto', }}
                                 value={amount}
                                 // invalid={!emailValid}
                                 // shouldValidate={{ required: true, isEmail: true }}
                                 // touched={emailTouched}
-                                changed={e => setAmount(e.currentTarget.value)}
-                                onFocus={() => { setMessage(''); }}
+                                changed={(e) => { setAmount(e.target.value) }}
+                                onFocus={(e) => { setMessage(''); }}
                             />
                             <Input
-                                key={2555}
+                                key={'someRandom'}
                                 label={'Moneda:'}
                                 labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
                                 containerStyle={{
@@ -119,12 +145,12 @@ const UserTypeClient = props => {
                             <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', alignSelf: 'flex-start', marginTop: '20px', width: '100%' }}>
                                 <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px' }}>
                                     <label style={{ fontSize: '12px', marginRight: '10px' }}>{'Disponible: '}</label>
-                                    <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px' }} >{'10.34'}  {currency}</label> 
+                                    <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px' }} >{(amount > 0) ? +(balance - amount) : balance}  {currency}</label>
                                 </div>
                                 <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', marginTop: '5px' }}>
-                                    <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-start' }}>
+                                    <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-start', wordWrap: 'wrap' }}>
                                         <label style={{ fontSize: '12px', marginRight: '10px' }}>{'CÓDIGO: '}</label>
-                                        <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px', marginRight: '10px' }} >    {code} </label>
+                                        <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px', marginRight: '10px', maxWidth: '140px' }} > {code} </label>
                                     </div>
                                     <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignSelf: 'stretch', paddingLeft: '5px', marginLeft: '20px', paddingLeft: '10px', paddingRight: '0px', marginRight: '0px' }}>
 
@@ -132,12 +158,12 @@ const UserTypeClient = props => {
                                             clicked={(e) => { copyToClipboard() }}
                                             clickableImage={true}
                                             image={copy}
-                                        /> 
+                                        />
                                         <FlashingButton
-                                            clicked={(e) => { copyToClipboard() }}
+                                            clicked={(e) => { alert('Download list') }}
                                             clickableImage={true}
                                             image={share}
-                                        /> 
+                                        />
                                     </div>
 
                                 </div>
@@ -149,7 +175,7 @@ const UserTypeClient = props => {
                             <label style={{ paddingLeft: '5px', color: color.red, fontSize: '12px' }}>{message}</label>
                         </div>
                         }
-                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', fontFamily: 'AvenirBlack', width: '40%', height: '30%', alignSelf: 'center' }} >
+                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', fontFamily: 'AvenirBlack', width: '120px', height: '30%', alignSelf: 'center' }} >
                             <FlashingButton
                                 clicked={(e) => { generateCode(e) }}
                                 label={'GENERAR'}
@@ -167,14 +193,15 @@ const UserTypeClient = props => {
 const mapStateToProps = state => {
     return {
         userType: state.auth.userType,
-        userToken: state.auth.userToken
+        userToken: state.auth.userToken,
+        showUserInfo: state.al.showUserInfo,
     };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {  
-        onGenerateTransferCode: (token, amount, currency) => dispatch(actions.generateTransferCode({ type: a.VEN_GENERATE_TRANSFER_CODE, data: { in_Token: token, in_Amount: amount, in_Currency: currency } })),  
+    return {
+        onGenerateTransferCode: (token, amount, currency) => dispatch(actions.generateTransferCode({ type: a.VEN_GENERATE_TRANSFER_CODE, data: { in_Token: token, in_Amount: amount, in_Currency: currency } })),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(UserTypeClient, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Client_Codigo, axios));
