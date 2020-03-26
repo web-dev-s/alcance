@@ -76,14 +76,25 @@ export const userRegistration = (userData) => {
             })
     };
 };
+export const setShowUserInfo = actionData => {
 
+
+    return (dispatch, getState) => {
+
+        dispatch({
+            type: a.VEN_LOCAL_SHOW_USER_INFO,
+            showUserInfo: actionData.showUserInfo,
+        });
+
+    };
+};
 
 
 
 export const generateTransferCode = actionData => {
     return (dispatch, getState) => {
         /*  let state = getState();  */
-    
+
 
         return makeRequest(
             APIConstant.S3_BASE_URL + APIConstant.VEN_GENERATE_TRANSFER_CODE,
@@ -91,7 +102,7 @@ export const generateTransferCode = actionData => {
             actionData.data,
         )
             .then(response => {
-                console.log('-----------generateTransferCode---------------------')
+                console.log('------actions-----generateTransferCode---------------------')
                 console.log(response)
 
                 if (response && response.data && response.data.status === '200') {
@@ -126,15 +137,15 @@ export const generateTransferCode = actionData => {
 export const getAllTransactionsForUser = actionData => {
     return (dispatch, getState) => {
         /*  let state = getState();  */
-    
 
+        console.log(actionData)
         return makeRequest(
             APIConstant.S3_BASE_URL + APIConstant.VEN_GET_ALL_TRANSACTIONS,
             'post',
             actionData.data,
         )
             .then(response => {
-                console.log('-----------generateTransferCode---------------------')
+                console.log('--------actions---getAllTransactionsForUser---------------------')
                 console.log(response)
 
                 if (response && response.data && response.data.status === '200') {
@@ -163,29 +174,144 @@ export const getAllTransactionsForUser = actionData => {
             });
     };
 };
+export const getExchangeRate = actionData => {
+    return (dispatch, getState) => {
+        /*  let state = getState();  */
+
+        return makeRequest(
+            'https://www.luzy-s3.net:5079/luzy_api/getExchangeCost',//+ APIConstant.VEN_GET_EXCHANGE_RATE,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+                console.log('--------actions---getExchangeRate---------------------')
+                console.log(response)
+
+                if (response && response.data && response.data.status === '200') {
+
+                    //  dispatch(updateBallance({ BalanceUSD: response.data.result.BalanceUSD, BalanceMXN: response.data.result.BalanceMXN, BalanceBS: response.data.result.BalanceBS }));
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
+
+export const exchangeCurrencies = actionData => {
+    return (dispatch, getState) => {
+        /*  let state = getState();  */
+
+        return makeRequest(
+            'https://www.luzy-s3.net:5079/luzy_api/' + APIConstant.VEN_EXCHANGE_CURRENCIES,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+                console.log('--------actions---getAllTransactionsForUser---------------------')
+                console.log(response)
+
+                if (response && response.data && response.data.status === '200') {
+
+                    dispatch(updateBallance({ BalanceUSD: response.data.result.BalanceUSD, BalanceMXN: response.data.result.BalanceMXN, BalanceBS: response.data.result.BalanceBS }));
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
+export const updateBallance = actionData => {
 
 
+    return (dispatch, getState) => {
 
+        dispatch({
+            type: a.VEN_UPDATE_BALLANCE,
+            BalanceUSD: actionData.BalanceUSD,
+            BalanceMXN: actionData.BalanceMXN,
+            BalanceBS: actionData.BalanceBS
+        });
 
+    };
+};
+export const rechargeBallances = actionData => {
+    return (dispatch, getState) => {
+        /*  let state = getState();  */
 
+        return makeRequest(
+            APIConstant.S3_BASE_URL + APIConstant.VEN_RECHARGE_BALLANCE,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+                console.log('--------actions---getAllTransactionsForUser---------------------')
+                console.log(response)
 
+                if (response && response.data && response.data.status === '200') {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    dispatch(updateBallance({ BalanceUSD: response.data.result.BalanceUSD, BalanceMXN: response.data.result.BalanceMXN, BalanceBS: response.data.result.BalanceBS }));
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -775,18 +901,7 @@ export const clientApprovePaymentTransfer = actionData => {
             });
     };
 };
-export const setShowUserInfo = actionData => {
 
-
-    return (dispatch, getState) => {
-
-        dispatch({
-            type: a.VEN_LOCAL_SHOW_USER_INFO,
-            showUserInfo: actionData.showUserInfo,
-        });
-
-    };
-};
 export const setProfileImage = actionData => {
 
     console.log('store -actions-setProfileImage' + JSON.stringify(actionData))

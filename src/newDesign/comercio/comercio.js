@@ -70,9 +70,8 @@ const UserTypeComercio = props => {
             setReadQR(false); setReqAmount(0); setQRReaderCamera(true);
         });
     }
-
     return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-        <MobileView style={{ width: '100%', display: 'flex', flexDirection: 'column',flex:1}}>
+        <MobileView style={{ width: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{
                 display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
                 marginTop: '2%'
@@ -300,7 +299,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
 
         onClientDetails: (id) => dispatch(actions.clientGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),
         onComercioDetails: (id) => dispatch(actions.comercioGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),

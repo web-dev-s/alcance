@@ -1,0 +1,67 @@
+.UserInfo {
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    z-index: 500;
+    padding: 16px;
+    left: 15%;
+    top: 30%;
+    width: 70%;
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+    justify-content: center;
+    align-items: center;
+    min-height: 40%;
+    border-radius: 30px;
+}
+
+@media (min-width: 600px) {
+    .UserInfoModal {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
+}
+
+.container {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    background-color: 'orange';
+    min-height: 500px;
+    /* You must set a specified height */
+    background-position: center;
+}
+
+.modalStyle {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .2);
+    color: #FFF;
+    font-size: 40px,
+}
+
+
+.ComponentWidth {
+    /*   transform: translateY(-100%); */
+    overflow-y: auto;
+}
+
+@media (max-width:423px) {
+    .ComponentWidth {
+        width: 90%;
+    }
+}
+@media (max-width:296px) {
+    .ComponentWidth {
+        width: 100%;
+    }
+}
+@media (min-width:500px) {
+    .ComponentWidth {
+        width: 60%;
+    }
+}

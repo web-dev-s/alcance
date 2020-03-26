@@ -18,7 +18,7 @@ const input = (props) => {
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed}
-                onFocus={ props.onFocus&& props.onFocus } />;
+                onFocus={props.onFocus && props.onFocus} />;
             break;
         case ('textarea'):
             inputElement = <textarea
@@ -27,15 +27,16 @@ const input = (props) => {
                 {...props.elementConfig}
                 value={props.value}
                 onChange={() => props.changed && props.changed}
-                onFocus={() =>  props.onFocus&& props.onFocus } />
+                onFocus={() => props.onFocus && props.onFocus} />
             break;
         case ('select'):
             inputElement = (
                 <select
                     style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
                     value={props.value}
-                    onChange={() => props.changed && props.changed}
-                    onFocus={() =>  props.onFocus&& props.onFocus }
+                    defaultValue={props.value || ''}
+                    onChange={(e) => props.changed && props.changed(e)}
+                    onFocus={(e) => props.onFocus && props.onFocus(e)}
                 >
                     {props.elementConfig.options.map(option => (
                         <option key={option.value} value={option.value} className={inputClasses.join(' ')} style={{ border: 'none', outline: 'none', width: '100%', ...props.optionStyle, }}>
@@ -52,7 +53,7 @@ const input = (props) => {
                 {...props.elementConfig}
                 value={props.value}
                 onChange={() => props.changed && props.changed}
-                onFocus={() =>  props.onFocus&& props.onFocus }
+                onFocus={() => props.onFocus && props.onFocus}
             />;
             break;
         default:
@@ -61,7 +62,7 @@ const input = (props) => {
                 {...props.elementConfig}
                 value={props.value}
                 onChange={() => props.changed && props.changed}
-                onFocus={() =>  props.onFocus&& props.onFocus } />;
+                onFocus={() => props.onFocus && props.onFocus} />;
     }
 
     return (

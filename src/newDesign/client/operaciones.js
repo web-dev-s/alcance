@@ -28,146 +28,28 @@ import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 const Client_Operaciones = props => {
 
-    const [checkTime, setCheckTime] = useState();
-    const [stopChecking, setStopChecking] = useState(false);
-    const [pendingPayment, setPendingPayment] = useState(null);
-    const [openDialog, setOpenDialog] = useState(false);
-
-    const [balance, setBalance] = useState(0);
-    const [transList, setTransList] = useState([]);
-    const [rechargeCode, setRechargeCode] = useState('');
-    const [rechargeCodeMessage, setRechargeCodeMessage] = useState('');
-    const [generatedQR, setGeneratedQR] = useState(null);
-
+    
+    const [transList, setTransList] = useState([]); 
     const { userType, userId } = props;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //  useEffect(() => { if ((userType === 'client')) { pendingPayment && setOpenDialog(true); } }, [pendingPayment, userType]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //  useEffect(() => {
-    //      if ((userType === 'client') && (!stopChecking)) {
-    //          props.onClientCheckPendingPayments(userId).then(res => { if (res.status === '200') { setStopChecking(true); setPendingPayment({ id: res.data.result[0].ID, amount: res.data.result[0].Amount }); } });
-    //      }
-    //  }, [props, checkTime, userType, userId, stopChecking]);
-
-    const chargeAcount = () => {
-        props.onClientChargeAccount(props.userId, rechargeCode).then(res => {
-
-            if (res.status === '200') {
-                props.onClientDetails(props.userId).then(res => {
-                    if (res.status === '501') { setBalance(0); }
-                    if (res.status === '200') { setBalance(res.data.result[0].Balance); };
-                });
-                props.onClientTList(props.userId).then(res => {
-                    if (res.status === '501') { setTransList([]); }
-                    if (res.status === '200') { setTransList([...res.data.result]); }
-                });
-
-                setRechargeCodeMessage(<p style={{ color: 'green', fontWeight: '900' }}> Monto ingresado</p>);
-
-            } else setRechargeCodeMessage(<p style={{ color: 'red', fontWeight: '900' }}>Código invalido ( {res.message} )</p>);
-        });
-    }
-    const aprovePaymentTransfer = () => {
-        if (pendingPayment.id === null) return;
-
-        props.onApprovePaymentTransfer(pendingPayment.id).then(res => {
-            if (res.status === '200') {
-                setBalance(res.data.result[0].Balance);
-
-                setOpenDialog(false); props.onClientTList(props.userId).then(res => {
-                    if (res.status === '501') { setTransList([]); }
-                    if (res.status === '200') { setTransList([...res.data.result]); setStopChecking(false); }
-                });
-            };
-            /*   console.log('props.onApprovePaymentTransfer' + pendingPayment.id + '=>' + JSON.stringify(res)); */
-        });
-    }
-    const mesageModalClosed = () => {
-        setOpenDialog(false); setPendingPayment(null); setStopChecking(true);
-        setTimeout(() => { setStopChecking(false) }, 5000);
-    };
-    let showMessage = <div style={{ zIndex: '200', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-around', }}>
-            <h2 style={{ marginTop: '12px', color: 'black', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-            > Solicitud de transacción </h2>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', }}>
-            <div style={{ marginTop: '3%', paddingTop: '3%', paddingRight: '4%' }}>
-                <img src={giveMoney} alt="giveMoney" />
-            </div>
-            <div>
-                <p style={{ color: pendingPayment && !isNaN(+pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'blue' : 'orange' }} >
-                    <b style={{ color: pendingPayment && !isNaN(pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'green' : 'red' }}>
-                        {(pendingPayment && pendingPayment.amount * 41624.00) || 0}
-                    </b> $ Bolívares</p>
-                <p style={{ color: pendingPayment && !isNaN(+pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'blue' : 'orange' }} >
-                    <b style={{ color: pendingPayment && !isNaN(pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'green' : 'red' }} >
-                        {(pendingPayment && !isNaN(+pendingPayment.amount)) ? pendingPayment.amount : 0}
-                    </b> $ USD</p>
-                <p style={{ 'blue': 'darkBlue' }} >
-                </p>
-                <p> Comercio ID: <b style={{ color: 'green' }} > {pendingPayment && pendingPayment.id !== null ? pendingPayment.id : '---'}
-                </b>  </p>
-
-            </div>
-
-            {/*    <Spinner /> */}
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-around', }}>
-            <Button color="primary"
-                style={{ marginTop: '12px', width: '30%', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-                onClick={() => mesageModalClosed()}>
-                NO INTERESA
-</Button>
-            <Button color="primary"
-                style={{ marginTop: '12px', width: '30%', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-                onClick={() => aprovePaymentTransfer()}>
-                PAGAR
-</Button>
-        </div>
-    </div >;
-
-
-    const Card = (props) => {
-        return < div style={{
-            boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
-            border: '1px solid lightgray', borderRadius: '3px',
-            display: 'block', overflowY: 'auto', padding: '5px',
-            maxHeight: '800px',
-            minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
-            justifyContent: 'center', textAlign: 'center',
-            minHeight: '60%',
-
-            maxWidth: '99%',
-            paddingBottom: '5px',
-            width: '90%',
-            position: 'relative',
-            overflow: 'hidden',
-            marginTop: '10px', marginBottom: '10px',
-        }
-        }>
-            {props.children}
-        </div >
-    }
-
-
+ 
+  
     useEffect(() => {
-       /*  props.onGetAllTransactionsForUser(props.token).then(res => {
+
+        console.log('------Client_Operaciones--------------------------------------')
+        console.log(props)
+        props.onGetAllTransactionsForUser(props.userToken).then(res => {
             console.log('-----onGetAllTransactionsForUser--------------');
             console.log(res);
             if (res.status === '200') setTransList([...res.data.result])
 
 
-        }); */
+        });
 
 
 
-    }, []);
-
-
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '18%' }}>
+    }, []); 
+    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '68px' }}>
 
         <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
             <BrowserView>
@@ -178,7 +60,7 @@ const Client_Operaciones = props => {
                     < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
 
                         <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
-                            <text style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Operaciones recientes'}</text>
+                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Operaciones recientes'}</label>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', textAlign: 'left', marginTop: '20px' }}>
                             <List dense style={{ minWidth: '99%' }}>
@@ -238,7 +120,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
 
-        onGetAllTransactionsForUser: (token) => dispatch(actions.setShowUserInfo({ type: a.VEN_GET_ALL_TRANSACTIONS, data: { in_Token: token } })),
+        onGetAllTransactionsForUser: (token) => dispatch(actions.getAllTransactionsForUser({ type: a.VEN_GET_ALL_TRANSACTIONS, data: { in_Token: token } })),
 
     };
 };

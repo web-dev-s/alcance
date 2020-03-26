@@ -8,7 +8,7 @@ const navigationItems = (props) => (
         {/*    { <NavigationItem link="/" exact>Home</NavigationItem>} */}
         {/*   {props.isAuthenticated ? <NavigationItem link="/payment">Payment Page</NavigationItem> : null}   */}
 
-        {props.isAuthenticated ? <NavigationItem link="/dashboard">Home</NavigationItem> : null}
+        {props.isAuthenticated ? <NavigationItem link={props.userType == 'client' ? "/client" : '/comercio'}>Home</NavigationItem> : null}
         {!props.isAuthenticated
             ? <NavigationItem link="/">Authenticate</NavigationItem>
             : <NavigationItem link="/logout">Logout</NavigationItem>}
@@ -19,7 +19,7 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.authenticated,
         userType: state.auth.userType,
-        userId: state.auth.userId
+        userToken: state.auth.userId
     }
 }
 export default connect(mapStateToProps, null)(navigationItems); 

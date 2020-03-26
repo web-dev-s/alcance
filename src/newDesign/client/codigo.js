@@ -19,51 +19,51 @@ import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device
 
 const Client_Codigo = props => {
     const [amount, setAmount] = useState();
-    const [currency, setCurrency] = useState('US');
-    const [balance, setBalance] = useState(+props.showUserInfo.BalanceUSD);
+
+    const [balance, setBalance] = useState({ currency: 'USD', value: +props.showUserInfo.BalanceUSD });
 
     const [code, setCode] = useState('');
     const [message, setMessage] = useState('');
 
     useEffect(() => {
         const { BalanceUSD, BalanceMXN, BalanceBS } = props.showUserInfo;
-        switch (currency) {
-            case 'US': setBalance(+BalanceUSD);
-            case 'MXN': setBalance(+BalanceMXN);
-            case 'BS': setBalance(+BalanceBS);
-            default: { setCurrency('US'); setBalance(+BalanceUSD); }
+        switch (balance.currency) {
+            case 'USD': setBalance({ ...balance, value: +BalanceUSD }); break;
+            case 'MXN': setBalance({ ...balance, value: +BalanceMXN }); break;
+            case 'BS': setBalance({ ...balance, value: +BalanceBS }); break;
+            default: setBalance({ currency: 'USD', value: +props.showUserInfo.BalanceUSD })
         }
 
     }, []);
     useEffect(() => {
         const { BalanceUSD, BalanceMXN, BalanceBS } = props.showUserInfo;
-        switch (currency) {
-            case 'US': setBalance(+BalanceUSD);
-            case 'MXN': setBalance(+BalanceMXN);
-            case 'BS': setBalance(+BalanceBS);
-            default: { setCurrency('US'); setBalance(+BalanceUSD); }
+        switch (balance.currency) {
+            case 'USD': setBalance({ ...balance, value: +BalanceUSD }); break;
+            case 'MXN': setBalance({ ...balance, value: +BalanceMXN }); break;
+            case 'BS': setBalance({ ...balance, value: +BalanceBS }); break;
+            default: setBalance({ currency: 'USD', value: +props.showUserInfo.BalanceUSD })
         }
 
-    }, [currency]);
+    }, [balance.currency]);
 
 
     const generateCode = () => {
         if (!+amount > 0) return setMessage('Monto no puede ser inferior a 1');
-        if (!(currency.length > 1)) return setMessage('Seleccione el tipo de moneda');
+        if (!(balance.currency.length > 1)) return setMessage('Seleccione el tipo de moneda');
 
-        if ((currency.length > 1) && (currency.length > 1)) {
+        if ((balance.currency.length > 1) && (balance.currency.length > 1)) {
 
             console.log('-------------------------------------------------------------');
             console.log(props);
             console.log(amount);
-            console.log(currency);
+            console.log(balance.currency);
             //props.onGenerateTransferCode(props.userToken, amount, currency);
-            props.onGenerateTransferCode(props.userToken, amount, currency)
+            props.onGenerateTransferCode(props.userToken, amount, balance.currency)
                 .then(res => {
 
                     if (res.status == 200) {
                         if (res.data && res.data.result)
-                            setCode(res.data.result[0].Code);
+                            setCode(res.data.result[0].Code); 
                     }
                     if (res.status == 501) {
                         setMessage(res.message);
@@ -100,7 +100,7 @@ const Client_Codigo = props => {
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: '100%', textAlign: 'left', marginTop: '20px' }}>
                             <p style={{ fontSize: '12px' }} > {'Introduzca el monto para generar el codigo:'}</p>
                             <Input
-                                key={1}
+
                                 label={'Monto:'}
                                 labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
                                 containerStyle={{
@@ -121,9 +121,8 @@ const Client_Codigo = props => {
                                 onFocus={(e) => { setMessage(''); }}
                             />
                             <Input
-                                key={'someRandom'}
                                 label={'Moneda:'}
-                                labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
+                                labelStyle={{ color: color.black, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
                                 containerStyle={{
                                     borderBottom: '2px solid #ccc', outline: 'none',
                                     display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center',
@@ -133,19 +132,19 @@ const Client_Codigo = props => {
                                 inputStyle={{ minHeight: '50px', outline: 'none', fontSize: '14px', border: 0, boxShadow: 'none' }}
                                 // leftImage={require("../../assets/images/user.png")}
                                 elementType={'select'}
-                                elementConfig={{ options: [{ value: 'US', displayValue: 'US' }, { value: 'MXN', displayValue: 'MXN' }, { value: 'BS', displayValue: 'BS' }] }}
+                                elementConfig={{ options: [{ value: 'USD', displayValue: 'USD' }, { value: 'MXN', displayValue: 'MXN' }, { value: 'BS', displayValue: 'BS' }] }}
                                 optionStyle={{ outline: 'none', border: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                                value={currency}
+                                value={balance.currency}
                                 // invalid={!emailValid}
                                 // shouldValidate={{ required: true, isEmail: true }}
                                 // touched={emailTouched}
-                                changed={e => setCurrency(e.currentTarget.value)}
+                                changed={e => { setBalance({ ...balance, currency: e.currentTarget.value, }); }}
                                 onFocus={() => { setMessage(''); }}
                             />
                             <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', alignSelf: 'flex-start', marginTop: '20px', width: '100%' }}>
                                 <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px' }}>
                                     <label style={{ fontSize: '12px', marginRight: '10px' }}>{'Disponible: '}</label>
-                                    <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px' }} >{(amount > 0) ? +(balance - amount) : balance}  {currency}</label>
+                                    <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px' }} >{(amount > 0) ? +(balance.value - amount) : balance.value}  {balance.currency}</label>
                                 </div>
                                 <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', marginTop: '5px' }}>
                                     <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-start', wordWrap: 'wrap' }}>
@@ -201,6 +200,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGenerateTransferCode: (token, amount, currency) => dispatch(actions.generateTransferCode({ type: a.VEN_GENERATE_TRANSFER_CODE, data: { in_Token: token, in_Amount: amount, in_Currency: currency } })),
+
+
     };
 };
 

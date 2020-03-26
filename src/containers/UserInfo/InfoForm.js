@@ -490,7 +490,7 @@ const InfoForm = props => {
                             key={idx}
 
                             labelStyle={{ textAlign: 'left', paddingLeft: '0px', }}
-                            inputStyle={{ paddingTop: '10px', minHeight: '40px', fontSize: '16px', marginLeft: '0px', paddingLeft: '10px', marginRight: '5px', }}
+                            inputStyle={{ paddingTop: '10px', minHeight: '40px', fontSize: '16px', marginLeft: '0px', paddingLeft: '10px', marginRight: '5px', border:'none', outline:'none'}}
 
                             label={formElement.config.elementConfig.placeholder}
                             elementType={formElement.config.elementType}
@@ -524,7 +524,7 @@ const InfoForm = props => {
                                     key={formElement.idx}
 
                                     labelStyle={{ textAlign: 'left', paddingLeft: '0px', }}
-                                    inputStyle={{ paddingTop: '10px', minHeight: '40px', fontSize: '16px', marginLeft: '0px', paddingLeft: '10px', marginRight: '5px', }}
+                                    inputStyle={{ paddingTop: '10px', minHeight: '40px', fontSize: '16px', marginLeft: '0px', paddingLeft: '10px', marginRight: '5px',, border:'none', outline:'none' }}
 
                                     label={formElement.config.elementConfig.placeholder}
 
@@ -554,7 +554,7 @@ const InfoForm = props => {
                             key={idx}
 
                             labelStyle={{ textAlign: 'left', paddingLeft: '0px', }}
-                            inputStyle={{ paddingTop: '10px', minHeight: '40px', fontSize: '16px', marginLeft: '0px', paddingLeft: '10px', marginRight: '5px', }}
+                            inputStyle={{ paddingTop: '10px', minHeight: '40px', fontSize: '16px', marginLeft: '0px', paddingLeft: '10px', marginRight: '5px', border:'none', outline:'none' }}
 
                             label={formElement.config.elementConfig.placeholder}
 

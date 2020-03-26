@@ -75,7 +75,7 @@ const Layout = props => {
           </main>
         {(props.isAuthenticated) && <FooterComponent
           mainContainerStyle={{ bottom: '0px' }}
-          onBackClick={() => props.history.push('/' + props.userType)} />}
+          onBackClick={() => props.history.push(props.userType=='client'?'/client':'/comercio')} />}
       </MobileView >
     </Uxi >
   );

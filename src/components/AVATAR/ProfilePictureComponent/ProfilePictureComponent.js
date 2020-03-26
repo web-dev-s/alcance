@@ -1,7 +1,7 @@
 import React, { useState/* , useRef, useEffect  */ } from 'react';
 import { connect } from 'react-redux';
 //import * as actions from '../../../store/actions/index';
-//import avatar from '../../../../assets/images/profileImg.png';
+import avatar from '../../../assets/images/profileImg.png';
 import editImg from '../../../assets/images/edit.png';
 import classes from './ProfilePictureComponent.css';
 import Measure from "react-measure";
@@ -30,7 +30,7 @@ const ProfilePictureComponent = (props) => {
                 {({ measureRef }) => (
                     <div ref={measureRef} style={{ overflow: 'hidden', flex: 1, display: 'flex', borderRadius: '50%', alignSelf: 'center', /* height: '50%', */ width: '50%', }}>
 
-                        <img src={props.profileImage} alt="avatar" style={{ height: avatarContainer.height, width: avatarContainer.width, resize: 'contain', alignSelf: 'center' }} />
+                        <img src={props.profileImage ? props.profileImage : avatar} alt="avatar" style={{ height: avatarContainer.height, width: avatarContainer.width, resize: 'contain', alignSelf: 'center' }} />
                     </div>
                 )}
             </Measure>

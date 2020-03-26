@@ -15,7 +15,7 @@ const initialState = {
         BusinessAddress: '',
         BalanceMXN: '',
         BalanceUSD: '',
-        BalanceBS: '', 
+        BalanceBS: '',
         BusinessName: '',
         State: '',
         Code: ''
@@ -63,6 +63,11 @@ const setShowUserInfo = (state, action) => {
 
     return updateObject(state, { showUserInfo: action.showUserInfo })
 }
+const seBallanceAmounts = (state, action) => {
+
+    return updateObject(state, { showUserInfo: { ...state.showUserInfo, BalanceUSD: action.BalanceUSD, BalanceMXN: action.BalanceMXN, BalanceBS: action.BalanceBS } })
+}
+
 const setProfileImage = (state, action) => {
 
     return updateObject(state, { profileImage: action.profileImage })
@@ -86,7 +91,15 @@ const reducer = (state = initialState, action) => {
         case actionTypes.VEN_CONTROL_GET_TRANSACTIONS_LIST: return setAuthRedirectPath(state, action);
         case actionTypes.VEN_CONTROL_GENERATE_CODE: return setAuthRedirectPath(state, action);
 
+      
+      
+      
+      
+      
+      
+      ///for version redesigned:
         case actionTypes.VEN_LOCAL_SHOW_USER_INFO: return setShowUserInfo(state, action);
+        case actionTypes.VEN_UPDATE_BALLANCE: return seBallanceAmounts(state, action);
         case actionTypes.VEN_LOCAL_SAVE_PROFILE_IMAGE: return setProfileImage(state, action);
 
         default:
