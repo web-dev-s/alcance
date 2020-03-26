@@ -71,7 +71,7 @@ const UserTypeClient = props => {
                         console.log(props.showUserInfo);
                         setExchangeInfo({ ...exchangeInfo, exchangeRate: res.data.result.currencyExchangePerUnit });
                         // setConvertedAmount(res.data.result.exchangeCost);
-                        setConvertedAmount((+exchangeInfo.exchangeRate) * (+exchangeInfo.amount))
+                        setConvertedAmount((+res.data.result.currencyExchangePerUnit) * (+exchangeInfo.amount))
                     }
                 }
             });

@@ -33,8 +33,7 @@ const input = (props) => {
             inputElement = (
                 <select
                     style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
-                    value={props.value}
-                    defaultValue={props.value || ''}
+                    value={props.value||''} 
                     onChange={(e) => props.changed && props.changed(e)}
                     onFocus={(e) => props.onFocus && props.onFocus(e)}
                 >

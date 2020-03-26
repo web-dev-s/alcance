@@ -1,128 +1,155 @@
-
-import React, { useEffect, useState } from 'react';
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import ProfileItem from "./ProfileItem";
+import profileIcon from '../../assets/images/user.png';
 import * as actions from '../../store/actions/index';
-import axios from '../../axios-orders';
-import classes from './UserInfo.css';
-//import Uxi from '../../hoc/Uxi/Uxi';
-
-import Spinner from '../../components/UI/Spinner/Spinner';
-
-import InfoModal from '../../components/UI/Modal/InfoModal';
-import avatar from '../../assets/images/profileImg.png';
-import exitImg from '../../assets/images/exit.png';
-//import Input from '../../components/UI/Input/Input'; 
-import CameraComponent from '../../components/AVATAR/SwitchCamsComponent/CameraComponent';
-//import { Button } from '@material-ui/core';
-import ProfilePictureComponent from '../../components/AVATAR/ProfilePictureComponent/ProfilePictureComponent';
-import InfoForm from './InfoForm';
+import dateIcon from '../../assets/images/calendar.png';
+import idIcon from '../../assets/images/cedula.png';
+import phoneIcon from '../../assets/images/phone.png';
+import emailIcon from '../../assets/images/email.png';
+import passwordIcon from '../../assets/images/lock.png';
+import profileImg from '../../assets/images/profileImg.png';
+import globeIcon from '../../assets/images/globe.png';
+import locationIcon from '../../assets/images/location.png';
+import mapIcon from '../../assets/images/map.png';
+import editIcon from '../../assets/images/edit.png';
 import FlashingButton from '../../components/UI/FlashingButton/FlashingButton';
-//import { getDeviceId } from '../../components/UI/AVATAR/SwitchCamsComponnt/local_hooks/use-deviceId-media';
-import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
-const UserInfo = props => {
-    const [changingAvatar, setChangingAvatar] = useState(false);
-    const [editInfo, setEditInfo] = useState(false);
+import { updateObject, checkValidity, color } from '../../shared/utility';
+import Input from '../../components/UI/Input/Input'; 
+ 
+const UserClientProfile = props => {
 
-    const mesageModalClosed = () => {
-        setTimeout(() => props.history.goBack(), 1500);
-        props.onSetShowUserInfo(!props.showUserInfo);
-        /*  setOpenDialog(false); */
+ 
+    useEffect(() => { console.log(props.userType) }, [])
+
+    const [editableText, setEditableText] = useState(false);
+
+    const [email, setEmail] = useState(props.userInfo.Email);// useState('a@a.aaa');
+    const [emailValid, setEmailValid] = useState(true);
+    const [emailTouched, setEmailTouched] = useState(false);
+
+    const [phone, setPhone] = useState(props.userInfo.Phone);// useState('a@a.aaa');
+    const [phoneValid, setPhoneValid] = useState(true);
+    const [phoneTouched, setPhoneTouched] = useState(false);
+
+    const inputEmailChanged = (e) => {
+        setEmail(e.target.value);
+        setEmailValid(checkValidity(e.target.value, { required: true, isEmail: true }));
+        setEmailTouched(true);
     };
-
-    const handleFileSelect = (e) => {
-        e.preventDefault();
-        const fileSelector = document.createElement('input');
-        fileSelector.setAttribute('type', 'file');
-        fileSelector.addEventListener("change", function (e) {
-            // console.log('change:=> ', e.target.files);
-
-            props.onSetProfileImage(URL.createObjectURL(e.target.files[0]));
-
-
-        }, false);
-
-        fileSelector.click();
-    }
-    let showMessage = <div style={{ zIndex: '200', flex: 1, justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-
-
-    </div >;
-
-    if (props.loading) {
-        showMessage = <Spinner />;
-
-    }
-
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', }}>
-
-
-        <BrowserView>
-            <p>UNDER CONSTRUCTION</p>
-        </BrowserView>
-        <MobileView style={{ width: '100%' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: '8%' }}>
-                <div style={{ flex: 1, top: '30px', width: '80%', height: '30%', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center' }}>
-                    {!changingAvatar &&
-                        <ProfilePictureComponent onClick={() => setChangingAvatar(true)}
-                            onTakeFoto={() => setChangingAvatar(true)}
-                            onUploadFoto={(e) => handleFileSelect(e)}
-                            onDeleteFoto={() => props.onSetProfileImage(avatar)}
-
-
-                        />
-                    }
-                    {changingAvatar && (<div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center'/* width: '250px', height: '250px' */ }}>
-
-                        <CameraComponent returnToInfos={() => setChangingAvatar(false)} />
-
-                    </div>)
-                    }
-                </div >
-
-                {!changingAvatar && <div className={[classes.ComponentWidth]} style={{ flex: 1, alignSelf: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '5%', marginBottom: '5%' }}>
-                    <FlashingButton
-                        clicked={(e) => setEditInfo(!editInfo)}
-                        label={!editInfo ? 'EDITAR' : 'SAVE INFO'}
-                        style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                </div>
-                }
-                {
-                    (!changingAvatar)
-                        ? <InfoForm editable={editInfo} />
-
-                        : null
-                }
+    const inputPhoneChanged = (e) => {
+        setPhone(e.target.value);
+        setPhoneValid(checkValidity(e.target.value, { required: true, isEmail: false }));
+        setPhoneTouched(true);
+    };
+    const fieldText = (img, fieldText, editable) => {
+        return <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignitems: 'center', paddingTop: '10px', paddingBottom: '5px', flex: 1, borderBottom: '1px solid #D2D2D2' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignitems: 'center', alignSelf: 'center', width: '20px' }}>
+                <img src={img} style={{ width: '20px', height: '20px', resizeMode: 'contain' }} />
             </div>
-        </MobileView>
+            <div style={{ display: 'flex', flex: 2, flexDirectiom: 'row', justifyContent: 'flex_start', alignItems: 'center', alignSelf: 'center', }}>
+                <label style={{ fontSize: '12px', alignSelf: 'flex-start', paddingLeft: '10%', width: '100%' }} >{fieldText}</label>
+            </div>
+            {editable && <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'flex-end', alignSelf: 'flex-end', paddingLeft: '5px', marginLeft: '20px', paddingLeft: '10px', paddingRight: '0px', marginRight: '0px' }}>
+                <FlashingButton
+                    clicked={(e) => { setEditableText(true) }}
+                    clickableImage={true}
+                    image={editIcon}
+                    imageStyle={{ alignSelf: 'flex-end', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+                    containerStyle={{ alignSelf: 'flex-end', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+                />
 
-    </div >
-    );
+            </div>}
+        </div>
+    }
+    const renderEditableField = (img, fieldText) => {
+        return <Input
+            key={fieldText}
+            containerStyle={{
+                borderBottom: '1px solid #D2D2D2',
+                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',
+                width: '100%', paddingTop: '2px', minHeight: '50px', fontSize: '12px',
+            }}
+            middleContainerStyle={{ border: 'none', }}
+            inputStyle={{ minHeight: '50px', border: 'none', fontSize: '14px' }}
+            leftimage={fieldText == Phone ? phoneIcon : emailIcon}
+            elementType='input'
+            elementConfig={{ type: 'email', placeholder: 'Usuario/Email', }}
+            value={fieldText == Phone ? phone : email}
+            invalid={fieldText == Phone ? !phoneValid : !emailValid}
+            shouldValidate={{ required: true, isEmail: fieldText == Phone ? false : true }}
+            touched={fieldText == Phone ? phoneTouched : emailTouched}
+            changed={event => fieldText == Phone ? inputPhoneChanged(event) : inputEmailChanged(event)}
+            onFocus={() => { }}
+        />
 
 
+    }
+    const { Name, Surname, BirthDate, IDCard, Phone, Email, BusinessName, BusinessAddress, State, } = props.userInfo;
 
+    return (<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignitems: 'center', marginTop: '88px', marginBottom: '45px', marginLeft: '20px', marginRight: '20px', }}>
 
-};
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignitems: 'center', flex: 1, }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignitems: 'center', flex: 1 }}>
+                    <img src={props.userInfo.profileImage ? props.userInfo.profileImage : profileImg} style={{ width: '100px', height: '100px', resizeMode: 'contain' }} />
+                </div>
+                <div style={{ display: 'flex', flex: 2, flexDirectiom: 'row', justifyContent: 'flex_start', alignItems: 'center', alignSelf: 'center', }}>
+                    <label style={{ fontSize: '22px', alignSelf: 'flex-start', paddingLeft: '10%', width: '100%' }}>{Name} {Surname}</label>
+                </div>
+            </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', flex: 1, paddingBottom: '20px' }}>
+            {props.userType !== 'client' && fieldText(globeIcon, BusinessName)}
+            {props.userType !== 'client' && fieldText(locationIcon, BusinessAddress)}
+            {props.userType !== 'client' && fieldText(mapIcon, State)}
+            {fieldText(profileIcon, Name)}
+            {fieldText(profileIcon, Surname)}
+            {fieldText(dateIcon, BirthDate)}
+            {fieldText(idIcon, IDCard)}
+            {!editableText && fieldText(phoneIcon, Phone, true)}
+            {!editableText && fieldText(emailIcon, Email, true)}
+            {editableText && renderEditableField(phoneIcon, Phone)}
+            {editableText && renderEditableField(emailIcon, Email)}
+            {fieldText(passwordIcon, '*****************')}
+        </div>
 
-const mapStateToProps = state => {
-    return {
-        profileImage: state.al.profileImage,
-        showUserInfo: state.al.showUserInfo,
-        loading: state.auth.loading,
+        {editableText && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: '20px' }}>
+
+            <FlashingButton
+                clicked={(e) => { setEditableText(false) }}
+                label={'SAVE'}
+                style={{
+                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                    textAlign: ' center', marginRight: '10px',
+                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                }}
+                textStyle={{ fontSize: '14px' }}
+            />
+
+            <FlashingButton
+                clicked={(e) => { setEditableText(false) }}
+                label={'DISCARD'}
+                style={{
+                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                    textAlign: ' center', marginLeft: '10px',
+                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                }} textStyle={{ fontSize: '14px' }}
+            />
+
+        </div>}
+    </div >);
+} 
+const mapStateToProps = state => (
+    {
         userType: state.auth.userType,
-        userId: state.auth.userId
-    };
-};
+        userInfo: { profileImage: state.al.profileImage, ...state.al.showUserInfo, },
 
-const mapDispatchToProps = dispatch => {
-    return {
+    }
+);
 
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
+const mapDispatchToProps = dispatch => ({
+    onUpdateUserData: (data) => { dispatch(actions.updateUserData({ data })) }
+});
 
-        onSetShowUserInfo: (showUserInfo) => dispatch(actions.setShowUserInfo({ showUserInfo: showUserInfo })),
-        onSetProfileImage: (proifileImage) => dispatch(actions.setProfileImage({ profileImage: proifileImage })),
-
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(UserInfo, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(UserClientProfile);

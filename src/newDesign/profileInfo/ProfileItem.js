@@ -29,7 +29,7 @@ const ProfileItem = props => {
             }
 
         </div>
-        {editable && <img src={require('../../assets/images/bx_bxs-edit.png')}
+        {editable && <img src={require('../../assets/images/edit.png')}
             className={classes.rightIcon}
             alt="edit"
             onClick={() => {

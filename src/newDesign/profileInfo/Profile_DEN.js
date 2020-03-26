@@ -8,6 +8,7 @@ import idIcon from '../../assets/images/cedula.png';
 import phoneIcon from '../../assets/images/phone.png';
 import emailIcon from '../../assets/images/email.png';
 import passwordIcon from '../../assets/images/lock.png';
+import profileImg from '../../assets/images/profileImg.png'
 //import editIcon from '../../assets/images/bx_bxs-edit.png';
 
 import classes from './Profile.css';
@@ -48,28 +49,28 @@ const UserClientProfile = props => {
             data={props.userInfo[key]}
             onUpdateUserData={props.onUpdateUserData}
             whichData={key} />);
-    }
+    } 
 
-    return (
-        <div style={{ padding: "0 15px", position: 'absolute' }}>
-            <h1>hello</h1>
-            <div className={classes.profileImageWrapper}>
-                {/* <input type="file" /> */}
-                <span className={classes.profileImage} style={{ backgroundImage: props.userInfo.profileImage }}></span>
-                {/* <img class="changeProfileImage" src="https://www.luzy-s1.net/tax4uweb/assets/img/icons/pen@2x.png"/>> */}
-            </div>
-
-          {/*   {profileItems} */}
-            {allFields && allFields.length>0 && allFields.map((item, index)=>{
-                return <ProfileItem key={index}
-            //props
-          
-            data={item}
-            onUpdateUserData={props.onUpdateUserData}
-            whichData={item.id} />
-
-            })}
+    return (<div style={{ padding: "0 15px", position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, marginTop: 0 }}>
+        <h1>hello</h1>
+        <div className={classes.profileImageWrapper}>
+            {/* <input type="file" /> */}
+            <span className={classes.profileImage} style={{ backgroundImage: props.userInfo.profileImage ? props.userInfo.profileImage : profileImg }}></span>
+            {/* <img class="changeProfileImage" src="https://www.luzy-s1.net/tax4uweb/assets/img/icons/pen@2x.png"/>> */}
         </div>
+
+
+        {/*   {profileItems} */}
+        {allFields && allFields.length > 0 && allFields.map((item, index) => {
+            return <ProfileItem key={index}
+                //props
+
+                data={item}
+                onUpdateUserData={props.onUpdateUserData}
+                whichData={item.id} />
+
+        })}
+    </div>
     );
 }
 

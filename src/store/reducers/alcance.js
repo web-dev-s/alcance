@@ -11,12 +11,12 @@ const initialState = {
         Phone: '',
         Email: '',
         BirthDate: '',
-        IDCard: '',
-        BusinessAddress: '',
+        IDCard: '',       
         BalanceMXN: '',
         BalanceUSD: '',
         BalanceBS: '',
         BusinessName: '',
+        BusinessAddress:'',
         State: '',
         Code: ''
     }

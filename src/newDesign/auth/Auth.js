@@ -306,9 +306,9 @@ const Auth = (props) => {
     });
     let authRedirect = null;
 
-    useEffect(() => {get_CredetialsLocal(); }, []);
+    useEffect(() => { get_CredetialsLocal(); }, []);
     useEffect(() => { setErrorMessage(props.error); }, [props.error]);
-  
+
     useEffect(() => {
         setErrorMessage(null);
         if (choice == 2) { scrollToBottom(elem); }
@@ -323,8 +323,8 @@ const Auth = (props) => {
         const passwd = localStorage.getItem('passwordUsed');
 
 
-        if(email&& email.length>2) setEmail(email);
-        if(passwd&& passwd.length>2) setPassword(passwd);
+        if (email && email.length > 2) setEmail(email);
+        if (passwd && passwd.length > 2) setPassword(passwd);
 
 
     }
@@ -374,7 +374,7 @@ const Auth = (props) => {
     const onRegisterClient = (e) => {
         console.log('===email check valid:==============');
         console.log();
-       
+
         if (!checkValidity(authFormClient.email.value, { required: true, isEmail: true, minLength: 2 })) return setErrorMessage('Email not valid');
 
         const dataSent = {
@@ -384,14 +384,14 @@ const Auth = (props) => {
             in_IDCard: authFormClient.id.value,
             in_Phone: authFormClient.phone.value,
 
-            in_Email: authFormClient.email.value,            
+            in_Email: authFormClient.email.value,
             in_Password: authFormClient.password.value,
             in_UserType: 'client',
-           
+
             in_State: '',
             in_BusinessName: '',
-            in_BusinessAddress:'' ,
-           
+            in_BusinessAddress: '',
+
         }
 
 
@@ -402,7 +402,7 @@ const Auth = (props) => {
         if (!checkValidity(authFormComercio.email.value, { required: true, isEmail: true, minLength: 2 })) return setErrorMessage('Email not valid');
 
         const dataSent = {
-           
+
             in_BusinessName: authFormComercio.legalName.value,
             in_BusinessAddress: authFormComercio.department.value,
             in_State: authFormComercio.state.value,
@@ -414,7 +414,7 @@ const Auth = (props) => {
             in_Password: authFormComercio.password.value,
             in_UserType: "comercio",
             in_IDCard: '',
-           
+
             in_BirthDate: ''
         }
 
@@ -422,7 +422,7 @@ const Auth = (props) => {
         props.onAuthRegister(dataSent, props.history);
 
 
-      //  props.history.push('/comercio')
+        //  props.history.push('/comercio')
     }; // props.onSetAuthRedirectPath('/comercio'); }
     const loggingIn = event => {
         event.preventDefault();
@@ -532,7 +532,7 @@ const Auth = (props) => {
     };
     return (
         <>
-            <BrowserView> 
+            <BrowserView>
                 <Grid zeroMinWidth container item direction='row' justify="center" alignItems="center" xs={10} md={10} lg={10} spacing={1}  >
                     <Grid zeroMinWidth container item direction='row' justify="center" alignItems="center" xs={12} md={12} lg={12} spacing={1} >
 
@@ -633,7 +633,7 @@ const Auth = (props) => {
                                                             <Grid zeroMinWidth container item direction='column' justify="center" alignItems="center" xs={12} md={12} lg={12} spacing={0}>
                                                                 <Grid zeroMinWidth container item direction='row' justify="center" alignItems="center" xs={12} md={12} lg={12} spacing={0}>
                                                                     <Input
-                                                                      
+
                                                                         containerStyle={{
                                                                             borderBottom: '2px solid #ccc',
                                                                             display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',
@@ -653,7 +653,7 @@ const Auth = (props) => {
                                                                 </Grid>
                                                                 <Grid zeroMinWidth container item direction='row' justify="center" alignItems="center" xs={12} md={12} lg={12} spacing={0}>
                                                                     {!isForgottenPassword && <Input
-                                                                        
+
                                                                         containerStyle={{
                                                                             backgroundColor: 'white', paddingBottom: '2px', borderBottom: '2px solid #ccc',
                                                                             display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch',
@@ -746,7 +746,7 @@ const Auth = (props) => {
                             minHeight: (+height + 28 + ([1, 2].indexOf(choice) == -1 ? +28 : +0)).toString() + 'px',
                             minWidth: width,
                             color: color.brown,
-                             }}>
+                        }}>
                         <div style={{
                             display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
                             maxHeight: (+height + ([1, 2].indexOf(choice) == -1 ? 0 : -15)).toString() + 'px',
@@ -776,8 +776,7 @@ const Auth = (props) => {
                                 {isLogin
                                     ? <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'stretch' }}>
                                         <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', }}>
-                                            <Input
-                                                key={'1'}
+                                            <Input 
                                                 containerStyle={{
                                                     borderBottom: '2px solid #ccc',
                                                     display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',
@@ -795,8 +794,7 @@ const Auth = (props) => {
                                                 changed={event => inputEmailChanged(event)}
                                                 onFocus={() => { setErrorMessage(null) }}
                                             />
-                                            <Input
-                                                key={'2asdf'}
+                                            <Input 
                                                 containerStyle={{
                                                     backgroundColor: 'white',
                                                     display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch',
@@ -948,7 +946,7 @@ const Auth = (props) => {
 
                         {[1, 2].indexOf(choice) == -1 ? <div key={'scroll'} style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px', position: 'absolute', bottom: '0px' }}>
                             <img src={require("../../assets/images/hand.png")} alt="logo" style={{ width: '25px', height: '25px', resizeMode: 'contain', }} />
-                            <div style={{ width: '3px', backgroundColor: 'white', height: '60px', marginTop: '10px' }}></div>
+                            <div style={{ width: '3px', backgroundColor: 'white', height: '60px', marginTop: '10px' }}/>
 
                         </div>
                             : <FooterComponent onBackClick={() => setChoice(0)} />
