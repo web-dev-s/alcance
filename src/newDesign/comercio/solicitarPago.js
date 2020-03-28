@@ -48,7 +48,7 @@ const Comercio_Payment = props => {
     const [readedQR, setReadedQR] = useState(null);
     const [qrReaderCamera, setQRReaderCamera] = useState(true);
     const [reqAmount, setReqAmount] = useState('');
-
+    const [paymentInfo, setPaymentInfo] = useState({ currency: 'USD', amount: 1, client: '', });
     const { userType, userId } = props;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     //  useEffect(() => { props.onClientDetails(props.userId.toString()).then(res => { if (res.status === '501') { setBalance(0); } if (res.status === '200') { setBalance(res.data.result[0].Balance); }; }); props.onClientTList(props.userId).then(res => { if (res.status === '501') { setTransList([]); } if (res.status === '200') { const list = _.orderBy(res.data.result, 'Date', 'desc'); setTransList([...list]); } }); const interval = setInterval(() => { setCheckTime(Date.now()) }, 5000); return () => { clearInterval(interval) } }, []);
@@ -62,8 +62,10 @@ const Comercio_Payment = props => {
     //  }, [props, checkTime, userType, userId, stopChecking]);
     const handleScan = data => {
         if (data) {
-            //  console.log(' handleScan read:' + data); setReadesQR(data);
-            if (!isNaN(data)) { setReadedQR(data); setQRReaderCamera(false); }
+            console.log(' handleScan read:');
+            console.log(data);
+
+            if (data) { setReadedQR(data); setQRReaderCamera(false); }
         }
         return;
     }
@@ -178,7 +180,7 @@ const Comercio_Payment = props => {
             {props.children}
         </div >
     }
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', marginLeft: '10px', marginRight: '10px', marginTop: '45px' }}>
+    return (<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', paddingLeft: '5%', paddingRight: '5%', marginTop: '48px' }}>
 
         <BrowserView>
             <p>UNDER CONSTRUCTION</p>    </BrowserView>
@@ -191,7 +193,7 @@ const Comercio_Payment = props => {
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', textAlign: 'left', marginTop: '10px' }}>
                         {readQR &&
                             <div style={{ width: '98%' }}>
-                                {qrReaderCamera &&
+                                {qrReaderCamera ?
                                     <div style={{ display: 'flex', padding: '2%', }}>
                                         <QrReader
                                             delay={300}
@@ -201,29 +203,55 @@ const Comercio_Payment = props => {
                                             style={{ width: '100%', height: '100%', backgroundColor: 'yellow' }}
                                         />
                                     </div>
+                                    : <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', textAlign: 'left', marginTop: '20px', marginBottom: '20px' }}>
+                                        <QRCode value={readedQR} style={{ width: '100px', height: '100px' }} />
+                                    </div>
+
+
+
                                 }
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
-                                    <p>{readedQR}</p>
                                     <Input
                                         label={'Monto:'}
-                                        labelStyle={{ color: color.alcanceOrange, textAlign: 'left', fontSize: '12px' }}
+                                        labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
                                         containerStyle={{
-                                            borderBottom: '2px solid #ccc',
+                                            borderBottom: '2px solid #ccc', marginTop: '20px',
                                             display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center',
-                                            width: '100%', paddingTop: '2px', minHeight: '50px', fontSize: '12px', marginRight: '5px', marginLeft: '5px', marginTop: '5px'
+                                            width: '100%', paddingTop: '2px', minHeight: '50px', fontSize: '12px', marginRight: '5px', marginLeft: '5px',
                                         }}
                                         middleContainerStyle={{ border: 'none', }}
-                                        inputStyle={{ minHeight: '50px', border: 'none', fontSize: '14px' }}
+                                        inputStyle={{ minHeight: '50px', border: 'none', fontSize: '14px', outline: 'none' }}
                                         // leftImage={require("../../assets/images/user.png")}
                                         elementType='input'
-                                        elementConfig={{ type: 'number', placeholder: '', }}
-                                        value={reqAmount}
+                                        elementConfig={{ type: 'number', placeholder: 'monto', }}
+                                        value={paymentInfo.amount}
                                         // invalid={!emailValid}
                                         // shouldValidate={{ required: true, isEmail: true }}
                                         // touched={emailTouched}
-                                        changed={event => setReqAmount(event.currentTarget.value)}
+                                        changed={(e) => { setPaymentInfo({ ...paymentInfo, amount: e.currentTarget.value }); }}
+                                    /*  onFocus={(e) => { setMessage(''); }} */
                                     />
-
+                                    <Input
+                                        label={'A moneda:'}
+                                        labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
+                                        containerStyle={{
+                                            borderBottom: '2px solid #ccc', outline: 'none',
+                                            display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center',
+                                            width: '100%', paddingTop: '2px', minHeight: '50px', fontSize: '12px', marginRight: '5px', marginLeft: '5px', marginTop: '20px'
+                                        }}
+                                        middleContainerStyle={{ border: 'none', outline: 'none' }}
+                                        inputStyle={{ minHeight: '50px', outline: 'none', fontSize: '14px', border: 0, boxShadow: 'none' }}
+                                        // leftImage={require("../../assets/images/user.png")}
+                                        elementType={'select'}
+                                        elementConfig={{ options: [{ value: 'USD', displayValue: 'USD' }, { value: 'MXN', displayValue: 'MXN' }, { value: 'BS', displayValue: 'BS' }] }}
+                                        optionStyle={{ outline: 'none', border: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                                        value={paymentInfo.currency}
+                                        // invalid={!emailValid}
+                                        // shouldValidate={{ required: true, isEmail: true }}
+                                        // touched={emailTouched}
+                                        changed={e => { setPaymentInfo({ ...paymentInfo, currency: e.currentTarget.value }); }}
+                                    /*  onFocus={() => { setMessage(''); }} */
+                                    />
                                     <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', fontFamily: 'AvenirBlack', width: '70%', height: '60%' }}                                        >
                                         <FlashingButton
                                             clicked={(e) => { comercio_requestPayment(e) }}

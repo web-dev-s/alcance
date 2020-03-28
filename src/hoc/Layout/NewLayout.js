@@ -68,8 +68,8 @@ const Layout = props => {
           avatarPress={profilePicturePress}
         />
 
-        <main style={{ paddingTop: '5px', overflow: 'hidden' }}>
-          <div style={{ paddingTop: '5px', /* overflow: 'hidden', */ }}>
+        <main style={{paddingTop: '0px', overflow: 'hidden', overflowY:'scroll' }}>
+          <div style={{ paddingTop: '0px', /* overflow: 'hidden', */ }}>
             {props.children}
           </div>
           </main>

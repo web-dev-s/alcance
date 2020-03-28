@@ -74,7 +74,7 @@ const UserTypeComercio = props => {
         <MobileView style={{ width: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{
                 display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-                marginTop: '2%'
+                marginTop: '48px'
             }}>
                 < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', width: '100%' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '4%' }}>
