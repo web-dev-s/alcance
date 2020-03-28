@@ -318,6 +318,8 @@ export const rechargeBallances = actionData => {
 export const requestPayment = actionData => {
     return (dispatch, getState) => {
         /*  let state = getState();  */ 
+        console.log('--------actions---requestPayment---sent------------------')
+        console.log(actionData.data)
         return makeRequest(
             APIConstant.S3_BASE_URL + APIConstant.VEN_REQUEST_PAYMENT ,
             'post',

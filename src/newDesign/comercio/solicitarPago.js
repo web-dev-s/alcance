@@ -28,6 +28,7 @@ import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 import QrReader from 'react-qr-reader';
 import useWindowDimensions from '../../hooks/useWindowsDimensions';
+import error from '../../assets/images/error.png';
 const Comercio_Payment = props => {
     const { height, width } = useWindowDimensions();
     const [checkTime, setCheckTime] = useState();
@@ -48,7 +49,8 @@ const Comercio_Payment = props => {
     const [readedQR, setReadedQR] = useState(null);
     const [qrReaderCamera, setQRReaderCamera] = useState(true);
     const [reqAmount, setReqAmount] = useState('');
-    const [paymentInfo, setPaymentInfo] = useState({ currency: 'USD', amount: 1, client: '', });
+    const [paymentInfo, setPaymentInfo] = useState({ currency: 'BS', amount: '', client: '', });
+    const [message, setMessage] = useState('');
     const { userType, userId } = props;
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
@@ -57,24 +59,34 @@ const Comercio_Payment = props => {
             console.log(' handleScan read:');
             console.log(data);
 
-            if (data) { setReadedQR(data); setQRReaderCamera(false); }
+            if (data) { setReadedQR(data); setQRReaderCamera(false); 
+                setPaymentInfo({ ...paymentInfo, client: data });
+                setMessage('');
+            }
         }
         return;
     }
-    const handleError = err => { console.log(err) };
+    const handleError = err => { setMessage(err) ;};
 
 
     const comercio_requestPayment = () => {
-        if (isNaN(+reqAmount) || reqAmount === null) return;
+        setMessage('');
+        if (isNaN(+reqAmount) || reqAmount == null || +reqAmount < 1) return setMessage('no payment amount requested');
         const client_ID = readedQR;
-        props.onRequestPayment(props.userToken, paymentInfo.amount, paymentInfo.currency, paymentInfo.client).then(res => {
-            console.log('requestPayment read: ' + reqAmount + '=>' + JSON.stringify(res));
-            setReadQR(false); setReqAmount(0); setQRReaderCamera(true);
+        props.onRequestPayment(props.userToken, reqAmount, paymentInfo.currency, paymentInfo.client).then(res => {
+
 
             if (res) {
                 if (res.data && res.data.status == '200') {
 
+                    setReadQR(false); setQRReaderCamera(true);
+
+                    props.history.push('/comercio');
                 }
+                else if (res.message) {
+                    
+                    console.log(res.data);
+                    setMessage(res.message) }
 
             }
         });
@@ -121,16 +133,16 @@ const Comercio_Payment = props => {
                                         // leftImage={require("../../assets/images/user.png")}
                                         elementType='input'
                                         elementConfig={{ type: 'number', placeholder: 'monto', }}
-                                        value={paymentInfo.amount}
+                                        value={reqAmount}
                                         // invalid={!emailValid}
                                         // shouldValidate={{ required: true, isEmail: true }}
                                         // touched={emailTouched}
-                                        changed={(e) => { setPaymentInfo({ ...paymentInfo, amount: e.currentTarget.value }); }}
-                                    /*  onFocus={(e) => { setMessage(''); }} */
+                                        changed={(e) => { setReqAmount(e.currentTarget.value); }}
+                                        onFocus={(e) => { setMessage(''); }}
                                     />
-                                    <Input
+                                    {/*       <Input
                                         label={'A moneda:'}
-                                        labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
+                                        labelStyle={{ color: color.alcanceOrange,  textAlign: 'left', fontSize: '12px' }}
                                         containerStyle={{
                                             borderBottom: '2px solid #ccc', outline: 'none',
                                             display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center',
@@ -147,8 +159,13 @@ const Comercio_Payment = props => {
                                         // shouldValidate={{ required: true, isEmail: true }}
                                         // touched={emailTouched}
                                         changed={e => { setPaymentInfo({ ...paymentInfo, currency: e.currentTarget.value }); }}
-                                    /*  onFocus={() => { setMessage(''); }} */
-                                    />
+                                      onFocus={() => { setMessage(''); }}  
+                                    /> */}
+                                    {(message && message.length > 2) && <div style={{ marginTop: '15px', marginBottom: '15px', display: 'flex', flex: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', }}>
+                                        <img src={error} alt="error" style={{ width: '25px', height: '25px', resizeMode: 'contain', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: '0px' }} />
+                                        <label style={{ paddingLeft: '5px', color: color.red, fontSize: '12px' }}>{message}</label>
+                                    </div>
+                                    }
                                     <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', fontFamily: 'AvenirBlack', width: '70%', height: '60%' }}                                        >
                                         <FlashingButton
                                             clicked={(e) => { comercio_requestPayment(e) }}
