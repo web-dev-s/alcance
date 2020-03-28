@@ -316,7 +316,7 @@ const UserTypeClient = props => {
                     }}  >
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '15px', paddingBottom: '15px', marginBottom: '4%' }}>
                             <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}>{'Bienvenido, '}</label>
-                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {'Jose Miguel'}{'.'}</label>
+                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange }}> {showUserInfo.Name} {showUserInfo.Surname}{'.'}</label>
                         </div>
                         <div style={{
                             boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',

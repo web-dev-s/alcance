@@ -36,7 +36,9 @@ export {
   getAllTransactionsForUser, //used in Client Operaciones
   getExchangeRate,//used in Client (exchange modal)
   exchangeCurrencies,//used in Client (exchange modal)
-  rechargeBallances//used in Codigo remesa
+  rechargeBallances,//used in Codigo remesa
+
+  requestPayment,//used in comercio account solicitar pago
 } from './alcance'
 //denisa
 export {

@@ -27,9 +27,9 @@ import Cards from '../../components/UI/Card/Card';
 import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 import QrReader from 'react-qr-reader';
-
+import useWindowDimensions from '../../hooks/useWindowsDimensions';
 const Comercio_Payment = props => {
-
+    const { height, width } = useWindowDimensions();
     const [checkTime, setCheckTime] = useState();
     const [stopChecking, setStopChecking] = useState(false);
     const [pendingPayment, setPendingPayment] = useState(null);
@@ -51,15 +51,7 @@ const Comercio_Payment = props => {
     const [paymentInfo, setPaymentInfo] = useState({ currency: 'USD', amount: 1, client: '', });
     const { userType, userId } = props;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    //  useEffect(() => { props.onClientDetails(props.userId.toString()).then(res => { if (res.status === '501') { setBalance(0); } if (res.status === '200') { setBalance(res.data.result[0].Balance); }; }); props.onClientTList(props.userId).then(res => { if (res.status === '501') { setTransList([]); } if (res.status === '200') { const list = _.orderBy(res.data.result, 'Date', 'desc'); setTransList([...list]); } }); const interval = setInterval(() => { setCheckTime(Date.now()) }, 5000); return () => { clearInterval(interval) } }, []);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //  useEffect(() => { if ((userType === 'client')) { pendingPayment && setOpenDialog(true); } }, [pendingPayment, userType]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //  useEffect(() => {
-    //      if ((userType === 'client') && (!stopChecking)) {
-    //          props.onClientCheckPendingPayments(userId).then(res => { if (res.status === '200') { setStopChecking(true); setPendingPayment({ id: res.data.result[0].ID, amount: res.data.result[0].Amount }); } });
-    //      }
-    //  }, [props, checkTime, userType, userId, stopChecking]);
+
     const handleScan = data => {
         if (data) {
             console.log(' handleScan read:');
@@ -71,127 +63,34 @@ const Comercio_Payment = props => {
     }
     const handleError = err => { console.log(err) };
 
-    const chargeAcount = () => {
-        props.onClientChargeAccount(props.userId, rechargeCode).then(res => {
-
-            if (res.status === '200') {
-                props.onClientDetails(props.userId).then(res => {
-                    if (res.status === '501') { setBalance(0); }
-                    if (res.status === '200') { setBalance(res.data.result[0].Balance); };
-                });
-                props.onClientTList(props.userId).then(res => {
-                    if (res.status === '501') { setTransList([]); }
-                    if (res.status === '200') { setTransList([...res.data.result]); }
-                });
-
-                setRechargeCodeMessage(<p style={{ color: 'green', fontWeight: '900' }}> Monto ingresado</p>);
-
-            } else setRechargeCodeMessage(<p style={{ color: 'red', fontWeight: '900' }}>Código invalido ( {res.message} )</p>);
-        });
-    }
-    const aprovePaymentTransfer = () => {
-        if (pendingPayment.id === null) return;
-
-        props.onApprovePaymentTransfer(pendingPayment.id).then(res => {
-            if (res.status === '200') {
-                setBalance(res.data.result[0].Balance);
-
-                setOpenDialog(false); props.onClientTList(props.userId).then(res => {
-                    if (res.status === '501') { setTransList([]); }
-                    if (res.status === '200') { setTransList([...res.data.result]); setStopChecking(false); }
-                });
-            };
-            /*   console.log('props.onApprovePaymentTransfer' + pendingPayment.id + '=>' + JSON.stringify(res)); */
-        });
-    }
-    const mesageModalClosed = () => {
-        setOpenDialog(false); setPendingPayment(null); setStopChecking(true);
-        setTimeout(() => { setStopChecking(false) }, 5000);
-    };
-
-    let showMessage = <div style={{ zIndex: '200', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-around', }}>
-            <h2 style={{ marginTop: '12px', color: 'black', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-            > Solicitud de transacción </h2>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', }}>
-            <div style={{ marginTop: '3%', paddingTop: '3%', paddingRight: '4%' }}>
-                <img src={giveMoney} alt="giveMoney" />
-            </div>
-            <div>
-                <p style={{ color: pendingPayment && !isNaN(+pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'blue' : 'orange' }} >
-                    <b style={{ color: pendingPayment && !isNaN(pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'green' : 'red' }}>
-                        {(pendingPayment && pendingPayment.amount * 41624.00) || 0}
-                    </b> $ Bolívares</p>
-                <p style={{ color: pendingPayment && !isNaN(+pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'blue' : 'orange' }} >
-                    <b style={{ color: pendingPayment && !isNaN(pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'green' : 'red' }} >
-                        {(pendingPayment && !isNaN(+pendingPayment.amount)) ? pendingPayment.amount : 0}
-                    </b> $ USD</p>
-                <p style={{ 'blue': 'darkBlue' }} >
-                </p>
-                <p> Comercio ID: <b style={{ color: 'green' }} > {pendingPayment && pendingPayment.id !== null ? pendingPayment.id : '---'}
-                </b>  </p>
-
-            </div>
-
-            {/*    <Spinner /> */}
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-around', }}>
-            <Button color="primary"
-                style={{ marginTop: '12px', width: '30%', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-                onClick={() => mesageModalClosed()}>
-                NO INTERESA
-</Button>
-            <Button color="primary"
-                style={{ marginTop: '12px', width: '30%', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-                onClick={() => aprovePaymentTransfer()}>
-                PAGAR
-</Button>
-        </div>
-    </div >;
 
     const comercio_requestPayment = () => {
         if (isNaN(+reqAmount) || reqAmount === null) return;
         const client_ID = readedQR;
-        props.onComercioAddPaymentRequest(userId, client_ID, reqAmount).then(res => {
-            //   console.log('requestPayment read: ' + reqAmount + '=>' + JSON.stringify(res));
+        props.onRequestPayment(props.userToken, paymentInfo.amount, paymentInfo.currency, paymentInfo.client).then(res => {
+            console.log('requestPayment read: ' + reqAmount + '=>' + JSON.stringify(res));
             setReadQR(false); setReqAmount(0); setQRReaderCamera(true);
+
+            if (res) {
+                if (res.data && res.data.status == '200') {
+
+                }
+
+            }
         });
     }
 
-    const Card = (props) => {
-        return < div style={{
-            boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
-            border: '1px solid lightgray', borderRadius: '3px',
-            display: 'block', overflowY: 'auto', padding: '5px',
-            maxHeight: '800px',
-            minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
-            justifyContent: 'center', textAlign: 'center',
-            minHeight: '60%',
+    return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
 
-            maxWidth: '99%',
-            paddingBottom: '5px',
-            width: '90%',
-            position: 'relative',
-            overflow: 'hidden',
-            marginTop: '10px', marginBottom: '10px',
-        }
-        }>
-            {props.children}
-        </div >
-    }
-    return (<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', paddingLeft: '5%', paddingRight: '5%', marginTop: '48px' }}>
+        <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+            <MobileView style={{ width: '100%', height: '100%', marginTop: '58px', marginBottom: '58px', position: 'relative' }}>
+                <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', overflowY: 'scroll' }}>
 
-        <BrowserView>
-            <p>UNDER CONSTRUCTION</p>    </BrowserView>
-        <MobileView>
-            <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
-                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
-                    <div style={{ marginBottom: '4px', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
+                    <div style={{ marginBottom: '4px', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
                         <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Solicitar pago'}</label>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', textAlign: 'left', marginTop: '10px' }}>
-                        {readQR &&
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'left', marginTop: '10px' }}>
+                        {readQR ?
                             <div style={{ width: '98%' }}>
                                 {qrReaderCamera ?
                                     <div style={{ display: 'flex', padding: '2%', }}>
@@ -207,10 +106,8 @@ const Comercio_Payment = props => {
                                         <QRCode value={readedQR} style={{ width: '100px', height: '100px' }} />
                                     </div>
 
-
-
                                 }
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center', width: '100%' }}>
                                     <Input
                                         label={'Monto:'}
                                         labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
@@ -265,42 +162,35 @@ const Comercio_Payment = props => {
                                 </div>
 
                             </div>
+                            : <div style={{ width: '98%' }}>
+
+                            </div>
                         }
                     </div>
-                </div>
-            </div>
-        </MobileView>
 
+                </div>
+            </MobileView>
+            < BrowserView>
+                <p>UNDER CONSTRUCTION</p>
+            </BrowserView>
+        </div >
     </div >);
 }
 const mapStateToProps = state => {
     return {
         userType: state.auth.userType,
-        userId: state.auth.userId
+        userToken: state.auth.userToken,
+        showUserInfo: state.al.showUserInfo,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
-
-        onClientDetails: (id) => dispatch(actions.clientGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),
-        onComercioDetails: (id) => dispatch(actions.comercioGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),
-        onControlDetails: (id) => dispatch(actions.controlGetDetails({ type: a.VEN_CONTROL_GET_DETAILS, data: { in_ID: id } })),
 
 
-        onClientTList: (id) => dispatch(actions.clientGetTransactionHistory({ type: a.VEN_CLIENT_GET_TRANSACTIONS_LIST, data: { in_ClientID: id } })),
-        onComercioTList: (id) => dispatch(actions.comercioGetTransactionHistory({ type: a.VEN_COMERCIO_GET_TRANSACTIONS_LIST, data: { in_ComercioID: id } })),
-        onControlTList: (id) => dispatch(actions.controlGetTransactionHistory({ type: a.VEN_CONTROL_GET_TRANSACTIONS_LIST, data: { in_ControlID: id } })),
+        onRequestPayment: (token, amount, currency, clientCode) => dispatch(actions.requestPayment({ type: a.VEN_REQUEST_PAYMENT, data: { in_Token: token, in_Amount: amount, in_Currency: currency, in_ClientCode: clientCode } })),
 
-        onControlGenerateCode: (id, name, docId, amount) => dispatch(actions.controlGenerateCode({ type: a.VEN_CONTROL_GENERATE_CODE, data: { in_ControlID: id, in_Name: name, in_PassportNumber: docId, in_Amount: amount } })),
-        onClientChargeAccount: (id, code) => dispatch(actions.clientChargeAccount({ type: a.VEN_CLIENT_CHARGE_ACCOUNT, data: { in_ClientID: id, in_Code: code } })),
 
-        onComercioAddPaymentRequest: (id, client_ID, reqAmount) => dispatch(actions.comercioAddPaymentRequest({ type: a.VEN_COMERCIO_ADD_PAYMENT_REQUEST, data: { in_ComercioID: id, in_ClientID: client_ID, in_Amount: reqAmount } })),
-        onClientCheckPendingPayments: (id) => dispatch(actions.clientCheckPendingPayments({ type: a.VEN_CLIENT_CHECK_PENDING_PAYMENTS, data: { in_ClientID: id } })),
-        onApprovePaymentTransfer: (reqId) => dispatch(actions.clientApprovePaymentTransfer({ type: a.VEN_CLIENT_APPROVE_PAYMENT_TRANSFER, data: { in_RequestID: reqId } })),
-
-        onSetShowUserInfo: (showUserInfo) => dispatch(actions.setShowUserInfo({ showUserInfo: showUserInfo })),
 
     };
 };

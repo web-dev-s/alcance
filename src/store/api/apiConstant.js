@@ -41,6 +41,6 @@ export const VEN_GET_ALL_TRANSACTIONS = 'ven_GetAllOperationsForUser';
 
 export const VEN_GET_EXCHANGE_RATE = 'getExchangeCost';
 export const VEN_EXCHANGE_CURRENCIES = 'exchangeCurrencies';
-export const VEN_RECHARGE_BALLANCE='ven_ApproveTransfer'
-
+export const VEN_RECHARGE_BALLANCE = 'ven_ApproveTransfer';
+export const VEN_REQUEST_PAYMENT = 'ven_RequestPayment';
 
