@@ -111,7 +111,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGenerateTransferCode: (token, amount, currency) => dispatch(actions.generateTransferCode({ type: a.VEN_GENERATE_TRANSFER_CODE, data: { in_Token: token, in_Amount: amount, in_Currency: currency } })),
-        onRechargeBallances: (token, code) => dispatch(actions.generateTransferCode({ type: a.VEN_RECHARGE_BALLANCE, data: { in_Token: token, in_Code: code, } })),
+        onRechargeBallances: (token, code) => dispatch(actions.rechargeBallances({ type: a.VEN_RECHARGE_BALLANCE, data: { in_Token: token, in_Code: code, } })),
     };
 };
 

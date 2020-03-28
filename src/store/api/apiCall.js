@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 export function makeRequest(url, type = 'get', data = {}, header = {}) {
-   // console.log("API CALL - " + url + " TYPE- " + type);
+ console.log("API CALL - " + url + " TYPE- " + type);
     let reqHeader = Object.assign(header, {"Accept": "application/json", "Content-Type": "application/json"});
     if (type === 'get') {
         return axios.get(url,{headers: reqHeader})
             .then((response) => {
-              //  console.log("Response - " + url + " TYPE- " + type);
+              console.log("Response - " + url + " TYPE- " + type);
                 return Promise.resolve(response.data)
             })
             .catch((err) => {

@@ -27,7 +27,7 @@ import HeaderComponent from '../comComponents/HeaderComponent';
 import FooterComponent from '../comComponents/FooterComponent';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 
-const UserTypeClient = props => {
+const Client_Ayuda = props => {
 
     const [checkTime, setCheckTime] = useState();
     const [stopChecking, setStopChecking] = useState(false);
@@ -183,16 +183,16 @@ const UserTypeClient = props => {
         }
     };
 
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', paddingTop: '48px' , marginTop: '18%'}}>
+    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '48px', marginBottom: '50px' }}>
 
-            <MobileView>
+        <MobileView>
             <HeaderComponent />
             <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '10px', marginRight: '10px', marginTop: '2%' }}>
-               
+
                 < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', }}>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', width: '100%', textAlign: 'left' }}>
-                        <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}` }}>
-                            <text style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Ayuda'}</text>
+                        <div style={{ marginBottom: '25px', borderLeft: `5px solid ${color.alcanceOrange}` }}>
+                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Ayuda'}</label>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
                             <p style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start' }}
@@ -250,9 +250,9 @@ const UserTypeClient = props => {
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '90%', }} >
 
-                            <text style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}>
-                                <text style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start', color: color.alcanceOrange }}>{'Nota:'}</text>
-                                {' no nos hacemos responsable por el mal uso que pueda hacerse con la aplicación en caso de que no se reporte.'}</text>
+                            <label style={{ ...styles.style2, lineHeight: '20px', marginTop: 0, fontWeight: '500', alignSelf: 'flex-start' }}>
+                                <label style={{ ...styles.style2, marginBottom: 0, fontWeight: '800', alignSelf: 'flex-start', color: color.alcanceOrange }}>{'Nota:'}</label>
+                                {' no nos hacemos responsable por el mal uso que pueda hacerse con la aplicación en caso de que no se reporte.'}</label>
                         </div>
                     </div>
 
@@ -265,174 +265,13 @@ const UserTypeClient = props => {
                 mainContainerStyle={{ bottom: '0px' }}
                 onBackClick={() => props.history.push('/client')} />
         </MobileView>
-        
-        
-         <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
-
-            <BrowserView>
-                < div style={{ display: 'contents', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap' }}>
-                    <Grid container item spacing={4} justify="flex-start" alignItems="flex-start">
-                        <Grid zeroMinWidth container item md={6} lg={4} spacing={1}   >
-                            <Card title={'Saldo'} backgroundimage={wallet} >
-                                <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                                    <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
-                                        <img src={balanceIMG} alt="balanceIMG" />
-                                    </div>
-                                    <div>
-                                        <div  >
-                                            <p style={{ color: +balance > 0 ? 'blue' : 'orange' }} >
-                                                <b style={{ color: +balance > 0 ? 'green' : 'red' }}>
-                                                    {+balance * 41624.00 || 0}
-                                                </b> $ Bolívares</p>
-                                            <p style={{ color: +balance > 0 ? 'blue' : 'orange' }} >
-                                                <b style={{ color: +balance > 0 ? 'green' : 'red' }} >
-                                                    {balance}
-                                                </b> $ USD</p>
-                                        </div>
-                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '98%', height: '30%' }}
-                                        >
-                                            <FlashingButton
-                                                clicked={(e) => alert('CAMBIAR')}
-                                                label={'CAMBIAR'}
-                                                style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                                        </div>
-                                        {/* 
-                                            <Button color="primary"
-                                                style={{ marginTop: '12px', marginBottom: '12px', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '90%', height: '30%' }}
-                                                onClick={(e) => alert('CAMBIAR')}>
-                                                CAMBIAR
-                                        </Button> */}
-                                    </div>
-                                </div>
-                            </Card>
-                        </Grid>
-                        <Grid zeroMinWidth container item md={12} lg={4} spacing={1}  >
-                            <Card title={'Operaciones recientes'} minWidth={'90%'} backgroundimage={clock} >
-                                <List dense style={{ minWidth: '99%' }}>
-                                    {transList && transList.length ? transList.map((item, idx) => {
-                                        /*     const labelId = `checkbox-list-secondary-label-${item.Name || item.PassportNumber}`;
-                                            let checked = false; */
-                                        return (
-                                            <ListItem key={idx} button style={{ display: 'flex', width: '100%' }}>
-                                                <img alt={`Avatar n°${idx + 1}`} src={+item.Amount > 0 ? receiveMoney : giveMoney} style={{ width: '10px', height: '10px', marginRight: '2px', resize: 'contain', justifyContent: 'center', transform: 'rotate(180deg)' }} />
-
-                                                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                                                    <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1' }}>
-                                                        <ListItemText id={idx + '3'} primary={+item.Amount > 0 ? 'Recibiste' : 'Enviaste'} style={{ color: +item.Amount > 0 ? 'green' : 'red', fontWeight: '900', paddingLeft: '5px', marginBottom: 0 }} />
-                                                        <ListItemText id={idx + '2'} primary={'$' + item.Amount} style={{ color: +item.Amount > 0 ? 'green' : 'red', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
-                                                        {(item.ComercioID) && <ListItemText id={idx + '13'} primary={+item.Amount > 0 ? 'de ' : 'a ' + item.ComercioID} style={{ color: +item.Amount > 0 ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
-                                                        }
-                                                        {(item.ControlID) && <ListItemText id={idx + '13'} primary={+item.Amount > 0 ? 'de ' : 'a ' + item.ControlID} style={{ color: +item.Amount > 0 ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
-                                                        }
-                                                        {(item.PassportNumber) &&
-                                                            <ListItemText id={idx + '1'} primary={'(' + item.PassportNumber + ')'} style={{ color: 'blue', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
-                                                        }
-                                                    </div>
-                                                    <div style={{ display: 'flex', flex: 1, flexDirection: 'row', alignItems: 'left' }}>
-                                                        <ListItemText id={idx + '1'} primary={' in ' + item.Date} style={{ color: 'darkGray' /* +item.Amount > 0 ? 'green' : 'red'  */, paddingLeft: '5px', display: 'flex', marginTop: 0 }} />
-                                                    </div>
-                                                    {/*  {(item.Name || item.PassportNumber) && <ListItemText id={idx + '1'} primary={' from ' + item.Name + '(' + item.PassportNumber + ')'} style={{ color: +item.Amount > 0 ? 'blue' : 'green' }} />} */}
-
-                                                </div>
 
 
-                                            </ListItem>
-                                        );
-                                    }) : <ListItem key={1} button>
-                                            <ListItemAvatar>
-                                                <Avatar alt={`Avatar n°1`} src={balanceIMG} />
-                                            </ListItemAvatar>
-                                            <ListItemText id={1} primary={'No tienes operaciones recientes'} style={{ color: 'black', fontWeight: '900', paddingTop: '30px', paddingBottom: '30px' }} />
-                                        </ListItem>}
-                                </List>
-                            </Card>
-                        </Grid>
-                        <Grid zeroMinWidth container item md={6} lg={4} spacing={1}   >
-                            <Card title={'Comprar o pagar'} minWidth={'90%'} backgroundimage={paymentMethod}>
-                                <div style={{ display: 'flex', width: '100%' }} >
-                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', textAlign: 'center', width: '100%' }}>
-                                        <div style={{ marginTop: '12px', marginBottom: '0px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '100%', height: '30px' }}                                            >
-                                            <FlashingButton
-                                                clicked={(e) => setGeneratedQR(<QRCode value={props.userId} style={{ marginTop: '12px', }} />)}
-                                                label={'GEN CÓDIGO QR'}
-                                                style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                                        </div>
-                                        <div style={{ padding: '5px', paddingTop: '15%', paddingBottom: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-                                            {generatedQR}
-                                            {generatedQR &&
-                                                <p style={{ fontFamily: 'AvenirRoman', textTransform: 'initial', marginLeft: '10px', marginRight: '5px', marginTop: '20px', textAlign: 'center' }}>Preséntate con este código al comercio.</p>}
+        <BrowserView>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </Card>
-                        </Grid>
-                        <Grid zeroMinWidth container item md={6} lg={4} spacing={1}   >
-                            <Card title={'Código remesas'} minWidth={'90%'} backgroundimage={password}>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', textAlign: 'center' }}>
-                                        {(rechargeCodeMessage !== null) && rechargeCodeMessage}
-                                        <p style={{ fontFamily: 'AvenirRoman', textTransform: 'initial', marginLeft: '10px', marginRight: '5px', textAlign: 'center' }}>Introduzca el codigo de la remesa que recibiste:</p>
-                                        <Input
-                                            containerStyle={{ width: '90%' }}
-                                            inputStyle={{ paddingTop: '10px', minHeight: '40px', fontSize: '16px', marginLeft: '10px', paddingLeft: '10px', marginRight: '5px', }}
-                                            elementType='input'
-                                            elementConfig={{ type: 'text', placeholder: 'Código', }}
-                                            value={rechargeCode}
-                                            /*   invalid={!formElement.config.valid}
-                                              shouldValidate={formElement.config.validation} */
-                                            changed={e => setRechargeCode(e.currentTarget.value)}
-                                            onBlur={(e) => { setRechargeCode('') }}
-                                        />
-                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', fontFamily: 'AvenirBlack', width: '40%', height: '30%' }}                                        >
-                                            <FlashingButton
-                                                clicked={(e) => { chargeAcount() }}
-                                                label={'ENVIAR'}
-                                                style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                                        </div>
-                                        {/*  <Button color="primary"
-                                                style={{ marginTop: '12px', marginBottom: '12px', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack' }}
-                                                onClick={(e) => chargeAcount()}>
-                                                ENVIAR
-                    </Button> */}
-                                    </div>
-                                </div>
-                            </Card>
-                        </Grid>
-                        <Grid zeroMinWidth container item md={6} lg={4} spacing={1}   >
-                            <Card title={'Configuración y ayuda'} minWidth={'90%'} backgroundimage={customerSupport}>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '100%', height: '60%' }}                                        >
-                                        <FlashingButton
-                                            clicked={(e) => {
-                                                props.onSetShowUserInfo(true);
-                                                props.history.push(props.match.userInfo);
-                                            }}
-                                            label={'CONFIGURACIÓN'}
-                                            style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                                    </div>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', width: '100%', height: '50%' }}                                        >
-                                        <FlashingButton
-                                            clicked={(e) => { alert('AYUDA') }}
-                                            label={'AYUDA'}
-                                            style={{ color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '10px', minHeight: '40px', fontWeight: 'bold', textAlign: ' center', }} />
-                                    </div>
-                                    {/*  <Button color="primary"
-                                            style={{ marginTop: '12px', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontSize: ' bold', textAlign: ' center', fontFamily: 'AvenirBlack', width: '100%', height: '40%' }}
-                                            onClick={(e) => alert('CONFIGURACIÓN')}
-                                        >CONFIGURACIÓN  </Button>
-                                        <Button color="primary"
-                                            style={{ marginTop: '12px', marginBottom: '12px', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontSize: ' bold', textAlign: ' center', fontFamily: 'AvenirBlack', width: '100%', height: '50%' }}
-                                            onClick={(e) => alert('AYUDA')}
-                                        >AYUDA </Button> */}
-                                </div>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                </div>
-            </BrowserView>
+            <p>UNDER CONSTRUCTION</p>
 
-        </div >
+        </BrowserView>
     </div >);
 }
 const mapStateToProps = state => {
@@ -467,4 +306,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(UserTypeClient, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Client_Ayuda, axios));

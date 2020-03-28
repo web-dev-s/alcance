@@ -281,12 +281,15 @@ export const rechargeBallances = actionData => {
             actionData.data,
         )
             .then(response => {
-                console.log('--------actions---getAllTransactionsForUser---------------------')
+                console.log('--------actions---rechargeBallances---------------------')
                 console.log(response)
 
                 if (response && response.data && response.data.status === '200') {
-
-                    dispatch(updateBallance({ BalanceUSD: response.data.result.BalanceUSD, BalanceMXN: response.data.result.BalanceMXN, BalanceBS: response.data.result.BalanceBS }));
+                    const actionData = { BalanceUSD: response.data.result[0].BalanceUSD, BalanceMXN: response.data.result[0].BalanceMXN, BalanceBS: response.data.result[0].BalanceBS }
+                    console.log('--------actions---rechargeBallances---------------------')
+                    console.log(actionData)
+                 
+                    dispatch(updateBallance(actionData));
                     return Promise.resolve({
                         data: response.data,
                         status: response.data.status,

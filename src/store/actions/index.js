@@ -35,8 +35,8 @@ export {
   generateTransferCode,// used in Client codigo
   getAllTransactionsForUser, //used in Client Operaciones
   getExchangeRate,//used in Client (exchange modal)
-  exchangeCurrencies//used in Client (exchange modal)
-
+  exchangeCurrencies,//used in Client (exchange modal)
+  rechargeBallances//used in Codigo remesa
 } from './alcance'
 //denisa
 export {

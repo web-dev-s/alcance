@@ -63,7 +63,7 @@ const Client_Codigo = props => {
 
                     if (res.status == 200) {
                         if (res.data && res.data.result)
-                            setCode(res.data.result[0].Code); 
+                            setCode(res.data.result[0].Code);
                     }
                     if (res.status == 501) {
                         setMessage(res.message);
@@ -144,7 +144,7 @@ const Client_Codigo = props => {
                             <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', alignSelf: 'flex-start', marginTop: '20px', width: '100%' }}>
                                 <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px' }}>
                                     <label style={{ fontSize: '12px', marginRight: '10px' }}>{'Disponible: '}</label>
-                                    <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px' }} >{(amount > 0) ? +(balance.value - amount) : balance.value}  {balance.currency}</label>
+                                    <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px' }} >{(amount > 0) ? new Intl.NumberFormat('en-EN').format(+(balance.value - amount).toFixed(2)) : new Intl.NumberFormat('en-EN').format(+(balance.value).toFixed(2))}  {balance.currency}</label>
                                 </div>
                                 <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', marginTop: '5px' }}>
                                     <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-start', wordWrap: 'wrap' }}>
@@ -159,7 +159,24 @@ const Client_Codigo = props => {
                                             image={copy}
                                         />
                                         <FlashingButton
-                                            clicked={(e) => { alert('Download list') }}
+                                            shareOnSocial={true}
+                                            clicked={(e) => {
+                                                if (navigator.share) {
+                                                    navigator.share({
+                                                        title: 'My awesome post!',
+                                                        text: 'This post may or may not contain the answer to the universe',
+                                                        url: window.location.href
+                                                    }).then(() => {
+                                                        alert('Thanks! 😄');
+                                                    })
+                                                        .catch(err => {
+                                                            alert(`Couldn't share 🙁`);
+                                                        });
+                                                } else {
+                                                    alert('Not supported 🙅‍');
+                                                };
+
+                                            }}
                                             clickableImage={true}
                                             image={share}
                                         />

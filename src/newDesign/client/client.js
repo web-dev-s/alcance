@@ -35,7 +35,7 @@ const UserTypeClient = props => {
     const [stopChecking, setStopChecking] = useState(false);
     const [pendingPayment, setPendingPayment] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
- 
+
 
     const [exchangeInfo, setExchangeInfo] = useState({ from: 'USD', amount: 1, to: 'MXN', exchangeRate: 1, });
     const [convertedAmount, setConvertedAmount] = useState(0);
@@ -53,13 +53,11 @@ const UserTypeClient = props => {
         const newAmount = ((+exchangeInfo.exchangeRate) * (+exchangeInfo.amount)).toFixed(2);
         setConvertedAmount(new Intl.NumberFormat('en-EN').format(newAmount))
     }, [exchangeInfo.amount]);
-
-
     const updateConversionRate = () => {
 
         if (exchangeInfo.from == exchangeInfo.to) {
             setExchangeInfo({ ...exchangeInfo, exchangeRate: '1' });
-            setConvertedAmount((+exchangeInfo.exchangeRate) * (+exchangeInfo.amount))
+            setConvertedAmount((+exchangeInfo.exchangeRate) * 1)
         }
         else {
             props.onGetExchangeRate(userToken, exchangeInfo.from, exchangeInfo.amount, exchangeInfo.to).then(res => {
@@ -88,17 +86,10 @@ const UserTypeClient = props => {
                     console.log(props.showUserInfo);
                     setShowExchangeModal(false);
                 }
-                else setMessage(res.data.Message)
-
+                else setMessage(res.data.Message);
             }
-
-
         }
-
-
-
         );
-
     }
 
     const aprovePaymentTransfer = () => {
@@ -291,7 +282,7 @@ const UserTypeClient = props => {
     const { showUserInfo } = props;
 
 
-    return (<>
+    return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
         < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
             <BdModal show={openDialog} modalClosed={() => mesageModalClosed()}
                 mobileStyle={{ top: '15%', left: '10%', right: '10%', width: undefined }}
@@ -330,69 +321,66 @@ const UserTypeClient = props => {
                         <div style={{
                             boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
                             border: '1px solid lightgray', borderRadius: '4px',
-                             /*  display: 'block', */   overflowY: 'auto', padding: '5px',
-                            minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
-                            justifyContent: 'center', textAlign: 'center',
+                            overflowY: 'auto', padding: '5px',
 
-                            display: 'flex', flex: '0 0 30%',
-                            maxWidth: '99%',
+                            display: 'flex', justifyContent: 'center', textAlign: 'center', flex: 0,
+                            flex: '0 0 40%',
+
                             paddingBottom: '5px',
                             width: '100%',
                             position: 'relative',
                             overflow: 'hidden',
                             marginBottom: '15px',
                         }}>
-                            <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                                {/*     <div style={{ marginTop: '4%', paddingTop: '10%', paddingRight: '4%' }}>
-                                    <img src={balanceIMG} alt="balanceIMG" />
-                                </div> */}
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '80px', }}>
-                                    <label style={{ color: color.alcanceOrange, fontSize: '14px', paddingTop: '10px', paddingBottom: '10px' }}>{'SALDO'}</label>
-                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
 
-                                        <label style={{ color: +showUserInfo.BalanceUSD > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                            $ <b style={{ color: +showUserInfo.BalanceUSD > 0 ? 'green' : 'red' }} >
-                                                {new Intl.NumberFormat('en-EN').format(+showUserInfo.BalanceUSD)}
-                                            </b>   USD</label>
-                                        <label style={{ color: +showUserInfo.BalanceMXN > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                            $  <b style={{ color: +showUserInfo.BalanceMXN > 0 ? 'green' : 'red' }}>
-                                                {new Intl.NumberFormat('en-EN').format(+showUserInfo.BalanceMXN)}
-                                            </b>  MXN</label>
-                                        <label style={{ color: +showUserInfo.BalanceBS > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
-                                            $ <b style={{ color: +showUserInfo.BalanceBS > 0 ? 'green' : 'red' }}>
-                                                {new Intl.NumberFormat('en-EN').format(+showUserInfo.BalanceBS)}
-                                            </b>   BS</label>
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: '80px' }}>
-                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
-                                        >
-                                            <FlashingButton
-                                                clicked={(e) => setShowExchangeModal(true)}
-                                                label={'CAMBIAR'}
-                                                style={{
-                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                    textAlign: ' center',
-                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                                }}
-                                                textStyle={{ fontSize: '12px' }}
-                                            />
-                                        </div>
-                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
-                                        >
-                                            <FlashingButton
-                                                clicked={(e) => props.history.push('/client_remesa')}
-                                                label={'RECARGAR'}
-                                                style={{
-                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                    textAlign: ' center',
-                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                                }} textStyle={{ fontSize: '12px' }}
-                                            />
-                                        </div>
-                                    </div>
 
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '80px', paddingTop: '30px', paddingBottom: '30px' }}>
+                                <label style={{ color: color.alcanceOrange, fontSize: '14px', paddingTop: '10px', paddingBottom: '10px' }}>{'SALDO'}</label>
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
+
+                                    <label style={{ color: +showUserInfo.BalanceUSD > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                        $ <b style={{ color: +showUserInfo.BalanceUSD > 0 ? 'green' : 'red' }} >
+                                            {new Intl.NumberFormat('en-EN').format(+showUserInfo.BalanceUSD)}
+                                        </b>   USD</label>
+                                    <label style={{ color: +showUserInfo.BalanceMXN > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                        $  <b style={{ color: +showUserInfo.BalanceMXN > 0 ? 'green' : 'red' }}>
+                                            {new Intl.NumberFormat('en-EN').format(+showUserInfo.BalanceMXN)}
+                                        </b>  MXN</label>
+                                    <label style={{ color: +showUserInfo.BalanceBS > 0 ? 'blue' : color.brown, fontWeight: '400', margin: '3px', textAlign: 'justify' }} >
+                                        $ <b style={{ color: +showUserInfo.BalanceBS > 0 ? 'green' : 'red' }}>
+                                            {new Intl.NumberFormat('en-EN').format(+showUserInfo.BalanceBS)}
+                                        </b>   BS</label>
                                 </div>
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: '80px' }}>
+                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
+                                    >
+                                        <FlashingButton
+                                            clicked={(e) => setShowExchangeModal(true)}
+                                            label={'CAMBIAR'}
+                                            style={{
+                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                textAlign: ' center',
+                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                            }}
+                                            textStyle={{ fontSize: '12px' }}
+                                        />
+                                    </div>
+                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
+                                    >
+                                        <FlashingButton
+                                            clicked={(e) => props.history.push('/client_remesa')}
+                                            label={'RECARGAR'}
+                                            style={{
+                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                textAlign: ' center',
+                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                            }} textStyle={{ fontSize: '12px' }}
+                                        />
+                                    </div>
+                                </div>
+
                             </div>
+
                         </div>
 
                         <NewLinkCard title={'GENERAR CÓDIGO '} clicked={() => { props.history.push('client_codigo') }}
@@ -422,7 +410,7 @@ const UserTypeClient = props => {
         </BrowserView>
 
 
-    </>);
+    </div>);
 }
 const mapStateToProps = state => {
     return {
