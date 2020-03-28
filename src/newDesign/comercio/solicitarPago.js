@@ -59,14 +59,15 @@ const Comercio_Payment = props => {
             console.log(' handleScan read:');
             console.log(data);
 
-            if (data) { setReadedQR(data); setQRReaderCamera(false); 
+            if (data) {
+                setReadedQR(data); setQRReaderCamera(false);
                 setPaymentInfo({ ...paymentInfo, client: data });
                 setMessage('');
             }
         }
         return;
     }
-    const handleError = err => { setMessage(err) ;};
+    const handleError = err => { setMessage(err); };
 
 
     const comercio_requestPayment = () => {
@@ -84,18 +85,17 @@ const Comercio_Payment = props => {
                     props.history.push('/comercio');
                 }
                 else if (res.message) {
-                    
+
                     console.log(res.data);
-                    setMessage(res.message) }
+                    setMessage(res.message)
+                }
 
             }
         });
     }
 
     return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
-
-        <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-            <MobileView style={{ width: '100%', height: '100%', marginTop: '58px', marginBottom: '58px', position: 'relative' }}>
+         <MobileView style={{ width: width, height: height, marginTop: '48px', marginBottom: '58px', position: 'relative' }}>
                 <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', overflowY: 'scroll' }}>
 
                     <div style={{ marginBottom: '4px', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
@@ -190,7 +190,7 @@ const Comercio_Payment = props => {
             < BrowserView>
                 <p>UNDER CONSTRUCTION</p>
             </BrowserView>
-        </div >
+         
     </div >);
 }
 const mapStateToProps = state => {

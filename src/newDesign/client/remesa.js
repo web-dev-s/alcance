@@ -14,35 +14,29 @@ import Input from '../../components/UI/Input/Input';
 import error from '../../assets/images/error.png'
 
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
+import useWindowDimensions from '../../hooks/useWindowsDimensions';
 const Client_Remesa = props => {
-
+    const { height, width } = useWindowDimensions();
 
     const [rechargeCode, setRechargeCode] = useState('');
     const [message, setMessage] = useState('');
 
     const { userType, userId } = props;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    //  useEffect(() => { props.onClientDetails(props.userId.toString()).then(res => { if (res.status === '501') { setBalance(0); } if (res.status === '200') { setBalance(res.data.result[0].Balance); }; }); props.onClientTList(props.userId).then(res => { if (res.status === '501') { setTransList([]); } if (res.status === '200') { const list = _.orderBy(res.data.result, 'Date', 'desc'); setTransList([...list]); } }); const interval = setInterval(() => { setCheckTime(Date.now()) }, 5000); return () => { clearInterval(interval) } }, []);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //  useEffect(() => { if ((userType === 'client')) { pendingPayment && setOpenDialog(true); } }, [pendingPayment, userType]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //  useEffect(() => {
-    //      if ((userType === 'client') && (!stopChecking)) {
-    //          props.onClientCheckPendingPayments(userId).then(res => { if (res.status === '200') { setStopChecking(true); setPendingPayment({ id: res.data.result[0].ID, amount: res.data.result[0].Amount }); } });
-    //      }
-    //  }, [props, checkTime, userType, userId, stopChecking]);
+    //  useEffect(() => {  }, []);
     const chargeAcount = () => {
         props.onRechargeBallances(props.userToken, rechargeCode).then(res => {
 
-            if (res.status == 200) { 
+            if (res.status == 200) {
                 setMessage('Monto ingresado');
-              //  props.history.push('/client')
+                //  props.history.push('/client')
             } else setMessage('Código invalido');
         });
     }
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', marginLeft: '10px', marginRight: '10px', marginTop: '88px' }}>
-        <MobileView style={{ marginLeft: '20px' }}>
-            <div /* className={classes.container} */ style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
+    return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
+
+        <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
+            <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
                 < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
                     <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', }}>
                         <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Código remesa'}</label>
@@ -52,7 +46,6 @@ const Client_Remesa = props => {
                             <label style={{ fontSize: '12px', textAlign: 'left' }} > {'Introduzca el codigo de la remesa que recibiste:'}</label>
 
                             <Input
-
                                 label={'Código:'}
                                 labelStyle={{ color: color.alcanceOrange, /* fontStyle: 'italic', */ textAlign: 'left', fontSize: '12px' }}
                                 containerStyle={{
@@ -66,7 +59,7 @@ const Client_Remesa = props => {
                                 elementType='input'
                                 elementConfig={{ type: 'text', placeholder: '', }}
                                 defaultValue={''}
-                                value={rechargeCode||''}
+                                value={rechargeCode || ''}
                                 // invalid={!emailValid}
                                 // shouldValidate={{ required: true, isEmail: true }}
                                 // touched={emailTouched}
@@ -89,8 +82,6 @@ const Client_Remesa = props => {
 
                 </div>
             </div>
-
-
         </MobileView>
 
         <BrowserView>

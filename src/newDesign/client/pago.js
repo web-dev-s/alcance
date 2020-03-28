@@ -26,11 +26,9 @@ import QRCode from 'qrcode.react';
 import Cards from '../../components/UI/Card/Card';
 import NewLinkCard from '../../components/UI/Card/newLinkCard';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
-
-import HeaderComponent from '../comComponents/HeaderComponent';
-import FooterComponent from '../comComponents/FooterComponent';
+import useWindowDimensions from '../../hooks/useWindowsDimensions';
 const UserTypeClient = props => {
-
+    const { height, width } = useWindowDimensions();
     const [checkTime, setCheckTime] = useState();
     const [stopChecking, setStopChecking] = useState(false);
     const [pendingPayment, setPendingPayment] = useState(null);
@@ -87,80 +85,12 @@ const UserTypeClient = props => {
             /*   console.log('props.onApprovePaymentTransfer' + pendingPayment.id + '=>' + JSON.stringify(res)); */
         });
     }
-    const mesageModalClosed = () => {
-        setOpenDialog(false); setPendingPayment(null); setStopChecking(true);
-        setTimeout(() => { setStopChecking(false) }, 5000);
-    };
-    let showMessage = <div style={{ zIndex: '200', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-around', }}>
-            <h2 style={{ marginTop: '12px', color: 'black', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-            > Solicitud de transacción </h2>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', }}>
-            <div style={{ marginTop: '3%', paddingTop: '3%', paddingRight: '4%' }}>
-                <img src={giveMoney} alt="giveMoney" />
-            </div>
-            <div>
-                <p style={{ color: pendingPayment && !isNaN(+pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'blue' : 'orange' }} >
-                    <b style={{ color: pendingPayment && !isNaN(pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'green' : 'red' }}>
-                        {(pendingPayment && pendingPayment.amount * 41624.00) || 0}
-                    </b> $ Bolívares</p>
-                <p style={{ color: pendingPayment && !isNaN(+pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'blue' : 'orange' }} >
-                    <b style={{ color: pendingPayment && !isNaN(pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'green' : 'red' }} >
-                        {(pendingPayment && !isNaN(+pendingPayment.amount)) ? pendingPayment.amount : 0}
-                    </b> $ USD</p>
-                <p style={{ 'blue': 'darkBlue' }} >
-                </p>
-                <p> Comercio ID: <b style={{ color: 'green' }} > {pendingPayment && pendingPayment.id !== null ? pendingPayment.id : '---'}
-                </b>  </p>
-
-            </div>
-
-            {/*    <Spinner /> */}
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-around', }}>
-            <Button color="primary"
-                style={{ marginTop: '12px', width: '30%', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-                onClick={() => mesageModalClosed()}>
-                NO INTERESA
-</Button>
-            <Button color="primary"
-                style={{ marginTop: '12px', width: '30%', color: 'white', backgroundColor: '#f8bb48', borderRadius: '5px', fontWeight: '900', textAlign: ' center', display: 'inline-block' }}
-                onClick={() => aprovePaymentTransfer()}>
-                PAGAR
-</Button>
-        </div>
-    </div >;
 
 
-    const Card = (props) => {
-        return < div style={{
-            boxSizing: 'border-box', boxShadow: '0 2px 8px #ccc',
-            border: '1px solid lightgray', borderRadius: '3px',
-            display: 'block', overflowY: 'auto', padding: '5px',
-            maxHeight: '800px',
-            minWidth: props.minWidth ? props.minWidth : ('60%' || '300px'),
-            justifyContent: 'center', textAlign: 'center',
-            minHeight: '60%',
+    return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
 
-            maxWidth: '99%',
-            paddingBottom: '5px',
-            width: '90%',
-            position: 'relative',
-            overflow: 'hidden',
-            marginTop: '10px', marginBottom: '10px',
-        }
-        }>
-            {props.children}
-        </div >
-    }
-
-
-
-    return (<div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', marginLeft: '10px', marginRight: '10px', marginTop: '88px' }}>
-
-        <MobileView style={{marginLeft:'20px'}}>
-            <div /* className={classes.container} */ style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
+        <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
+            <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
                 < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
                     <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', }}>
                         <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Pago'}</label>

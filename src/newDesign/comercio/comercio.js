@@ -42,7 +42,6 @@ const UserTypeComercio = props => {
     return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
 
         <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
-
             < div style={{ position: 'absolute', width: '100%',/*  height: '100%', */ overflow: 'hidden' }}>
                 <div key={'mainContainer'}
                    /*  className={classes.container}  */ style={{
@@ -56,7 +55,7 @@ const UserTypeComercio = props => {
                         display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
                         maxHeight: (+height).toString() + 'px',
                         overflowY: 'auto', paddingBottom: '45px',
-                        position: 'absolute', top: '68px', bottom: '0px', left: '5px', right: '5px',
+                        position: 'absolute', top: '0px', bottom: '0px', left: '5px', right: '5px',
 
                     }}  >
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '15px', paddingBottom: '15px', marginBottom: '4%' }}>

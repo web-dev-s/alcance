@@ -1,1 +1,0 @@
-{"version":3,"sources":["comercio.css"],"names":[],"mappings":"AAAA,4BAEI,gBAAiB,CACjB,SAAU,CACV,gBAAiB,CACjB,cAAe,CACf,eACJ","file":"13.7f9ef9ec.chunk.css","sourcesContent":[".container {\n    /*  margin-top: 40px; */\n    padding-top: 28px;\n    width: 90%;\n    min-height: 500px;\n    margin-left: 5%;\n    margin-right: 5%;\n}"]}

@@ -734,7 +734,7 @@ const Auth = (props) => {
                 </div >
             </BrowserView>
             <MobileView>
-                < div style={{ position: 'absolute', width: '100%',/*  height: '100%', */ overflow: 'hidden' }}>
+                < div style={{ position: 'absolute', width: '100%',   minHeight: '100%',   overflow: 'hidden' }}>
                     <div key={'mainContainer'}
                         className={classes.container} style={{
                             display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',

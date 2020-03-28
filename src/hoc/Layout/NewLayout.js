@@ -17,7 +17,9 @@ import { color } from '../../shared/utility';
 import HeaderComponent from '../../newDesign/comComponents/HeaderComponent';
 import FooterComponent from '../../newDesign/comComponents/FooterComponent';
 import Profile from '../../newDesign/profileInfo/Profile';
+import useWindowDimensions from '../../hooks/useWindowsDimensions';
 const Layout = props => {
+  const { height, width } = useWindowDimensions();
   const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
   const [userInfoVisible, setUserInfoVisible] = useState(false);
 
@@ -54,7 +56,7 @@ const Layout = props => {
         />
         <main className={classes.Content}>{props.children}</main>
       </BrowserView>
-      <MobileView>
+      <MobileView style={{ width: width, height: height, marginTop: '0px', position: 'relative' }}>
 
         {(props.isAuthenticated) &&
           <header className={classes.MobileToolbar} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
@@ -69,7 +71,7 @@ const Layout = props => {
         />
 
         <main style={{paddingTop: '0px', overflow: 'hidden', overflowY:'scroll' }}>
-          <div style={{ paddingTop: '0px', /* overflow: 'hidden', */ }}>
+          <div style={{ paddingTop: '0px', /* overflow: 'hidden', */ marginTop: '48px', }}>
             {props.children}
           </div>
           </main>
