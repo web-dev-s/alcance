@@ -36,6 +36,10 @@ export const VEN_CONTROL_GENERATE_CODE = 'ven_GenerateCode';
 //new set op API's adresses:
 export const VEN_SIGNUP = 'ven_SignUp';
 export const VEN_LOGIN = 'ven_LogIn';
+
+export const VEN_UPDATE_USER_DATA = 'ven_UpdateUserData';
+
+
 export const VEN_GENERATE_TRANSFER_CODE = 'ven_GenerateTransferCode';
 export const VEN_GET_ALL_TRANSACTIONS = 'ven_GetAllOperationsForUser';
 
@@ -43,4 +47,4 @@ export const VEN_GET_EXCHANGE_RATE = 'getExchangeCost';
 export const VEN_EXCHANGE_CURRENCIES = 'exchangeCurrencies';
 export const VEN_RECHARGE_BALLANCE = 'ven_ApproveTransfer';
 export const VEN_REQUEST_PAYMENT = 'ven_RequestPayment';
-
+export const VEN_GET_PENDING_PAYMENTS = 'ven_GetMyPendingPaymentRequests';

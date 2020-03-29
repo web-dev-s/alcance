@@ -14,9 +14,9 @@ import { color } from '../../shared/utility';
 //import { Route, Link } from "react-router-dom";
 
 //import UserInfo from '../../containers/UserInfo/UserInfo';
-import HeaderComponent from '../../newDesign/comComponents/HeaderComponent';
-import FooterComponent from '../../newDesign/comComponents/FooterComponent';
-import Profile from '../../newDesign/profileInfo/Profile';
+import HeaderComponent from '../../components/UI/Card/HeaderComponent';
+import FooterComponent from '../../components/UI/Card//FooterComponent';
+import Profile from '../../profileInfo/Profile';
 import useWindowDimensions from '../../hooks/useWindowsDimensions';
 const Layout = props => {
   const { height, width } = useWindowDimensions();
@@ -70,14 +70,14 @@ const Layout = props => {
           avatarPress={profilePicturePress}
         />
 
-        <main style={{paddingTop: '0px', overflow: 'hidden', overflowY:'scroll' }}>
-          <div style={{ paddingTop: '0px', /* overflow: 'hidden', */ marginTop: '48px', }}>
+        <main style={{ paddingTop: '0px', overflow: 'hidden', overflowY: 'scroll' }}>
+          <div style={{ paddingTop: '0px', /* overflow: 'hidden', */ marginTop: '0px', }}>
             {props.children}
           </div>
-          </main>
+        </main>
         {(props.isAuthenticated) && <FooterComponent
           mainContainerStyle={{ bottom: '0px' }}
-          onBackClick={() => props.history.push(props.userType=='client'?'/client':'/comercio')} />}
+          onBackClick={() => props.history.push(props.userType == 'client' ? '/client' : '/comercio')} />}
       </MobileView >
     </Uxi >
   );

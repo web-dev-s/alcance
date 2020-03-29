@@ -88,8 +88,60 @@ export const setShowUserInfo = actionData => {
 
     };
 };
+export const updateUserData = actionData => {
+    return (dispatch, getState) => {
+        /*  let state = getState();  */
+        console.log('---actions---updateUserData---sent------------------')
+        console.log(actionData.data)
+        return makeRequest(
+            APIConstant.S3_BASE_URL + APIConstant.VEN_UPDATE_USER_DATA,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+                console.log('------actions-----updateUserData---------------------')
+                console.log(response)
 
+                if (response && response.data && response.data.status === '200') {
+                    const info = {
+                        Name: response.data.result[0].Name,
+                        Surname: response.data.result[0].Surname,
+                        Phone: response.data.result[0].Phone,
+                        Email: response.data.result[0].Email,
+                        BirthDate: response.data.result[0].BirthDate,
+                        IDCard: response.data.result[0].IDCard,
+                        Picture: response.data.result[0].Picture,
+                        BusinessName: response.data.result[0].BusinessName,
+                        BusinessAddress: response.data.result[0].BusinessAddress,
+                        State: response.data.result[0].State,
+                    }
 
+                    dispatch(setShowUserInfo({ showUserInfo: info }));
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
 
 export const generateTransferCode = actionData => {
     return (dispatch, getState) => {
@@ -131,8 +183,6 @@ export const generateTransferCode = actionData => {
             });
     };
 };
-
-
 
 export const getAllTransactionsForUser = actionData => {
     return (dispatch, getState) => {
@@ -288,7 +338,7 @@ export const rechargeBallances = actionData => {
                     const actionData = { BalanceUSD: response.data.result[0].BalanceUSD, BalanceMXN: response.data.result[0].BalanceMXN, BalanceBS: response.data.result[0].BalanceBS }
                     console.log('--------actions---rechargeBallances---------------------')
                     console.log(actionData)
-                 
+
                     dispatch(updateBallance(actionData));
                     return Promise.resolve({
                         data: response.data,
@@ -317,11 +367,11 @@ export const rechargeBallances = actionData => {
 };
 export const requestPayment = actionData => {
     return (dispatch, getState) => {
-        /*  let state = getState();  */ 
+        /*  let state = getState();  */
         console.log('--------actions---requestPayment---sent------------------')
         console.log(actionData.data)
         return makeRequest(
-            APIConstant.S3_BASE_URL + APIConstant.VEN_REQUEST_PAYMENT ,
+            APIConstant.S3_BASE_URL + APIConstant.VEN_REQUEST_PAYMENT,
             'post',
             actionData.data,
         )
@@ -330,10 +380,10 @@ export const requestPayment = actionData => {
                 console.log(response)
 
                 if (response && response.data && response.data.status === '200') {
-                  
-                  //  console.log('--------actions---requestPayment---------------------')
-                  //  console.log(actionData)
-                                    
+
+                    //  console.log('--------actions---requestPayment---------------------')
+                    //  console.log(actionData)
+
                     return Promise.resolve({
                         data: response.data,
                         status: response.data.status,
@@ -360,7 +410,50 @@ export const requestPayment = actionData => {
     };
 };
 
+export const getPendingPayments = actionData => {
+    return (dispatch, getState) => {
+        /*  let state = getState();  */
+        console.log('--------actions---getPendingPayments---sent------------------')
+        console.log(actionData.data)
+        return makeRequest(
+            APIConstant.S3_BASE_URL + APIConstant.VEN_GET_PENDING_PAYMENTS,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+                console.log('--------actions---getPendingPayments---------------------')
+                console.log(response)
 
+                if (response && response.data && response.data.status === '200') {
+
+                    //  console.log('--------actions---requestPayment---------------------')
+                    //  console.log(actionData)
+
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

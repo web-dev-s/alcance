@@ -3,26 +3,26 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import Layout from './hoc/Layout/NewLayout';
-import Logout from './containers/Auth/Logout/Logout';
+import Logout from './auth/Logout';
 import Spinner from './components/UI/Spinner/Spinner';
-import Intro from './newDesign/intro/Intro';
+import Intro from './intro/Intro';
 /* import {isIE} from 'react-device-detect'; */
 
-const Auth = React.lazy(() => { return import('./newDesign/auth/Auth'); });
+const Auth = React.lazy(() => { return import('./auth/Auth'); });
 
-const UserClient = React.lazy(() => { return import('./newDesign/client/client'); });
-const UserClient_Codigo = React.lazy(() => { return import('./newDesign/client/codigo'); });
-const UserClient_Oper = React.lazy(() => { return import('./newDesign/client/operaciones'); });
-const UserClient_Pago = React.lazy(() => { return import('./newDesign/client/pago'); });
-const UserClient_Remesa = React.lazy(() => { return import('./newDesign/client/remesa'); });
-const UserClient_Ayuda = React.lazy(() => { return import('./newDesign/client/ayuda'); });
+const UserClient = React.lazy(() => { return import('./client/client'); });
+const UserClient_Codigo = React.lazy(() => { return import('./client/codigo'); });
+const UserClient_Oper = React.lazy(() => { return import('./client/operaciones'); });
+const UserClient_Pago = React.lazy(() => { return import('./client/pago'); });
+const UserClient_Remesa = React.lazy(() => { return import('./client/remesa'); });
+const UserClient_Ayuda = React.lazy(() => { return import('./client/ayuda'); });
 
-const ProfileInfo = React.lazy(() => { return import('./newDesign/profileInfo/Profile'); });
+const ProfileInfo = React.lazy(() => { return import('./profileInfo/Profile'); });
 
 
-const UserComercio = React.lazy(() => { return import('./newDesign/comercio/comercio'); });
-const UserComercio_Oper = React.lazy(() => { return import('./newDesign/comercio/operaciones'); });
-const UserComercio_SolicPago = React.lazy(() => { return import('./newDesign/comercio/solicitarPago'); });
+const UserComercio = React.lazy(() => { return import('./comercio/comercio'); });
+const UserComercio_Oper = React.lazy(() => { return import('./comercio/operaciones'); });
+const UserComercio_SolicPago = React.lazy(() => { return import('./comercio/solicitarPago'); });
 
 
 

@@ -2,61 +2,24 @@ import React, { useEffect, useState } from 'react';
 import classes from './Backdrop.css';
 
 const BackdropEffected = (props) => {
-  //  const [opacity, setOpacity] = useState(0);
-  //  const [checkTime, setCheckTime] = useState();
-  //  const [attachedClasses, setAttachedClasses] = useState([classes.InfoModal, classes.Close]);
-  //  const [mounted, setMounted] = useState(false);
+
     const [visible, setVisible] = useState(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  /*   useEffect(() => {
-
-        setMounted(true);
-        return () => { setMounted(false); }
-    }, []); */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-   /*  useEffect(() => {
-        if (!mounted) return;
-        let interval;
-        if (opacity <= 1) {
-            interval = setInterval(() => {
-
-                if (opacity === 1) { clearInterval(interval); return }
-                else { setCheckTime(Date.now()); }
-            }, 350);
-        }
-        return () => { clearInterval(interval); }
-    }, [opacity]); */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-/*     useEffect(() => {
-
-          if (props.show) setAttachedClasses([classes.InfoModal, classes.Open])
-           else setAttachedClasses([classes.InfoModal, classes.Close]);  
-        return () => {
-                    if (!props.show) setAttachedClasses([classes.InfoModal, classes.Close])
-                        else setAttachedClasses([classes.InfoModal, classes.Open]); 
-        }
-
-    }, [props.show]); */
-
-  /*   useEffect(() => {
-         if (opacity < 1 && props.show) 
-        mounted && setOpacity(o => (o < 1) ? o + 0.1 : o > 0 ? o - 0.1 : o)
-        //  if (opacity > 0 && !props.show && mounted) setOpacity(o=>o - 0.1);
-
-    }, [checkTime]); */
+    const [mounted, setMounted] = useState(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(() => {
-        if (!props.show) setTimeout(() => { setVisible(props.show) }, 1500);
-        else setVisible(props.show);
+        setMounted(true);
+        return () => setMounted(false);
+    }, []);
+    useEffect(() => { 
+        if (!props.show&& mounted) setTimeout(() => { setVisible(props.show) }, 1500);
+        else setVisible(props.show);  
     }, [props.show]);
     const inEffect = `     @keyframes react-fade-in {       0%   { opacity: 0; }       50%  { opacity: 0.5; }       100% { opacity: 1; }     }   `;
     const outEffect = `     @keyframes react-fade-out {       0%   { opacity: 1; }       50%  { opacity: 0.5; }       100% { opacity: 0; }     }   `;
 
-
-
-
     return (
         visible ?
-            <div /* className={[attachedClasses]} */>
+            <div /* className={[attachedClasses]} */ key={props.id ? props.id : "bkDrop"}>
                 <style children={!visible ? outEffect : inEffect} />
                 <div className={classes.Backdrop} onClick={props.clicked}
                     style={{

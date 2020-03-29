@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Modal from '../../components/UI/Modal/Modal';
-import Uxi from '../Uxi/Uxi';
+import NewModal from '../../components/UI/Modal/BdModal';
 import useHttpErrorHandler from '../../hooks/http-error-handler';
 
 const withErrorHandler = (WrappedComponent, axios) => {
@@ -9,12 +8,12 @@ const withErrorHandler = (WrappedComponent, axios) => {
     const [error, clearError] = useHttpErrorHandler(axios);
 
     return (
-      <Uxi>
-        <Modal show={error} modalClosed={clearError}>
+      <div style={{}}>
+        <NewModal show={error} modalClosed={clearError} mobileStyle={{ display: 'flex', flexDirection: 'columne', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center' }}>
           {error ? error.message : null}
-        </Modal>
+        </NewModal>
         <WrappedComponent {...props} />
-      </Uxi>
+      </div>
     );
   };
 };

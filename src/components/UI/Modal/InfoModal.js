@@ -45,7 +45,7 @@ const InfoModal = props => {
             <BrowserView>
                 <style children={!props.show ? outEffect : inEffect} />
                 <BackdropEffected show={props.show} clicked={props.modalClosed} />
-                <Grid container spacing={4} justify="center" alignItems="center">
+              
                     {/*     <div style={{ flex: 1 }}> */}
 
                     <div
@@ -72,12 +72,12 @@ const InfoModal = props => {
 
                     </div>
                     {/* </div> */}
-                </Grid>
+                 
             </BrowserView>
             <MobileView>
                 <style children={!props.show ? outEffect : inEffect} />
                 <BackdropEffected show={props.show} clicked={props.modalClosed} />
-                <Grid container spacing={4} justify="center" alignItems="center">
+              
                     {/*     <div style={{ flex: 1 }}> */}
 
                     <div
@@ -103,7 +103,7 @@ const InfoModal = props => {
 
                     </div>
                     {/* </div> */}
-                </Grid>
+               
             </MobileView>
 
 

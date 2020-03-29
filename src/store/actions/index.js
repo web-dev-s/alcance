@@ -13,24 +13,12 @@ export {
 } from './auth';
 
 export {
-
-  clientChargeAccount,
-  clientGetTransactionHistory,
-  clientApprovePaymentTransfer,
-  clientGetDetails,
-  clientCheckPendingPayments,
-
-  comercioGetTransactionHistory,
-  comercioAddPaymentRequest,
-  comercioGetDetails,
-
-
-  controlGetDetails,
-  controlGetTransactionHistory,
-  controlGenerateCode,
+ 
   setShowUserInfo,
   setProfileImage,
 
+
+  updateUserData, //used in ProfileInfo
 
   generateTransferCode,// used in Client codigo
   getAllTransactionsForUser, //used in Client Operaciones
@@ -39,8 +27,5 @@ export {
   rechargeBallances,//used in Codigo remesa
 
   requestPayment,//used in comercio account solicitar pago
-} from './alcance'
-//denisa
-export {
-  updateUserData
-} from './user'
+  getPendingPayments, //used in client hook
+} from './alcance' 
