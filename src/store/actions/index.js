@@ -29,4 +29,5 @@ export {
   requestPayment,//used in comercio account solicitar pago
   getPendingPayments, //used in client hook
   approvePendingPayment, //used in client modal pending payment
+  refreshBallances, //used in comercio for refreshing balances after client accepts pending payments
 } from './alcance' 

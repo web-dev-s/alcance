@@ -49,3 +49,5 @@ export const VEN_RECHARGE_BALLANCE = 'ven_ApproveTransfer';
 export const VEN_REQUEST_PAYMENT = 'ven_RequestPayment';
 export const VEN_GET_PENDING_PAYMENTS = 'ven_GetMyPendingPaymentRequests';
 export const VEN_APROVE_PAYMENT = 'ven_ApprovePayment';
+
+export const VEN_REFRESH_BALLANCE = 'ven_comercio_GETBY_TOKEN';

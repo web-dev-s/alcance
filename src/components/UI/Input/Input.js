@@ -16,7 +16,8 @@ const input = (props) => {
                 style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
                 className={classes.Input}
                 {...props.elementConfig}
-                value={props.value}
+                 value={props.value}  
+              /*   defaultValue={props.value} */
                 onChange={props.changed}
                 onFocus={props.onFocus && props.onFocus} />;
             break;
@@ -33,7 +34,7 @@ const input = (props) => {
             inputElement = (
                 <select
                     style={{ border: 'none', ...props.inputStyle, width: '100%', height: '100%' }}
-                    value={props.value||''} 
+                    /*   value={props.value||''}  */
                     onChange={(e) => props.changed && props.changed(e)}
                     onFocus={(e) => props.onFocus && props.onFocus(e)}
                 >

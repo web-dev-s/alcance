@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 
 import { updateObject, checkValidity, color } from '../shared/utility';
 import FlashingButton from '../components/UI/FlashingButton/FlashingButton';
+import FlashingButtonShare from '../components/UI/FlashingButton/FlasingButtonShare';
 /* import Spinner from '../../components/UI/Spinner/Spinner'; */
 import classes from './client.css';
 import Input from '../components/UI/Input/Input';
@@ -18,7 +19,7 @@ import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device
 import useWindowDimensions from '../hooks/useWindowsDimensions';
 const Client_Codigo = props => {
     const { height, width } = useWindowDimensions();
-    const [amount, setAmount] = useState();
+    const [amount, setAmount] = useState('');
 
     const [balance, setBalance] = useState({ currency: 'USD', value: +props.showUserInfo.BalanceUSD });
 
@@ -84,12 +85,15 @@ const Client_Codigo = props => {
         document.execCommand('copy');
         textField.remove();
     };
+    const showMessage = (element, msg) => {
+        alert(msg);
 
+    }
     return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
 
-    <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
-         <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
-                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',  alignItems: 'stretch', }}>
+        <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
+            <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
+                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', }}>
                     <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
                         <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Generar  código'}</label>
                     </div>
@@ -147,36 +151,43 @@ const Client_Codigo = props => {
                                     <label style={{ fontSize: '12px', marginRight: '10px' }}>{'CÓDIGO: '}</label>
                                     <label style={{ fontSize: '12px', color: color.alcanceOrange, marginLeft: '10px', marginRight: '10px', maxWidth: '140px' }} > {code} </label>
                                 </div>
-                                <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignSelf: 'stretch', paddingLeft: '5px', marginLeft: '20px', paddingLeft: '10px', paddingRight: '0px', marginRight: '0px' }}>
+                                {code && code.length > 2 && <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignSelf: 'stretch', paddingLeft: '5px', marginLeft: '20px', paddingLeft: '10px', paddingRight: '0px', marginRight: '0px' }}>
 
                                     <FlashingButton
                                         clicked={(e) => { copyToClipboard() }}
                                         clickableImage={true}
                                         image={copy}
                                     />
-                                    <FlashingButton
+                                    {window.ReactNativeWebView && <FlashingButton
                                         shareOnSocial={true}
                                         clicked={(e) => {
-                                            if (navigator.share) {
-                                                navigator.share({
-                                                    title: 'My awesome post!',
-                                                    text: 'This post may or may not contain the answer to the universe',
-                                                    url: window.location.href
-                                                }).then(() => {
-                                                    alert('Thanks! 😄');
-                                                })
-                                                    .catch(err => {
-                                                        alert(`Couldn't share 🙁`);
-                                                    });
-                                            } else {
-                                                alert('Not supported 🙅‍');
-                                            };
+
+                                            // this.sendMessage('some messsage');
+                                            if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(JSON.stringify(code));
+
+
+                                            /*    if (navigator.share) {
+                                                   navigator.share({
+                                                       title: 'Share alcance Recharge code!',
+                                                       text: code,
+                                                       url: window.location.href
+                                                   }).then(() => {
+                                                       alert('Context API Menu works! 😄');
+                                                       //  showMessage(null, 'Thanks! 😄')
+                                                   })
+                                                       .catch(err => {
+                                                           alert(`Couldn't share 🙁`);
+                                                       });
+                                               } else {
+                                                   alert('Context API Menu not supported 🙅‍');
+                                               }; */
 
                                         }}
                                         clickableImage={true}
                                         image={share}
-                                    />
-                                </div>
+                                    />}
+
+                                </div>}
 
                             </div>
                         </div>

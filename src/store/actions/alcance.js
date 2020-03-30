@@ -501,7 +501,53 @@ export const approvePendingPayment = actionData => {
             });
     };
 };
+export const refreshBallances = actionData => {
 
+    return (dispatch, getState) => {
+        console.log('--------actions---refreshBallances---sent-----------')
+        console.log(actionData.data)
+        return makeRequest(
+            APIConstant.S3_BASE_URL + APIConstant.VEN_REFRESH_BALLANCE,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+
+                console.log('--------actions---refreshBallances--------')
+                console.log(actionData.data)
+
+
+                if (response && response.data && response.data.status === '200') {
+                    const actionData = { BalanceUSD: response.data.result[0].BalanceUSD, BalanceMXN: response.data.result[0].BalanceMXN, BalanceBS: response.data.result[0].BalanceBS }
+                    console.log('--------actions---rechargeBallances---in refreshBallances----------')
+                    console.log(actionData)
+
+                    dispatch(updateBallance(actionData));
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            }) 
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
 export const setProfileImage   = actionData => {
 
     console.log('store -actions-saveProfileImage' + JSON.stringify(actionData))

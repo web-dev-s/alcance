@@ -320,11 +320,9 @@ const Auth = (props) => {
     const get_CredetialsLocal = () => {
         const email = localStorage.getItem('emailUsed');
         const passwd = localStorage.getItem('passwordUsed');
-
-
+      
         if (email && email.length > 2) setEmail(email);
         if (passwd && passwd.length > 2) setPassword(passwd);
-
 
     }
     const scrollToBottom = (element) => {
@@ -747,7 +745,7 @@ const Auth = (props) => {
                             <div style={{ width: '3px', backgroundColor: 'white', height: '60px', marginTop: '10px' }} />
 
                         </div>
-                            : <FooterComponent onBackClick={() => setChoice(0)} />
+                            : null //<FooterComponent onBackClick={() => setChoice(0)} />
                         }
 
                     </div >
