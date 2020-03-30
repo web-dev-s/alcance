@@ -2,7 +2,7 @@ import * as a from './actionTypes';
 import { makeRequest } from '../api/apiCall';
 import * as APIConstant from '../api/apiConstant';
 import { apiErrorHandler } from "../api/errorHandle";
-
+import moment from 'moment'
 
 export const userLogin = (userData) => {
     return (dispatch, getState) => {
@@ -271,7 +271,7 @@ export const exchangeCurrencies = actionData => {
         /*  let state = getState();  */
 
         return makeRequest(
-            'https://www.luzy-s3.net:5079/luzy_api/' + APIConstant.VEN_EXCHANGE_CURRENCIES,
+            APIConstant.S3_BASE_URL_WITH_PORT + APIConstant.VEN_EXCHANGE_CURRENCIES,
             'post',
             actionData.data,
         )
@@ -454,6 +454,136 @@ export const getPendingPayments = actionData => {
             });
     };
 };
+export const approvePendingPayment = actionData => {
+
+    return (dispatch, getState) => {
+        console.log('--------actions---approvePendingPayment---sent-----------')
+        console.log(actionData.data)
+        return makeRequest(
+            APIConstant.S3_BASE_URL + APIConstant.VEN_APROVE_PAYMENT,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+
+                console.log('--------actions---approvePendingPayment--------')
+                console.log(actionData.data)
+
+
+                if (response && response.data && response.data.status === '200') {
+                    const actionData = { BalanceUSD: response.data.result[0].BalanceUSD, BalanceMXN: response.data.result[0].BalanceMXN, BalanceBS: response.data.result[0].BalanceBS }
+                    console.log('--------actions---rechargeBallances---------------------')
+                    console.log(actionData)
+
+                    dispatch(updateBallance(actionData));
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            }) 
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
+
+export const setProfileImage   = actionData => {
+
+    console.log('store -actions-saveProfileImage' + JSON.stringify(actionData))
+    return (dispatch, getState) => {
+
+        dispatch({
+            type: a.VEN_LOCAL_SAVE_PROFILE_IMAGE,
+            profileImage: actionData.profileImage,
+        });
+
+    };
+};
+
+export const saveProfileImage = actionData => {
+    return (dispatch, getState) => {
+        /*  let state = getState();  */
+        console.log('---actions---setProfileImage---sent------------------')
+        console.log(actionData.data)
+        return makeRequest(
+            APIConstant.S3_BASE_URL + APIConstant.VEN_UPDATE_USER_DATA,
+            'post',
+            actionData.data,
+        )
+            .then(response => {
+                console.log('------actions-----updateUserData---------------------')
+                console.log(response)
+
+                if (response && response.data && response.data.status === '200') {
+                    const info = {
+                        Name: response.data.result[0].Name,
+                        Surname: response.data.result[0].Surname,
+                        Phone: response.data.result[0].Phone,
+                        Email: response.data.result[0].Email,
+                        BirthDate: response.data.result[0].BirthDate,
+                        IDCard: response.data.result[0].IDCard,
+                        Picture: response.data.result[0].Picture,
+                        BusinessName: response.data.result[0].BusinessName,
+                        BusinessAddress: response.data.result[0].BusinessAddress,
+                        State: response.data.result[0].State,
+                    }
+
+                    dispatch(setShowUserInfo({ showUserInfo: info }));
+                    return Promise.resolve({
+                        data: response.data,
+                        status: response.data.status,
+                        message: response.data.Message,
+                    });
+                } else {
+                    if (response && response.data.Message) {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: response.data.Message,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.data.status,
+                            message: 'Something went wrong',
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            });
+    };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1044,20 +1174,6 @@ export const clientApprovePaymentTransfer = actionData => {
             });
     };
 };
-
-export const setProfileImage = actionData => {
-
-    console.log('store -actions-setProfileImage' + JSON.stringify(actionData))
-    return (dispatch, getState) => {
-
-        dispatch({
-            type: a.VEN_LOCAL_SAVE_PROFILE_IMAGE,
-            profileImage: actionData.profileImage,
-        });
-
-    };
-};
-
-
+ 
 
 

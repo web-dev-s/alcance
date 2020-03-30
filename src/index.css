@@ -5,7 +5,7 @@ body {
  */
   width: 100vw;
   max-width: 100%;
-  word-wrap: break-word ;
+  word-wrap: unset ;
   box-sizing: border-box;
   font-family: 'AvenirBlack', 'AvenirBook', 'AvenirRoman';
   color: #40495c;

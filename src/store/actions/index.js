@@ -13,7 +13,7 @@ export {
 } from './auth';
 
 export {
- 
+
   setShowUserInfo,
   setProfileImage,
 
@@ -28,4 +28,5 @@ export {
 
   requestPayment,//used in comercio account solicitar pago
   getPendingPayments, //used in client hook
+  approvePendingPayment, //used in client modal pending payment
 } from './alcance' 

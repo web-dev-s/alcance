@@ -87,9 +87,9 @@ const Client_Codigo = props => {
 
     return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
 
-        <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
-            <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', }}>
-                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
+    <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
+         <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
+                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',  alignItems: 'stretch', }}>
                     <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
                         <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Generar  código'}</label>
                     </div>

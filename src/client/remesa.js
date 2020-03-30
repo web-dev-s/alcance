@@ -29,7 +29,7 @@ const Client_Remesa = props => {
 
             if (res.status == 200) {
                 setMessage('Monto ingresado');
-                //  props.history.push('/client')
+                  props.history.push('/client')
             } else setMessage('Código invalido');
         });
     }

@@ -10,6 +10,7 @@ import phoneIcon from '../assets/images/phone.png';
 import emailIcon from '../assets/images/email.png';
 import passwordIcon from '../assets/images/lock.png';
 import profileImg from '../assets/images/profileImg.png';
+import defaultProfileImg from '../assets/images/user.png'
 import globeIcon from '../assets/images/globe.png';
 import locationIcon from '../assets/images/location.png';
 import mapIcon from '../assets/images/map.png';
@@ -17,12 +18,16 @@ import editIcon from '../assets/images/edit.png';
 import FlashingButton from '../components/UI/FlashingButton/FlashingButton';
 import { updateObject, checkValidity, color } from '../shared/utility';
 import Input from '../components/UI/Input/Input';
-
+import ProfilePictureComponent from '../components/AVATAR/ProfilePictureComponent/ProfilePictureComponent';
+import BdModal from '../components/UI/Modal/BdModal';
+import CameraComponent from '../components/AVATAR/SwitchCamsComponent/CameraComponent';
 const UserClientProfile = props => {
 
 
-    useEffect(() => { console.log(props.userType) }, [])
+    // useEffect(() => { }, [])
 
+    const [showCamera, setShowCamera] = useState(false);
+    const [changingAvatar, setChangingAvatar] = useState(false);
     const [editableText, setEditableText] = useState(false);
 
     const [email, setEmail] = useState(props.userInfo.Email);// useState('a@a.aaa');
@@ -113,18 +118,68 @@ const UserClientProfile = props => {
 
 
     }
-    return (<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignitems: 'center', marginTop: '88px', marginBottom: '45px', marginLeft: '20px', marginRight: '20px', }}>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+    const mesageModalClosed = () => {
+
+    };
+    const handleFileSelect = (e) => {
+        e.preventDefault();
+        const fileSelector = document.createElement('input');
+        fileSelector.setAttribute('type', 'file');
+        fileSelector.addEventListener("change", function (e) {
+            // console.log('change:=> ', e.target.files);
+
+            props.onSetProfileImage(URL.createObjectURL(e.target.files[0]));
+
+
+        }, false);
+
+        fileSelector.click();
+    }
+
+    const modalChangePhoto = <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1, overflow: 'hidden', marginTop: '30px', }}>
+        <div style={{ flex: 1, display: 'flex', height: '50%', width: '70%', alignItems: 'center', alignContent: 'center', justifyContent: 'center', alignSelf: 'center', }}
+            onClick={(e) => { setChangingAvatar(!changingAvatar); setShowCamera(true) }}
+        >
+            <p style={{ textAlign: 'center' }}>Toma una foto</p>
+        </div>
+        <div style={{ flex: 1, display: 'flex', height: '50%', width: '70%', alignItems: 'center', alignContent: 'center', justifyContent: 'center', alignSelf: 'center', borderBottom: '1px solid #f8bb48', borderTop: '1px solid #f8bb48', }}
+            onClick={(e) => { setChangingAvatar(!changingAvatar); handleFileSelect(e) }}
+        >
+            <p style={{ textAlign: 'center' }}>Importar foto</p>
+        </div>
+        <div style={{ flex: 1, display: 'flex', height: '50%', width: '70%', alignItems: 'center', alignContent: 'center', justifyContent: 'center', alignSelf: 'center', }}
+            onClick={(e) => { setChangingAvatar(!changingAvatar); props.onSetProfileImage(defaultProfileImg) }}
+        >
+            <p style={{ textAlign: 'center' }}>Borrar foto</p>
+        </div>
+    </div>
+
+    return (<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignitems: 'center', marginTop: '88px', marginBottom: '45px', marginLeft: '20px', marginRight: '20px', }}>
+        {changingAvatar && < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
+            <BdModal id='showhangingAvatar' show={changingAvatar} modalClosed={(e) => { mesageModalClosed(e) }}
+                mobileStyle={{ top: '25%', left: '10%', right: '10%', width: undefined }}
+            >
+                {modalChangePhoto}
+            </BdModal>
+        </div>}
+        {showCamera && (<div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center'/* width: '250px', height: '250px' */ }}>
+
+            <CameraComponent returnToInfos={() => { setChangingAvatar(false); setShowCamera(false) }} />
+
+        </div>)
+        }
+        {!showCamera && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1, }}>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignitems: 'center', flex: 1, }}>
-                <div style={{ display: 'flex', justifyContent: 'center', alignitems: 'center', flex: 1 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignitems: 'center', flex: 1 }} onClick={() => { setChangingAvatar(true) }}>
                     <img src={props.userInfo.profileImage ? props.userInfo.profileImage : profileImg} style={{ width: '100px', height: '100px', resizeMode: 'contain' }} />
+
                 </div>
                 <div style={{ display: 'flex', flex: 2, flexDirectiom: 'row', justifyContent: 'flex_start', alignItems: 'center', alignSelf: 'center', }}>
                     <label style={{ fontSize: '22px', alignSelf: 'flex-start', paddingLeft: '10%', width: '100%' }}>{Name} {Surname}</label>
                 </div>
             </div>
-        </div>
+        </div>}
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', flex: 1, paddingBottom: '20px' }}>
             {props.userType !== 'client' && fieldText(globeIcon, BusinessName)}
             {props.userType !== 'client' && fieldText(locationIcon, BusinessAddress)}
@@ -180,7 +235,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
         onUpdateUserData: (dS) => dispatch(actions.updateUserData({ type: a.VEN_UPDATE_USER_DATA, data: { in_Token: dS.in_Token, in_Email: dS.in_Email, in_Phone: dS.in_Phone, } })),
-
+        onSetProfileImage: (proifileImage) => dispatch(actions.setProfileImage({ profileImage: proifileImage })),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UserClientProfile);

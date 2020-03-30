@@ -39,15 +39,25 @@ const UserTypeClient = props => {
         if ((userType === 'client') && (!stopChecking)) {
             props.onGetPendingPayments(props.userToken).then(res => {
                 if (res.status === '200') {
+                    console.log('--props.onGetPendingPayments---------------');
+                    console.log(res);
+                    setShowExchangeModal(false);
+
+
                     setStopChecking(true);
-                    setPendingPayment({ storeName: res.data.result[0].StoreName, amount: res.data.result[0].Amount, currency: res.data.result[0].Currency });
+
+                    if (res.data.result[0].Code != null || res.data.result[0].Code != undefined)
+                        setPendingPayment({
+                            storeName: res.data.result[0].StoreName,
+                            amount: res.data.result[0].Amount,
+                            currency: res.data.result[0].Currency || '',
+                            code: res.data.result[0].Code
+                        });
                 };
-                setShowExchangeModal(false);
+
             });
         }
     }, [checkTime, stopChecking]);
-
-
 
 
     useEffect(() => { if (showExchangeModal) updateConversionRate() }, [showExchangeModal]);
@@ -60,7 +70,7 @@ const UserTypeClient = props => {
 
         if (exchangeInfo.from == exchangeInfo.to) {
             setExchangeInfo({ ...exchangeInfo, exchangeRate: '1' });
-            setConvertedAmount((+exchangeInfo.exchangeRate) * 1)
+            setConvertedAmount((1) * exchangeInfo.amount)
         }
         else {
             props.onGetExchangeRate(userToken, exchangeInfo.from, exchangeInfo.amount, exchangeInfo.to).then(res => {
@@ -95,22 +105,20 @@ const UserTypeClient = props => {
         );
     }
 
-    const aprovePaymentTransfer = () => {
+    const aprovePaymentTransfer = (code) => {
 
-        alert('Do not know the api where to forward!')
-        //  if (pendingPayment.id === null) return;
 
-        //  props.onApprovePaymentTransfer(pendingPayment.id).then(res => {
-        //      if (res.status === '200') {
-        //          setBalance(res.data.result[0].Balance);
+        if (!code) return;
 
-        //          setOpenDialog(false); props.onClientTList(props.userId).then(res => {
-        //              if (res.status === '501') { setTransList([]); }
-        //              if (res.status === '200') { setTransList([...res.data.result]); setStopChecking(false); }
-        //          });
-        //      };
-        //      /*   console.log('props.onApprovePaymentTransfer' + pendingPayment.id + '=>' + JSON.stringify(res)); */
-        //  });
+        props.onApprovePendingPayment(props.userToken, code).then(res => {
+            if (res.status === '200') {
+                console.log('---props.onApprovePendingPayment(code)-------------------------');
+                console.log(code);
+                console.log(res);
+                setOpenDialog(false); setTimeout(() => { setStopChecking(false) }, 5000);
+            };
+
+        });
     }
     const mesageModalClosed = () => {
         setOpenDialog(false); setPendingPayment(null); setStopChecking(true);
@@ -129,7 +137,7 @@ const UserTypeClient = props => {
                 {'$ '}
                 <b style={{ color: pendingPayment && !isNaN(pendingPayment.amount) && (+pendingPayment.amount) > 0 ? 'green' : 'red' }}>
                     {(pendingPayment && pendingPayment.amount) || 0}
-                </b>{'  BS'}</p>
+                </b>{' '}{pendingPayment && pendingPayment.currency}</p>
             <p style={{ color: color.alcanceOrange }}>{' Comercio ID:'}<b style={{ color: color.black }} > {pendingPayment && pendingPayment.storeName !== null ? pendingPayment.storeName : '---'}
             </b>
             </p>
@@ -139,7 +147,7 @@ const UserTypeClient = props => {
             <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
             >
                 <FlashingButton
-                    clicked={(e) => aprovePaymentTransfer(true)}
+                    clicked={(e) => pendingPayment && aprovePaymentTransfer(pendingPayment.code)}
                     label={'ACEPTAR'}
                     style={{
                         color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
@@ -238,12 +246,12 @@ const UserTypeClient = props => {
                         <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-start', wordWrap: 'wrap' }}>
                             <label style={{ fontSize: '12px', marginRight: '10px' }}>{'Tasa de cambio: '}</label>
                         </div>
-                        <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-end', wordWrap: 'wrap' }}>
-                            <label style={{ fontSize: '12px', color: color.black, marginLeft: '10px', }} >{exchangeInfo.exchangeRate}</label>
+                        <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-end', wordWrap: 'wrap' }}>
+                            <label style={{ fontSize: '12px', color: color.black, marginLeft: '10px', marginRight: '10px', }} >{exchangeInfo.exchangeRate}</label>
                         </div>
                     </div>
                     <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', marginTop: '5px' }}>
-                        <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-start', wordWrap: 'wrap' }}>
+                        <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-start', wordWrap: 'nowrap', whiteSpace: 'nowrap' }}>
                             <label style={{ fontSize: '12px', marginRight: '10px' }}>{'Monto convertido: '}</label>
                         </div>
                         <div style={{ display: 'flex', flex: 3, flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'center', marginTop: '5px', alignSelf: 'flex-end', wordWrap: 'wrap' }}>
@@ -278,9 +286,15 @@ const UserTypeClient = props => {
     const { showUserInfo } = props;
     return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%', marginTop: '0px', paddingTop: '28px' }} >
         <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
+            {showExchangeModal && < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
+                <BdModal id='showExchange' show={showExchangeModal} modalClosed={() => { setShowExchangeModal(false) }}
+                    mobileStyle={{ top: '15%', left: '10%', right: '10%', width: undefined }}
+                >
+                    {showExchange}
+                </BdModal>
+            </div>} 
 
-
-            < div style={{ position: 'absolute', width: '100%',/*  height: '100%', */ overflow: 'hidden' }}>
+            < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
                 <div key={'mainContainer'}
                        /*  className={classes.container}  */ style={{
                         display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
@@ -314,9 +328,7 @@ const UserTypeClient = props => {
                             overflow: 'hidden',
                             marginBottom: '15px',
                         }}>
-
-
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '80px', paddingTop: '30px', paddingBottom: '30px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '0px', paddingTop: '10px', paddingBottom: '10px', minWidth: '80%' }}>
                                 <label style={{ color: color.alcanceOrange, fontSize: '14px', paddingTop: '10px', paddingBottom: '10px' }}>{'SALDO'}</label>
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
 
@@ -333,34 +345,35 @@ const UserTypeClient = props => {
                                             {new Intl.NumberFormat('en-EN').format(+showUserInfo.BalanceBS)}
                                         </b>   BS</label>
                                 </div>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: '80px' }}>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => setShowExchangeModal(true)}
-                                            label={'CAMBIAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }}
-                                            textStyle={{ fontSize: '12px' }}
-                                        />
-                                    </div>
-                                    <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
-                                    >
-                                        <FlashingButton
-                                            clicked={(e) => props.history.push('/client_remesa')}
-                                            label={'RECARGAR'}
-                                            style={{
-                                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                                                textAlign: ' center',
-                                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                                            }} textStyle={{ fontSize: '12px' }}
-                                        />
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '12px' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
+                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginRight: '10px' }}
+                                        >
+                                            <FlashingButton
+                                                clicked={(e) => setShowExchangeModal(true)}
+                                                label={'CAMBIAR'}
+                                                style={{
+                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                    textAlign: ' center',
+                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                }}
+                                                textStyle={{ fontSize: '12px' }}
+                                            />
+                                        </div>
+                                        <div style={{ marginTop: '12px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'inline-block', fontFamily: 'AvenirBlack', height: '30%', marginLeft: '10px' }}
+                                        >
+                                            <FlashingButton
+                                                clicked={(e) => props.history.push('/client_remesa')}
+                                                label={'RECARGAR'}
+                                                style={{
+                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                    textAlign: ' center',
+                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                }} textStyle={{ fontSize: '12px' }}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
@@ -385,20 +398,7 @@ const UserTypeClient = props => {
             </div>
 
 
-            < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
-                <BdModal id='showExchange' show={showExchangeModal} modalClosed={() => { setShowExchangeModal(false) }}
-                    mobileStyle={{ top: '15%', left: '10%', right: '10%', width: undefined }}
-                >
-                    {showExchange}
-                </BdModal>
-            </div>
-            < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
-                <BdModal id='showPendingPayment' show={openDialog} modalClosed={(e) => { mesageModalClosed(e) }}
-                    mobileStyle={{ top: '15%', left: '10%', right: '10%', width: undefined }}
-                >
-                    {showPendingPayment}
-                </BdModal>
-            </div>
+
         </MobileView>
         <BrowserView>
             <p>UNDER CONSTRUCTION</p>
@@ -419,6 +419,8 @@ const mapDispatchToProps = dispatch => {
 
 
         onGetPendingPayments: (token) => dispatch(actions.getPendingPayments({ type: a.VEN_GET_PENDING_PAYMENTS, data: { in_Token: token, } })),
+        onApprovePendingPayment: (token, code) => dispatch(actions.approvePendingPayment({ type: a.VEN_APROVE_PAYMENT, data: { in_Token: token, in_Code: code } })),
+
         onGetExchangeRate: (token, fromC, amount, toC) => dispatch(actions.getExchangeRate({ type: a.VEN_GET_EXCHANGE_RATE, data: { in_Token: token, in_FromCurrency: fromC, in_Amount: amount, in_ToCurrency: toC } })),
         onExchangeCurrencies: (token, fromC, amount, toC) => dispatch(actions.exchangeCurrencies({ type: a.VEN_EXCHANGE_CURRENCIES, data: { in_Token: token, in_FromCurrency: fromC, in_Amount: amount, in_ToCurrency: toC } })),
 

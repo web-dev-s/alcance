@@ -6,28 +6,31 @@ import * as a from '../store/actions/actionTypes';
 import * as actions from '../store/actions/index';
 import * as _ from 'lodash';
 import { Button, Grid, List, Avatar, ListItemAvatar, ListItemText, ListItem } from '@material-ui/core';
-import { updateObject, checkValidity, color } from '../shared/utility';  
-import classes from './comercio.css'; 
-import balanceIMG from '../assets/images/balance.png'; 
+import { updateObject, checkValidity, color } from '../shared/utility';
+import classes from './comercio.css';
+import balanceIMG from '../assets/images/balance.png';
 import giveMoney from '../assets/images/redArrow.png';
-import receiveMoney from '../assets/images/greenArrow.png'; 
+import receiveMoney from '../assets/images/greenArrow.png';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 import useWindowDimensions from '../hooks/useWindowsDimensions';
+import moment from "moment";
+import 'moment/locale/es';
+
 const Comercio_Operaciones = props => {
     const { height, width } = useWindowDimensions();
     const [transList, setTransList] = useState([]);
     const { userType, userId } = props;
     // eslint-disable-next-line react-hooks/exhaustive-deps  
-    useEffect(() => { 
-        console.log('------Client_Operaciones--------------------------------------')
+    useEffect(() => {
+        console.log('------Comercio_Operaciones--------------------------------------')
         console.log(props)
         props.onGetAllTransactionsForUser(props.userToken).then(res => {
             console.log('-----onGetAllTransactionsForUser--------------');
             console.log(res);
-            if (res.status === '200') {setTransList([...res.data.result]) }
-        }); 
+            if (res.status === '200') { setTransList([...res.data.result]) }
+        });
     }, []);
-    return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} > 
+    return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%' }} >
         <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
             <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: '2%' }}>
 
@@ -43,22 +46,26 @@ const Comercio_Operaciones = props => {
                                     let checked = false; */
                                 return (
                                     <ListItem key={idx} button style={{ display: 'flex', width: '100%' }}>
-                                        <img alt={`Avatar n°${idx + 1}`} src={+item.Amount > 0 ? receiveMoney : giveMoney} style={{ width: '10px', height: '10px', marginRight: '2px', resize: 'contain', justifyContent: 'center', transform: 'rotate(180deg)' }} />
+                                        <img alt={`Avatar n°${idx + 1}`} src={+item.Amount > 0 ? receiveMoney : giveMoney} style={{ width: '10px', height: '10px', marginRight: '2px', resize: 'contain', justifyContent: 'center', alignSelf: 'flex-start', transform: 'rotate(180deg)' }} />
 
                                         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+
                                             <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1' }}>
-                                                <ListItemText id={idx + '3'} primary={+item.Amount > 0 ? 'Recibiste' : 'Enviaste'} style={{ color: +item.Amount > 0 ? 'green' : 'red', fontWeight: '900', paddingLeft: '5px', marginBottom: 0 }} />
-                                                <ListItemText id={idx + '2'} primary={'$' + item.Amount} style={{ color: +item.Amount > 0 ? 'green' : 'red', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
-                                                {(item.ComercioID) && <ListItemText id={idx + '13'} primary={+item.Amount > 0 ? 'de ' : 'a ' + item.ComercioID} style={{ color: +item.Amount > 0 ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
-                                                }
+                                                <ListItemText id={idx + '3'} primary={item.OperationType == 'in' ? 'Recibiste' : 'Enviaste'} style={{ color: item.OperationType == 'in' ? 'green' : 'red', fontWeight: '900', paddingLeft: '5px', marginBottom: 0 }} />
+                                                <ListItemText id={idx + '2'} primary={'$' + item.Amount} style={{ color: item.OperationType == 'in' ? 'green' : 'red', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
+                                                <ListItemText id={idx + '13'} primary={(item.OperationType == 'in' ? ' de ' : ' a ') + item.OtherPersonName} style={{ color: item.OperationType == 'in' ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
+
                                                 {(item.ControlID) && <ListItemText id={idx + '13'} primary={+item.Amount > 0 ? 'de ' : 'a ' + item.ControlID} style={{ color: +item.Amount > 0 ? 'green' : 'red', display: 'flex', justifyContent: 'center' }} />
                                                 }
                                                 {(item.PassportNumber) &&
                                                     <ListItemText id={idx + '1'} primary={'(' + item.PassportNumber + ')'} style={{ color: 'blue', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
-                                                }
+                                                } 
+
                                             </div>
                                             <div style={{ display: 'flex', flex: 1, flexDirection: 'row', alignItems: 'left' }}>
-                                                <ListItemText id={idx + '1'} primary={' in ' + item.Date} style={{ color: 'darkGray' /* +item.Amount > 0 ? 'green' : 'red'  */, paddingLeft: '5px', display: 'flex', marginTop: 0 }} />
+                                                <ListItemText id={idx + '1'} primary={moment(new Date(moment(item.Time).toDate())).locale('es').format("DD[/]MM[/]YYYY [a las] HH[:]mm ").toString()} style={{ color: 'darkGray' /* +item.Amount > 0 ? 'green' : 'red'  */, paddingLeft: '5px', display: 'flex', marginTop: 0 }} />
+
+
                                             </div>
                                             {/*  {(item.Name || item.PassportNumber) && <ListItemText id={idx + '1'} primary={' from ' + item.Name + '(' + item.PassportNumber + ')'} style={{ color: +item.Amount > 0 ? 'blue' : 'green' }} />} */}
 

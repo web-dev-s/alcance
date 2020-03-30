@@ -4,6 +4,7 @@ import FlashingButton from '../FlashingButton/FlashingButton';
 import classes from './Modal.css';
 //import Uxi from '../../../hoc/Uxi/Uxi';
 import BackdropEffected from '../Backdrop/BackdropEffected';
+import Backdrop from '../Backdrop/Backdrop';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 const BdModal = props => {
 
@@ -73,7 +74,7 @@ const BdModal = props => {
             </BrowserView>
             <MobileView>
                 <style children={!props.show ? outEffect : inEffect} />
-                <BackdropEffected id={props.id ? props.id : "bkDrop"} show={props.show} clicked={props.modalClosed} />
+                <Backdrop id={props.id ? props.id : "bkDrop"} show={props.show} clicked={props.modalClosed} />
                 <div
                     className={attachedClasses.join(' ')}
                     style={{

@@ -9,6 +9,7 @@ import { updateObject, checkValidity, color } from '../../../shared/utility';
 import { BrowserView, MobileView } from "react-device-detect";
 import ReactResizeDetector from 'react-resize-detector';
 import FlashingButton from '../FlashingButton/FlashingButton';
+import defaultAvatar from '../../../assets/images/user.png'
 const HeaderComponent = (props) => {
 
     return (<div style={{
@@ -43,7 +44,8 @@ const HeaderComponent = (props) => {
                     props.history.push('/profile_info');
 
                 }}
-                image={require("../../../assets/images/user.png")}
+                image={props.profileImage?props.profileImage:defaultAvatar}
+                imageStyle={{maxWidth:'24px', maxHeight:'24px', resizeMode:'contain'}}
             />
         </div>
     </div>
@@ -56,7 +58,8 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.authenticated,
         authRedirectPath: state.auth.authRedirectPath,
         userType: state.auth.userType,
-        userToken: state.auth.userToken
+        userToken: state.auth.userToken,
+        profileImage: state.al.profileImage,
     };
 };
 

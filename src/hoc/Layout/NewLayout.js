@@ -18,7 +18,7 @@ import HeaderComponent from '../../components/UI/Card/HeaderComponent';
 import FooterComponent from '../../components/UI/Card//FooterComponent';
 import Profile from '../../profileInfo/Profile';
 import useWindowDimensions from '../../hooks/useWindowsDimensions';
-const Layout = props => {
+const NewLayout = props => {
   const { height, width } = useWindowDimensions();
   const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
   const [userInfoVisible, setUserInfoVisible] = useState(false);
@@ -41,7 +41,7 @@ const Layout = props => {
     setUserInfoVisible(userInfoVisible);
   }
   return (
-    <Uxi>
+    <>
       <BrowserView>
         {(!false) && <Toolbar
           isAuth={props.isAuthenticated}
@@ -56,6 +56,7 @@ const Layout = props => {
         />
         <main className={classes.Content}>{props.children}</main>
       </BrowserView>
+  
       <MobileView style={{ width: width, height: height, marginTop: '0px', position: 'relative' }}>
 
         {(props.isAuthenticated) &&
@@ -75,11 +76,11 @@ const Layout = props => {
             {props.children}
           </div>
         </main>
-        {(props.isAuthenticated) && <FooterComponent
+       {/*  {(props.isAuthenticated) && <FooterComponent
           mainContainerStyle={{ bottom: '0px' }}
-          onBackClick={() => props.history.push(props.userType == 'client' ? '/client' : '/comercio')} />}
+          onBackClick={() => props.history.push(props.userType == 'client' ? '/client' : '/comercio')} />} */}
       </MobileView >
-    </Uxi >
+    </>
   );
 };
 
@@ -100,4 +101,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(NewLayout);
