@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import { connect } from 'react-redux';
 import axios from '../axios-orders';
 import * as a from '../store/actions/actionTypes';
 import * as actions from '../store/actions/index';
 import * as _ from 'lodash';
-import classes from './comercio.css';
+//import classes from './comercio.css';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 import NewLinkCard from '../components/UI/Card/newLinkCard';
 import { updateObject, checkValidity, color } from '../shared/utility';
 import useWindowDimensions from '../hooks/useWindowsDimensions';
 import FlashingButton from '../components/UI/FlashingButton/FlashingButton';
+  /* eslint eqeqeq: 0 */
 const UserTypeComercio = props => {
     const { height, width } = useWindowDimensions();
     const { showUserInfo } = props;
@@ -49,7 +50,7 @@ const UserTypeComercio = props => {
                             border: '1px solid lightgray', borderRadius: '4px',
                             overflowY: 'auto', padding: '5px',
 
-                            display: 'flex', justifyContent: 'center', textAlign: 'center', flex: 0,
+                            display: 'flex', justifyContent: 'center', textAlign: 'center',
                             flex: '0 0 20%',
 
                             paddingBottom: '5px',
@@ -77,7 +78,7 @@ const UserTypeComercio = props => {
                                                 clicked={(e) => refreshBallance()}
                                                 label={'ACTUALIZAR'}
                                                 style={{
-                                                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                                    color: 'white',  backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
                                                     textAlign: ' center',
                                                     display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
                                                 }}

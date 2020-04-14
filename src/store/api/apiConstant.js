@@ -5,6 +5,7 @@
 export const S3_BASE_URL = 'https://www.luzy-s3.net:5079/luzy_api/procedures/';
 export const S3_BASE_URL_WITH_PORT = 'https://www.luzy-s3.net:5079/luzy_api/';
 export const S3_CHAT_BASE_URL = 'https://www.luzy-s3.net:5079/';
+export const S1_UPLOAD_URL = 'https://taxu-s1.net:5080/luzy_api/file-upload'
 // INITIAL_SERVER_TYPE: "s3",
 
 // Production

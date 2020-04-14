@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import path from'path';
 import { connect } from 'react-redux';
 import * as a from '../store/actions/actionTypes';
 import * as actions from '../store/actions/index';
-import ProfileItem from "./ProfileItem";
+//import ProfileItem from "./ProfileItem";
 import profileIcon from '../assets/images/user.png';
 import dateIcon from '../assets/images/calendar.png';
 import idIcon from '../assets/images/cedula.png';
@@ -18,13 +20,13 @@ import editIcon from '../assets/images/edit.png';
 import FlashingButton from '../components/UI/FlashingButton/FlashingButton';
 import { updateObject, checkValidity, color } from '../shared/utility';
 import Input from '../components/UI/Input/Input';
-import ProfilePictureComponent from '../components/AVATAR/ProfilePictureComponent/ProfilePictureComponent';
+//import ProfilePictureComponent from '../components/AVATAR/ProfilePictureComponent/ProfilePictureComponent';
 import BdModal from '../components/UI/Modal/BdModal';
 import CameraComponent from '../components/AVATAR/SwitchCamsComponent/CameraComponent';
+import Axios from 'axios';
+/* eslint eqeqeq: 0 */
 const UserClientProfile = props => {
-
-
-    // useEffect(() => { }, [])
+    useEffect(() => { }, [])
 
     const [showCamera, setShowCamera] = useState(false);
     const [changingAvatar, setChangingAvatar] = useState(false);
@@ -124,12 +126,56 @@ const UserClientProfile = props => {
     };
     const handleFileSelect = (e) => {
         e.preventDefault();
+       
         const fileSelector = document.createElement('input');
         fileSelector.setAttribute('type', 'file');
         fileSelector.addEventListener("change", function (e) {
             // console.log('change:=> ', e.target.files);
 
-            props.onSetProfileImage(URL.createObjectURL(e.target.files[0]));
+          //  console.log(path.dirname(e.target.files[0]))
+            console.log('change:=> ', e.target.files);
+
+            var path = (window.URL || window.webkitURL).createObjectURL(e.target.files[0]);
+            console.log('path raw:', path);
+            var tmppath = path.substring(path.indexOf(path.split(':')[1]), path.length - 1);
+        
+            console.log('path url:', tmppath);
+
+
+
+            let formData = new FormData();
+            const [file]=e.target.files;
+            formData.append('file', file);
+            formData.append('name', 'alcanceProfileImage');
+           
+        //    //in native eay
+        //     const data = new FormData();
+        //     data.append("file", {
+        //         name: response.name,
+        //         type: response.type,//response.type,
+        //         uri: Constant.isANDROID ? response.uri : response.uri.replace("content://", "")
+        //     });
+           
+           
+           
+            axios({
+                url: 'https://taxu-s1.net:5080/luzy_api/file-upload',
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded" },
+                data: formData
+            }).then((res) => {
+                console.log('---axios res---------');
+                console.log(res);
+
+            }).catch(err=>console.error(err));
+
+
+
+
+           // props.onSetProfileImage(URL.createObjectURL(e.target.files[0]), e.target.files);
+
+
+            //            props.onSetProfileImage(URL.createObjectURL(e.target.files[0]));
 
 
         }, false);
@@ -235,7 +281,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
         onUpdateUserData: (dS) => dispatch(actions.updateUserData({ type: a.VEN_UPDATE_USER_DATA, data: { in_Token: dS.in_Token, in_Email: dS.in_Email, in_Phone: dS.in_Phone, } })),
-        onSetProfileImage: (proifileImage) => dispatch(actions.setProfileImage({ profileImage: proifileImage })),
+        onSetProfileImage: (profileImage, data) => dispatch(actions.setProfileImage({ profileImage: profileImage, data: data })),
+
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UserClientProfile);

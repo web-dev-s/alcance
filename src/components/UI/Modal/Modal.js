@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Grid } from '@material-ui/core';
+import React, { useEffect, useState } from 'react'; 
 import classes from './Modal.css';
 //import Uxi from '../../../hoc/Uxi/Uxi';
 import Backdrop from '../Backdrop/Backdrop';

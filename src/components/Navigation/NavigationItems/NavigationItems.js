@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classes from './NavigationItems.css';
 import NavigationItem from './NavigationItem/NavigationItem';
-
+  /* eslint eqeqeq: 0 */
 const navigationItems = (props) => (
+  
     <ul className={classes.NavigationItems} style={props.style}>
         {/*    { <NavigationItem link="/" exact>Home</NavigationItem>} */}
         {/*   {props.isAuthenticated ? <NavigationItem link="/payment">Payment Page</NavigationItem> : null}   */}

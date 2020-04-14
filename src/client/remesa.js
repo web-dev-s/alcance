@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import { connect } from 'react-redux';
 import axios from '../axios-orders';
 import * as a from '../store/actions/actionTypes';
 import * as actions from '../store/actions/index';
 import * as _ from 'lodash';
-import { updateObject, checkValidity, color } from '../shared/utility';
+import {  color } from '../shared/utility';
 import FlashingButton from '../components/UI/FlashingButton/FlashingButton';
 /* import Spinner from '../../components/UI/Spinner/Spinner'; */
 import classes from './client.css';
@@ -16,6 +16,7 @@ import error from '../assets/images/error.png'
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 import useWindowDimensions from '../hooks/useWindowsDimensions';
 const Client_Remesa = props => {
+   /* eslint eqeqeq: 0 */
     const { height, width } = useWindowDimensions();
 
     const [rechargeCode, setRechargeCode] = useState('');

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import { connect } from 'react-redux';
 import axios from '../axios-orders';
 import * as a from '../store/actions/actionTypes';
 import * as actions from '../store/actions/index';
 import * as _ from 'lodash';
-import { updateObject, checkValidity, color } from '../shared/utility';
+import {  color } from '../shared/utility';
 import FlashingButton from '../components/UI/FlashingButton/FlashingButton';
 /* import Spinner from '../../components/UI/Spinner/Spinner'; */ 
 import classes from './comercio.css';
@@ -15,6 +15,7 @@ import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device
 import QrReader from 'react-qr-reader';
 import useWindowDimensions from '../hooks/useWindowsDimensions';
 import error from '../assets/images/error.png';
+  /* eslint eqeqeq: 0 */
 const Comercio_Payment = props => {
     const { height, width } = useWindowDimensions();
 

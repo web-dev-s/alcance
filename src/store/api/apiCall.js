@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export function makeRequest(url, type = 'get', data = {}, header = {}) {
- console.log("API CALL - " + url + " TYPE- " + type);
-    let reqHeader = Object.assign(header, {"Accept": "application/json", "Content-Type": "application/json"});
+ console.log("API CALL - " + url + " TYPE- " + type); 
+    let reqHeader = header ? header : Object.assign(header, { "Accept": "application/json", "Content-Type": "application/json", });
     if (type === 'get') {
         return axios.get(url,{headers: reqHeader})
             .then((response) => {

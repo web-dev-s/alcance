@@ -10,10 +10,7 @@ export const userLogin = (userData) => {
         return makeRequest(state.appReducer.baseURL + APIConstant.VEN_LOGIN, 'post', userData)
             .then((response) => {
                 if (response && response.data && response.data.status === '200') {
-                    dispatch({
-                        type: a.VEN_LOGIN,
-                        payload: response.data.result[0],
-                    });
+
 
                     return Promise.resolve({
                         token: response.data.result[0].Token,
@@ -77,7 +74,7 @@ export const userRegistration = (userData) => {
     };
 };
 export const setShowUserInfo = actionData => {
-
+    console.log('---actions---setShowUserInfo---dispatch ------------------')
 
     return (dispatch, getState) => {
 
@@ -494,7 +491,7 @@ export const approvePendingPayment = actionData => {
                         });
                     }
                 }
-            }) 
+            })
             .catch(error => {
                 // return Promise.reject(error);
                 return dispatch(apiErrorHandler(error));
@@ -541,24 +538,43 @@ export const refreshBallances = actionData => {
                         });
                     }
                 }
-            }) 
+            })
             .catch(error => {
                 // return Promise.reject(error);
                 return dispatch(apiErrorHandler(error));
             });
     };
 };
-export const setProfileImage   = actionData => {
+export const setProfileImage = actionData => {
 
-    console.log('store -actions-saveProfileImage' + JSON.stringify(actionData))
-    return (dispatch, getState) => {
+    console.log(actionData)
+    var tmppath0 = URL.createObjectURL(actionData.data[0]);
+
+    var path = (window.URL || window.webkitURL).createObjectURL(actionData.data[0]);
+
+    var tmppath = path.substring(path.indexOf(path.split(':')[1]), path.length - 1);
+
+    console.log('path', path);
+    const data = new FormData();
+ /*    data.append("file", {
+        name: actionData.data.name,
+        type:actionData.data.type,//response.type,
+        uri: tmppath//Constant.isANDROID ? response.uri : response.uri.replace("content://", "")
+    }); */
+    data.append('image', actionData.data[0])
+    console.log(data)
+   
+   
+   // userUploadFile(actionData.profileImag);
+    /* return (dispatch, getState) => {
 
         dispatch({
             type: a.VEN_LOCAL_SAVE_PROFILE_IMAGE,
             profileImage: actionData.profileImage,
         });
 
-    };
+    } */
+
 };
 
 export const saveProfileImage = actionData => {
@@ -615,7 +631,50 @@ export const saveProfileImage = actionData => {
             });
     };
 };
+//used globally in app, for any upload file needed to get in return a link for passing it to another api call
+export const userUploadFile = (data) => {
+    return (dispatch, getState) => {
+        let state = getState()
+        console.log('actions-> before userUploadPicture-> ');
+        return makeRequest(APIConstant.S1_UPLOAD_URL, 'post', data, { "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded" })
+            .then((response) => {
 
+                console.log('actions->userUploadPicture->raw  stringified' + JSON.stringify(response.result));
+
+
+                // return (dispatch, getState) => {
+                //
+                //     dispatch({
+                //         type: a.VEN_LOCAL_SAVE_PROFILE_IMAGE,
+                //         profileImage: actionData.profileImage,
+                //     });
+                //
+                // }
+
+                /* if (response && response.data && response.status == '200') {
+                    return Promise.resolve({
+                        status: response.status,
+                        url: response.data.FileURL
+                    });
+                } else {
+                    if (response && response.data) {
+                        return Promise.resolve({
+                            status: response.status,
+                        });
+                    } else {
+                        return Promise.resolve({
+                            status: response.status,
+                            message: 'something went wrong'
+                        });
+                    }
+                } */
+            })
+            .catch((error) => {
+                // return Promise.reject(error);
+                return dispatch(apiErrorHandler(error));
+            })
+    };
+};
 
 
 
@@ -1220,6 +1279,6 @@ export const clientApprovePaymentTransfer = actionData => {
             });
     };
 };
- 
+
 
 

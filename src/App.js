@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from 'react';
+import React, {  Suspense } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -7,22 +7,22 @@ import Logout from './auth/Logout';
 import Spinner from './components/UI/Spinner/Spinner';
 import Intro from './intro/Intro';
 /* import {isIE} from 'react-device-detect'; */
-
+  /* eslint eqeqeq: 0 */
 const Auth = React.lazy(() => { return import('./auth/Auth'); });
 
 const UserClient = React.lazy(() => { return import('./client/client'); });
-const UserClient_Codigo = React.lazy(() => { return import('./client/codigo'); });
-const UserClient_Oper = React.lazy(() => { return import('./client/operaciones'); });
-const UserClient_Pago = React.lazy(() => { return import('./client/pago'); });
-const UserClient_Remesa = React.lazy(() => { return import('./client/remesa'); });
-const UserClient_Ayuda = React.lazy(() => { return import('./client/ayuda'); });
+const UserClientCodigo = React.lazy(() => { return import('./client/codigo'); });
+const UserClientOper = React.lazy(() => { return import('./client/operaciones'); });
+const UserClientPago = React.lazy(() => { return import('./client/pago'); });
+const UserClientRemesa = React.lazy(() => { return import('./client/remesa'); });
+const UserClientAyuda = React.lazy(() => { return import('./client/ayuda'); });
 
 const ProfileInfo = React.lazy(() => { return import('./profileInfo/Profile'); });
 
 
 const UserComercio = React.lazy(() => { return import('./comercio/comercio'); });
-const UserComercio_Oper = React.lazy(() => { return import('./comercio/operaciones'); });
-const UserComercio_SolicPago = React.lazy(() => { return import('./comercio/solicitarPago'); });
+const UserComercioOper = React.lazy(() => { return import('./comercio/operaciones'); });
+const UserComercioSolicPago = React.lazy(() => { return import('./comercio/solicitarPago'); });
 
 
 
@@ -45,11 +45,11 @@ const App = props => {
 
           <Route path="/logout" component={Logout} />
           <Route path="/client" render={props => <UserClient {...props} />} />
-          <Route path="/client_codigo" render={props => < UserClient_Codigo {...props} />} />
-          <Route path="/client_operaciones" render={props => <UserClient_Oper {...props} />} />
-          <Route path="/client_pago" render={props => <UserClient_Pago {...props} />} />
-          <Route path="/client_remesa" render={props => <UserClient_Remesa {...props} />} />
-          <Route path="/client_ayuda" render={props => <UserClient_Ayuda {...props} />} />
+          <Route path="/client_codigo" render={props => < UserClientCodigo {...props} />} />
+          <Route path="/client_operaciones" render={props => <UserClientOper {...props} />} />
+          <Route path="/client_pago" render={props => <UserClientPago {...props} />} />
+          <Route path="/client_remesa" render={props => <UserClientRemesa {...props} />} />
+          <Route path="/client_ayuda" render={props => <UserClientAyuda {...props} />} />
 
           <Route path="/profile_info" render={props => <ProfileInfo {...props} />} />
 
@@ -67,8 +67,8 @@ const App = props => {
           <Route path="/profile_info" render={props => <ProfileInfo {...props} />} />
  
           <Route path="/comercio" render={props => <UserComercio {...props} />} />
-          <Route path="/comercio_operaciones" render={props => <UserComercio_Oper {...props} />} />
-          <Route path="/comercio_pago" render={props => <UserComercio_SolicPago {...props} />} />
+          <Route path="/comercio_operaciones" render={props => <UserComercioOper {...props} />} />
+          <Route path="/comercio_pago" render={props => <UserComercioSolicPago {...props} />} />
 
           <Route path="/" exact component={Intro} />
 
