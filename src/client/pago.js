@@ -10,7 +10,7 @@ import classes from './client.css';
 import QRCode from 'qrcode.react';
 import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
 import useWindowDimensions from '../hooks/useWindowsDimensions';
-import FlashingButton from '../components/UI/FlashingButton/FlashingButton'; 
+import FlashingButton from '../components/UI/FlashingButton/FlashingButton';
 import BdModal from '../components/UI/Modal/BdModal';
 const UserTypeClient = props => {
     const { height, width } = useWindowDimensions();
@@ -48,7 +48,7 @@ const UserTypeClient = props => {
             });
         }
     }, [checkTime, stopChecking]);
- 
+
 
     const aprovePaymentTransfer = (code) => {
 
@@ -141,9 +141,34 @@ const UserTypeClient = props => {
                 </div>
             </div>
         </MobileView>
+        <BrowserView style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <div className={classes.mainBrowserContainer}
+                style={{
+                    maxWidth: '400px', marginLeft: '10%', marginRight: '10%',
+                    position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+                    overflow: 'hidden',
+                }}
+            >
+                {openDialog && < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
+                    <BdModal id='showPendingPayment' show={openDialog} modalClosed={(e) => { mesageModalClosed(e) }}
+                        mobileStyle={{ top: '15%', left: '10%', right: '10%', width: undefined }}
+                    >
+                        {showPendingPayment}
+                    </BdModal>
+                </div>}
 
-        <BrowserView>
-            <p>UNDER CONSTRUCTION</p>
+                <div className={classes.container} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', }}>
+                    < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
+                        <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', }}>
+                            <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Pago'}</label>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', textAlign: 'left', marginTop: '70px' }}>
+                            <QRCode value={props.showUserInfo.Code} style={{ width: '200px', height: '200px' }} />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </BrowserView>
 
 

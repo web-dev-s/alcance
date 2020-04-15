@@ -8,6 +8,17 @@
     font-weight: bold;
     font-size: 1.2rem;
 }
+.mainBrowserContainer{
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    text-align: center;
+ /*    font-size: 1.2rem; */
+     font-family: 'AvenirBlack';
+   /*   font-family: 'AvenirBook'; */
+  /*   font-family: 'AvenirRoman'; */
+   /*  font-weight: 400; */
+}
 /* 
 @media (min-width: 500px) and (min-height: 400px) {
     .Main {

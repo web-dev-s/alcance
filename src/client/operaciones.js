@@ -57,17 +57,17 @@ const Client_Operaciones = props => {
                                         <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1', wrap: 'nowrap', maxHeight: '30px', overflow: 'hidden', wordWrap: 'ellipsis' }}>
                                             <img alt={`Avatar n°${idx + 1}`} src={item.OperationType == 'in' ? receiveMoney : giveMoney} style={{ width: '10px', height: '10px', marginRight: '2px', resize: 'contain', justifyContent: 'center', alignSelf: 'center', transform: 'rotate(180deg)' }} />
 
-                                            <div style={{ display: 'flex', flex:1, flexDirection: 'row', lineHeight: '1.1' }}>
+                                            <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1' }}>
                                                 <ListItemText id={idx + '3'} primary={item.OperationType == 'in' ? 'Recibiste' : 'Enviaste'} style={{ color: item.OperationType == 'in' ? 'green' : 'red', fontWeight: '900', paddingLeft: '5px', marginBottom: 0 }} />
                                             </div>
                                             <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1' }}>
                                                 <ListItemText id={idx + '2'} primary={'$' + item.Amount} style={{ color: item.OperationType == 'in' ? 'green' : 'red', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
                                             </div>
                                             <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1', maxHeight: '30px', overflow: 'hidden', wordWrap: 'ellipsis' }}  >
-                                                <ListItemText id={idx + '13'} primary={(item.OperationType == 'in' ? ' de ' : ' a ') + item.OtherPersonName} 
-                                                style={{ color: item.OperationType == 'in' ? 'green' : 'red', maxHeight: '30px', overflow: 'hidden', wordWrap: 'ellipsis', whiteSpace: 'nowrap' }}
-                                                primaryTypographyProps={classes.listItem}
-                                                className={classes.listItem}
+                                                <ListItemText id={idx + '13'} primary={(item.OperationType == 'in' ? ' de ' : ' a ') + item.OtherPersonName}
+                                                    style={{ color: item.OperationType == 'in' ? 'green' : 'red', maxHeight: '30px', overflow: 'hidden', wordWrap: 'ellipsis', whiteSpace: 'nowrap' }}
+                                                    primaryTypographyProps={classes.listItem}
+                                                    className={classes.listItem}
 
 
 
@@ -91,8 +91,66 @@ const Client_Operaciones = props => {
                 </div>
             </div>
         </MobileView>
-        <BrowserView>
-            <p>UNDER CONSTRUCTION</p>
+        <BrowserView style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <div className={classes.mainBrowserContainer}
+                style={{
+                    maxWidth: '400px', marginLeft: '10%', marginRight: '10%',
+                    position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+                    overflow: 'hidden',
+                }}
+            >
+                < div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch' }}>
+                    <div style={{ marginBottom: '4%', borderLeft: `5px solid ${color.alcanceOrange}`, display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center', }}>
+                        <label style={{ fontSize: '1.4rem', color: color.alcanceOrange, marginLeft: '10px' }}>{'Operaciones recientes'}</label>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', width: '100%', textAlign: 'left', marginTop: '20px' }}>
+                        <List dense style={{ minWidth: '99%' }}>
+                            {transList && transList.length ? transList.map((item, idx) => {
+                                /*     const labelId = `checkbox-list-secondary-label-${item.Name || item.PassportNumber}`;
+                                    let checked = false; */
+                                return (
+                                    <ListItem key={idx} button style={{ display: 'flex', width: '100%' }} disableTypography={false}>
+
+                                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxHeight: '30px', overflow: 'hidden', wordWrap: 'ellipsis' }}>
+
+
+                                            <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1', wrap: 'nowrap', maxHeight: '30px', overflow: 'hidden', wordWrap: 'ellipsis' }}>
+                                                <img alt={`Avatar n°${idx + 1}`} src={item.OperationType == 'in' ? receiveMoney : giveMoney} style={{ width: '10px', height: '10px', marginRight: '2px', resize: 'contain', justifyContent: 'center', alignSelf: 'center', transform: 'rotate(180deg)' }} />
+
+                                                <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1' }}>
+                                                    <ListItemText id={idx + '3'} primary={item.OperationType == 'in' ? 'Recibiste' : 'Enviaste'} style={{ color: item.OperationType == 'in' ? 'green' : 'red', fontWeight: '900', paddingLeft: '5px', marginBottom: 0 }} />
+                                                </div>
+                                                <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1' }}>
+                                                    <ListItemText id={idx + '2'} primary={'$' + item.Amount} style={{ color: item.OperationType == 'in' ? 'green' : 'red', fontWeight: '900', display: 'flex', justifyContent: 'center' }} />
+                                                </div>
+                                                <div style={{ display: 'flex', flex: 1, flexDirection: 'row', lineHeight: '1.1', maxHeight: '30px', overflow: 'hidden', wordWrap: 'ellipsis' }}  >
+                                                    <ListItemText id={idx + '13'} primary={(item.OperationType == 'in' ? ' de ' : ' a ') + item.OtherPersonName}
+                                                        style={{ color: item.OperationType == 'in' ? 'green' : 'red', maxHeight: '30px', overflow: 'hidden', wordWrap: 'ellipsis', whiteSpace: 'nowrap' }}
+                                                        primaryTypographyProps={classes.listItem}
+                                                        className={classes.listItem}
+
+
+
+                                                    />
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </ListItem>
+                                );
+                            }) : <ListItem key={1} button>
+                                    <ListItemAvatar>
+                                        <Avatar alt={`Avatar n°1`} src={balanceIMG} />
+                                    </ListItemAvatar>
+                                    <ListItemText id={1} primary={'No tienes operaciones recientes'} style={{ color: 'black', fontWeight: '900', paddingTop: '30px', paddingBottom: '30px' }} />
+                                </ListItem>}
+                        </List>
+                    </div>
+                </div>
+            </div>
         </BrowserView>
 
     </div >);

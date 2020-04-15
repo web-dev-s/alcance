@@ -5,8 +5,8 @@ import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 import { isMobile } from "react-device-detect";
-
-
+import defaultAvatar from '../../../assets/images/user.png'
+import FlashingButton from '../../UI/FlashingButton/FlashingButton';
 const Toolbar = (props) => (
     <header className={classes.Toolbar} style={{ height: isMobile ? '28px' : '56px', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
         <DrawerToggle clicked={props.drawerToggleClicked} />
@@ -20,7 +20,17 @@ const Toolbar = (props) => (
         {props.isAuthenticated &&
             <div onClick={props.avatarPress} style={{ width: '40px', height: '40px', paddingLeft: '2%', paddingRight: '5px', paddingTop: '5px', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
                 <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
-                    <img src={props.profileImage} alt="avatar" style={{ height: '90%', borderRadius: '50%', resize: 'contain', justifyContent: 'center' }} />
+                <FlashingButton
+                clickableImage
+                clicked={() => {
+                    /*   window.open("about:blank", "_self");
+                      window.close(); */
+                    props.history.push('/profile_info');
+
+                }}
+                image={props.profileImage?props.profileImage:defaultAvatar}
+                imageStyle={{maxWidth:'24px', maxHeight:'24px', resizeMode:'contain'}}
+            />
                 </div>
             </div>
         }

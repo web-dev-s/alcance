@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import path from'path';
+import path from 'path';
 import { connect } from 'react-redux';
 import * as a from '../store/actions/actionTypes';
 import * as actions from '../store/actions/index';
+import classes from './Profile.css';
 //import ProfileItem from "./ProfileItem";
 import profileIcon from '../assets/images/user.png';
 import dateIcon from '../assets/images/calendar.png';
@@ -24,10 +25,11 @@ import Input from '../components/UI/Input/Input';
 import BdModal from '../components/UI/Modal/BdModal';
 import CameraComponent from '../components/AVATAR/SwitchCamsComponent/CameraComponent';
 import Axios from 'axios';
+import { BrowserView, MobileView, /* isBrowser, isMobile */ } from "react-device-detect";
+import useWindowDimensions from '../hooks/useWindowsDimensions';
 /* eslint eqeqeq: 0 */
 const UserClientProfile = props => {
-    useEffect(() => { }, [])
-
+    const { height, width } = useWindowDimensions();
     const [showCamera, setShowCamera] = useState(false);
     const [changingAvatar, setChangingAvatar] = useState(false);
     const [editableText, setEditableText] = useState(false);
@@ -122,42 +124,42 @@ const UserClientProfile = props => {
     }
 
     const mesageModalClosed = () => {
-
+        setChangingAvatar(false)
     };
     const handleFileSelect = (e) => {
         e.preventDefault();
-       
+
         const fileSelector = document.createElement('input');
         fileSelector.setAttribute('type', 'file');
         fileSelector.addEventListener("change", function (e) {
             // console.log('change:=> ', e.target.files);
 
-          //  console.log(path.dirname(e.target.files[0]))
+            //  console.log(path.dirname(e.target.files[0]))
             console.log('change:=> ', e.target.files);
 
             var path = (window.URL || window.webkitURL).createObjectURL(e.target.files[0]);
             console.log('path raw:', path);
             var tmppath = path.substring(path.indexOf(path.split(':')[1]), path.length - 1);
-        
+
             console.log('path url:', tmppath);
 
 
 
             let formData = new FormData();
-            const [file]=e.target.files;
+            const [file] = e.target.files;
             formData.append('file', file);
             formData.append('name', 'alcanceProfileImage');
-           
-        //    //in native eay
-        //     const data = new FormData();
-        //     data.append("file", {
-        //         name: response.name,
-        //         type: response.type,//response.type,
-        //         uri: Constant.isANDROID ? response.uri : response.uri.replace("content://", "")
-        //     });
-           
-           
-           
+
+            //    //in native eay
+            //     const data = new FormData();
+            //     data.append("file", {
+            //         name: response.name,
+            //         type: response.type,//response.type,
+            //         uri: Constant.isANDROID ? response.uri : response.uri.replace("content://", "")
+            //     });
+
+
+
             axios({
                 url: 'https://taxu-s1.net:5080/luzy_api/file-upload',
                 method: "POST",
@@ -167,12 +169,12 @@ const UserClientProfile = props => {
                 console.log('---axios res---------');
                 console.log(res);
 
-            }).catch(err=>console.error(err));
+            }).catch(err => console.error(err));
 
 
 
 
-           // props.onSetProfileImage(URL.createObjectURL(e.target.files[0]), e.target.files);
+            // props.onSetProfileImage(URL.createObjectURL(e.target.files[0]), e.target.files);
 
 
             //            props.onSetProfileImage(URL.createObjectURL(e.target.files[0]));
@@ -183,7 +185,7 @@ const UserClientProfile = props => {
         fileSelector.click();
     }
 
-    const modalChangePhoto = <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1, overflow: 'hidden', marginTop: '30px', }}>
+    const modalChangePhoto = <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1, overflow: 'hidden', margin: 'auto', }}>
         <div style={{ flex: 1, display: 'flex', height: '50%', width: '70%', alignItems: 'center', alignContent: 'center', justifyContent: 'center', alignSelf: 'center', }}
             onClick={(e) => { setChangingAvatar(!changingAvatar); setShowCamera(true) }}
         >
@@ -201,71 +203,165 @@ const UserClientProfile = props => {
         </div>
     </div>
 
-    return (<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignitems: 'center', marginTop: '88px', marginBottom: '45px', marginLeft: '20px', marginRight: '20px', }}>
-        {changingAvatar && < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
-            <BdModal id='showhangingAvatar' show={changingAvatar} modalClosed={(e) => { mesageModalClosed(e) }}
-                mobileStyle={{ top: '25%', left: '10%', right: '10%', width: undefined }}
+    return (<div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', paddingLeft: '5%', paddingRight: '5%', marginTop: '58px', }} >
+
+            <MobileView style={{ width: width, height: height, marginTop: '48px', position: 'relative' }}>
+
+
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignitems: 'center',/*  marginTop: '88px', */ marginBottom: '45px', marginLeft: '20px', marginRight: '20px', }}>
+                    {changingAvatar && < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
+                        <BdModal id='showhangingAvatar' show={changingAvatar} modalClosed={(e) => { mesageModalClosed(e) }}
+                            mobileStyle={{ top: '25%', left: '10%', right: '10%', width: undefined }}
+                        >
+                            {modalChangePhoto}
+                        </BdModal>
+                    </div>}
+                    {showCamera && (<div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center'/* width: '250px', height: '250px' */ }}>
+
+                        <CameraComponent returnToInfos={() => { setChangingAvatar(false); setShowCamera(false) }} />
+
+                    </div>)
+                    }
+                    {!showCamera && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignitems: 'center', flex: 1, }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', alignitems: 'center', flex: 1 }} onClick={() => { setChangingAvatar(true) }}>
+                                <img src={props.userInfo.profileImage ? props.userInfo.profileImage : profileImg} style={{ width: '100px', height: '100px', resizeMode: 'contain' }} />
+
+                            </div>
+                            <div style={{ display: 'flex', flex: 2, flexDirectiom: 'row', justifyContent: 'flex_start', alignItems: 'center', alignSelf: 'center', }}>
+                                <label style={{ fontSize: '22px', alignSelf: 'flex-start', paddingLeft: '10%', width: '100%' }}>{Name} {Surname}</label>
+                            </div>
+                        </div>
+                    </div>}
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', flex: 1, paddingBottom: '20px' }}>
+                        {props.userType !== 'client' && fieldText(globeIcon, BusinessName)}
+                        {props.userType !== 'client' && fieldText(locationIcon, BusinessAddress)}
+                        {props.userType !== 'client' && fieldText(mapIcon, State)}
+                        {fieldText(profileIcon, Name)}
+                        {fieldText(profileIcon, Surname)}
+                        {fieldText(dateIcon, BirthDate)}
+                        {fieldText(idIcon, IDCard)}
+                        {!editableText && fieldText(phoneIcon, Phone, true)}
+                        {!editableText && fieldText(emailIcon, Email, true)}
+                        {editableText && renderEditableField(phoneIcon, Phone)}
+                        {editableText && renderEditableField(emailIcon, Email)}
+                        {fieldText(passwordIcon, '*****************')}
+                    </div>
+
+                    {editableText && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: '20px' }}>
+
+                        <FlashingButton
+                            clicked={(e) => { onUpdateUsersData() }}
+                            label={'SAVE'}
+                            style={{
+                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                textAlign: ' center', marginRight: '10px',
+                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                            }}
+                            textStyle={{ fontSize: '14px' }}
+                        />
+
+                        <FlashingButton
+                            clicked={(e) => { setEditableText(false) }}
+                            label={'DISCARD'}
+                            style={{
+                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                textAlign: ' center', marginLeft: '10px',
+                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                            }} textStyle={{ fontSize: '14px' }}
+                        />
+
+                    </div>}
+                </div >
+            </MobileView>
+        </div>
+        <BrowserView style={{/*  display: 'flex', */ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}  >
+            <div className={classes.mainBrowserContainer}
+                style={{
+                    maxWidth: '400px',/*  marginLeft: '10%', marginRight: '10%', */ marginTop: '48px',
+                    position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch',
+                    overflow: 'hidden',
+
+                }}
             >
-                {modalChangePhoto}
-            </BdModal>
-        </div>}
-        {showCamera && (<div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center'/* width: '250px', height: '250px' */ }}>
+                <div className={classes.container} style={{
+                    display: 'flex', flexDirection: 'column',
+                    justifyContent: 'center', alignItems: 'stretch', alignSelf: 'center', overflow: 'hidden',
+                }}  >
 
-            <CameraComponent returnToInfos={() => { setChangingAvatar(false); setShowCamera(false) }} />
+                    {changingAvatar && < div style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' }}>
+                        <BdModal id='showhangingAvatar' show={changingAvatar} modalClosed={(e) => { mesageModalClosed(e) }}
+                           /*  mobileStyle={{ top: '25%', left: '10%', right: '10%', width: undefined }} */
+                        >
+                            {modalChangePhoto}
+                        </BdModal>
+                    </div>}
+                    {showCamera && (<div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', alignContent: 'center'/* width: '250px', height: '250px' */ }}>
 
-        </div>)
-        }
-        {!showCamera && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1, }}>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignitems: 'center', flex: 1, }}>
-                <div style={{ display: 'flex', justifyContent: 'center', alignitems: 'center', flex: 1 }} onClick={() => { setChangingAvatar(true) }}>
-                    <img src={props.userInfo.profileImage ? props.userInfo.profileImage : profileImg} style={{ width: '100px', height: '100px', resizeMode: 'contain' }} />
+                        <CameraComponent returnToInfos={() => { setChangingAvatar(false); setShowCamera(false) }} />
 
-                </div>
-                <div style={{ display: 'flex', flex: 2, flexDirectiom: 'row', justifyContent: 'flex_start', alignItems: 'center', alignSelf: 'center', }}>
-                    <label style={{ fontSize: '22px', alignSelf: 'flex-start', paddingLeft: '10%', width: '100%' }}>{Name} {Surname}</label>
+                    </div>)
+                    }
+                    {!showCamera && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignitems: 'center', flex: 1, }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', alignitems: 'center', flex: 1 }} onClick={() => { setChangingAvatar(true) }}>
+                                <img src={props.userInfo.profileImage ? props.userInfo.profileImage : profileImg} style={{ width: '100px', height: '100px', resizeMode: 'contain' }} />
+
+                            </div>
+                            <div style={{ display: 'flex', flex: 2, flexDirectiom: 'row', justifyContent: 'flex_start', alignItems: 'center', alignSelf: 'center', }}>
+                                <label style={{ fontSize: '22px', alignSelf: 'flex-start', paddingLeft: '10%', width: '100%' }}>{Name} {Surname}</label>
+                            </div>
+                        </div>
+                    </div>}
+                    <div /*  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', paddingBottom: '20px' }} */>
+                        {props.userType !== 'client' && fieldText(globeIcon, BusinessName)}
+                        {props.userType !== 'client' && fieldText(locationIcon, BusinessAddress)}
+                        {props.userType !== 'client' && fieldText(mapIcon, State)}
+                        {fieldText(profileIcon, Name)}
+                        {fieldText(profileIcon, Surname)}
+                        {fieldText(dateIcon, BirthDate)}
+                        {fieldText(idIcon, IDCard)}
+                        {!editableText && fieldText(phoneIcon, Phone, true)}
+                        {!editableText && fieldText(emailIcon, Email, true)}
+                        {editableText && renderEditableField(phoneIcon, Phone)}
+                        {editableText && renderEditableField(emailIcon, Email)}
+                        {fieldText(passwordIcon, '*****************')}
+                    </div>
+
+
+                    {editableText && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: '20px' }}>
+
+                        <FlashingButton
+                            clicked={(e) => { onUpdateUsersData() }}
+                            label={'SAVE'}
+                            style={{
+                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                textAlign: ' center', marginRight: '10px',
+                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                            }}
+                            textStyle={{ fontSize: '14px' }}
+                        />
+
+                        <FlashingButton
+                            clicked={(e) => { setEditableText(false) }}
+                            label={'DISCARD'}
+                            style={{
+                                color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
+                                textAlign: ' center', marginLeft: '10px',
+                                display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                            }} textStyle={{ fontSize: '14px' }}
+                        />
+
+                    </div>}
+                    {/*   </div > */}
                 </div>
             </div>
-        </div>}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', flex: 1, paddingBottom: '20px' }}>
-            {props.userType !== 'client' && fieldText(globeIcon, BusinessName)}
-            {props.userType !== 'client' && fieldText(locationIcon, BusinessAddress)}
-            {props.userType !== 'client' && fieldText(mapIcon, State)}
-            {fieldText(profileIcon, Name)}
-            {fieldText(profileIcon, Surname)}
-            {fieldText(dateIcon, BirthDate)}
-            {fieldText(idIcon, IDCard)}
-            {!editableText && fieldText(phoneIcon, Phone, true)}
-            {!editableText && fieldText(emailIcon, Email, true)}
-            {editableText && renderEditableField(phoneIcon, Phone)}
-            {editableText && renderEditableField(emailIcon, Email)}
-            {fieldText(passwordIcon, '*****************')}
-        </div>
+        </BrowserView>
 
-        {editableText && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: '20px' }}>
+    </div>
 
-            <FlashingButton
-                clicked={(e) => { onUpdateUsersData() }}
-                label={'SAVE'}
-                style={{
-                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                    textAlign: ' center', marginRight: '10px',
-                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                }}
-                textStyle={{ fontSize: '14px' }}
-            />
-
-            <FlashingButton
-                clicked={(e) => { setEditableText(false) }}
-                label={'DISCARD'}
-                style={{
-                    color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '20px', fontWeight: 'bold',
-                    textAlign: ' center', marginLeft: '10px',
-                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
-                }} textStyle={{ fontSize: '14px' }}
-            />
-
-        </div>}
-    </div >);
+    );
 }
 const mapStateToProps = state => (
     {

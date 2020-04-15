@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'; 
+import { Redirect } from 'react-router-dom';
 import classes from './Auth.css';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
 import Input from '../components/UI/Input/Input';
@@ -320,7 +320,7 @@ const Auth = (props) => {
     const get_CredetialsLocal = () => {
         const email = localStorage.getItem('emailUsed');
         const passwd = localStorage.getItem('passwordUsed');
-      
+
         if (email && email.length > 2) setEmail(email);
         if (passwd && passwd.length > 2) setPassword(passwd);
 
@@ -755,8 +755,236 @@ const Auth = (props) => {
                 </div>
             </MobileView>
             <BrowserView style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <p>UNDER CONSTRUCTION</p>
-                <p>Visit mobile version</p>
+                <div className={classes.mainBrowserContainer}
+                 style={{ maxWidth: '400px',marginLeft: '10%', marginRight: '10%', 
+                 position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+                >
+
+                    <div key={'mainContainer'}
+                        className={classes.mainBrowserContainer} style={{
+                            display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
+                            backgroundImage: " linear-gradient( rgba(96, 70, 17, 0.7), rgba(96, 70, 17, 0.7) ),url(" + require("../assets/images/wallpaper.png") + ")",
+                            backgroundPosition: 'center',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundColor: 'rgba(96, 70, 17, 0.7)',
+                            minHeight: (+height + 28 + ([1, 2].indexOf(choice) == -1 ? +28 : +0)).toString() + 'px',
+                          /*   minWidth: width, */
+                            color: color.brown,
+                        }}>
+                        <div style={{
+                            display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px',
+                            maxHeight: (+height + ([1, 2].indexOf(choice) == -1 ? 0 : -15)).toString() + 'px',
+                            overflowY: 'auto',
+                            position: 'absolute', top: 0, bottom: '0px', left: 0, right: 0,
+                        }}
+                            ref={r => elem = r}
+                        >
+                            {[1, 2].indexOf(choice) == -1 && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '80%', }}>
+                                <h1 style={{ minWidth: '280px', color: 'white', marginTop: '25%' }}>{'Bienvenido a'}</h1>
+                            </div>}
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '80%', paddingTop: [1, 2].indexOf(choice) != -1 ? '38px' : '0px' }}>
+                                <img src={require("../assets/images/logo.png")} alt="logo" style={{ width: '100%', height: '100%', resizeMode: 'contain', zIndex: 2 }} />
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', width: '80%', marginTop: '10%', }}>
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'stretch' }}>
+                                    <div onClick={() => { setChoice(0); setIsLogin(true) }}
+                                        style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderBottom: isLogin ? '5px solid #f9ba45df' : undefined }}>
+                                        <label style={{ color: 'white', fontSize: '12px', marginBottom: '10px' }}>{'INICIA SESIÓN'}</label>
+                                    </div>
+                                    <div onClick={() => { setChoice(0); setIsLogin(false) }}
+                                        style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderBottom: !isLogin ? '5px solid #f9ba45df' : undefined }}>
+                                        <label style={{ color: 'white', fontSize: '12px', marginBottom: '10px' }}>{'REGÍSTRATE'} </label>
+                                    </div>
+                                </div>
+                                {isLogin
+                                    ? <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'stretch' }}>
+                                        <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', }}>
+                                            <Input
+                                                containerStyle={{
+                                                    borderBottom: '2px solid #ccc',
+                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',
+                                                    width: '95%', paddingTop: '2px', minHeight: '50px', fontSize: '12px', marginRight: '5px', marginLeft: '5px',
+                                                }}
+                                                middleContainerStyle={{ border: 'none', }}
+                                                inputStyle={{ minHeight: '50px', border: 'none', fontSize: '14px' }}
+                                                leftimage={require("../assets/images/user.png")}
+                                                elementType='input'
+                                                elementConfig={{ type: 'email', placeholder: 'Usuario/Email', }}
+                                                value={email}
+                                                invalid={!emailValid}
+                                                shouldValidate={{ required: true, isEmail: true }}
+                                                touched={emailTouched}
+                                                changed={event => inputEmailChanged(event)}
+                                                onFocus={() => { setErrorMessage(null) }}
+                                            />
+                                            <Input
+                                                containerStyle={{
+                                                    backgroundColor: 'white',
+                                                    display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch',
+                                                    width: '95%', paddingTop: '2px', minHeight: '50px', fontSize: '12px', marginRight: 'auto', marginLeft: 'auto',
+                                                }}
+                                                middleContainerStyle={{ border: 'none', borderBottom: '1px solid #ccc' }}
+                                                inputStyle={{ minHeight: '50px', border: 'none', fontSize: '14px' }}
+                                                leftimage={require("../assets/images/lock.png")}
+                                                elementType='input'
+                                                elementConfig={{ type: 'password', placeholder: 'Contrasena', }}
+                                                value={password}
+                                                invalid={!passwordValid}
+                                                shouldValidate={{ required: true, minLength: 6 }}
+                                                touched={passwordTouched}
+                                                changed={event => inputPasswordChanged(event)}
+                                                onFocus={() => { setErrorMessage(null) }}
+                                            />
+                                            {errorMesage && errorMesage.length > 2 && <div style={{ marginTop: '15px', marginBottom: '15px', display: 'flex', flex: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-end', marginLeft: '10px', marginRight: '4%' }}>
+                                                <img src={error} alt="logo" style={{ width: '25px', height: '25px', resizeMode: 'contain', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: '0px' }} />
+                                                <label style={{ paddingLeft: '5px', color: color.red }}>{errorMesage}</label>
+
+                                            </div>
+                                            }
+                                        </div>
+                                        <div style={{ marginTop: '0px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', fontFamily: 'AvenirBlack', width: '100%', height: '60%' }}>
+                                            <div style={{ marginTop: '0px', marginBottom: '12px', fontSize: ' bold', display: 'flex', flex: 0.5, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', fontFamily: 'AvenirBlack', width: '50%', height: '60%', }}>
+                                                <FlashingButton
+                                                    clicked={(e) => { isForgottenPassword ? setIsForgottenPassword(false) : loggingIn(e) }}
+                                                    label={isForgottenPassword ? 'ENVIAR CLAVE' : 'ACCEDER'}
+                                                    style={{
+                                                        color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '40px', fontWeight: 'bold',
+                                                        textAlign: ' center',
+                                                        display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                    }} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    : <>
+                                        {choice == 0 && <div key={'login'} style={{ margin: 0, paddingLeft: '3px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', textAlign: 'center', backgroundColor: color.white, }}>
+                                            <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', alignSelf: 'flex-start', marginTop: '22px', marginBottom: '12px', marginLeft: '12px' }}>
+                                                <div style={{ flex: 0, marginTop: '12px', marginBottom: '5px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', }}>
+                                                    <FlashingButton label={'CLIENTE'}
+                                                        clicked={(e) => { setChoice(1); setChoiceText('Cliente') }}
+                                                        style={{
+                                                            color: color.white, alignSelf: 'center', backgroundColor: '#f8bb48',
+                                                            borderRadius: '1px', fontWeight: 'bold', textAlign: ' center', width: '80px'
+                                                        }}
+                                                        textStyle={{ fontSize: '12px' }}
+                                                    />
+                                                </div>
+                                                <div style={{ display: 'flex', flexDirection: 'row', flex: 0, justifyContent: 'center', }}>
+                                                    <img src={arrow} alt="arrow" style={{ transform: 'rotate(0deg)', height: '25px', resize: 'contain' }} />
+                                                </div>
+                                                <div style={{ display: 'flex', flexDirection: 'row', flex: 1, justifyContent: 'flex-start', }}>
+                                                    <label style={{ fontSize: '12px', fontWeight: '400', color: color.brown, textAlign: 'left' }}
+                                                    >{'Elige esto si vas a recibir dinero y comprar productos y servicios.'} </label>
+                                                </div>
+
+                                            </div>
+                                            <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', alignSelf: 'flex-start', marginTop: '12px', marginBottom: '22px', marginLeft: '12px' }}>
+                                                <div style={{ flex: 0, marginTop: '12px', marginBottom: '5px', fontSize: ' bold', textAlign: ' center', display: 'flex', justifyContent: 'center', alignItems: 'center', fontFamily: 'AvenirBlack', }}                                        >
+                                                    <FlashingButton label={'COMERCIO'}
+                                                        clicked={(e) => { setChoice(2); setChoiceText('Comercio'); }} style={{
+                                                            color: color.white, alignSelf: 'center', backgroundColor: '#f8bb48',
+                                                            borderRadius: '1px', fontWeight: 'bold', textAlign: ' center', width: '80px'
+                                                        }}
+                                                        textStyle={{ fontSize: '12px' }}
+                                                    />
+                                                </div>
+                                                <div style={{ display: 'flex', flexDirection: 'row', flex: 0, justifyContent: 'center', }}>
+                                                    <img src={arrow} alt="arrow" style={{ transform: 'rotate(0deg)', height: '25px', resize: 'contain' }} />
+                                                </div>
+                                                <div style={{ display: 'flex', flexDirection: 'row', flex: 1, justifyContent: 'flex-start', }}>
+                                                    <label style={{ fontSize: '12px', fontWeight: '400', color: color.brown, textAlign: 'left' }}
+                                                    >{'Elige esto si eres un comercio que desea acceptar Paquete Alcance.'} </label>
+                                                </div>
+                                            </div>
+                                        </div>}
+                                        {choice == 1 && <div key={'registerClient'} style={{ margin: 0, paddingLeft: '3px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', textAlign: 'center', }}>
+                                            <div style={{ margin: 0, paddingBottom: '15px', paddingLeft: '3px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', backgroundColor: color.white, }}>
+                                                <div style={{ margin: 0, paddingTop: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: color.white, }}>
+                                                    <div style={{ display: 'flex', flex: '20%', flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch', marginLeft: '10px', marginRight: '4%' }}>
+                                                        <label style={{ color: color.alcanceOrange, fontSize: '16px', textAlign: 'center' }} >{'CLIENTE'} </label>
+                                                    </div>
+
+
+                                                    <div style={{ display: 'flex', flex: '80%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignSelf: 'flex-end', marginLeft: '10px', marginRight: '4%' }}>
+                                                        {errorMesage && errorMesage.length > 2 && <>
+                                                            <img src={error} alt="logo" style={{ width: '25px', height: '25px', resizeMode: 'contain', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: '0px' }} />
+                                                            <label style={{ paddingLeft: '5px', color: color.red }}>{errorMesage}</label>
+                                                        </>}
+                                                    </div>
+
+                                                </div>
+                                                {formElementsClient()}
+
+                                            </div>
+
+                                            <div style={{ marginTop: '0px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', fontFamily: 'AvenirBlack', width: '100%', height: '60%' }}>
+                                                <div style={{ marginTop: '0px', marginBottom: '12px', fontSize: ' bold', display: 'flex', flex: 0.5, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', fontFamily: 'AvenirBlack', width: '50%', height: '60%', }}>
+                                                    <FlashingButton
+                                                        clicked={(e) => { onRegisterClient(e) }}
+                                                        label={'ENVIAR'}
+                                                        style={{
+                                                            color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '40px', fontWeight: 'bold',
+                                                            textAlign: ' center',
+                                                            display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                        }} />
+                                                </div>
+                                            </div>
+                                        </div>}
+                                        {choice == 2 && <div key={'registerComercio'} style={{ margin: 0, paddingLeft: '3px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', textAlign: 'center', }}>
+                                            <div style={{ margin: 0, paddingBottom: '15px', paddingLeft: '3px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch', backgroundColor: color.white, }}>
+                                                <div style={{ margin: 0, paddingTop: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: color.white, }}>
+                                                    <div style={{ display: 'flex', flex: '20%', flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch', marginLeft: '10px', marginRight: '4%' }}>
+                                                        <label style={{ color: color.alcanceOrange, fontSize: '16px', textAlign: 'center' }} >{'COMERCIO'} </label>
+                                                    </div>
+
+                                                    <div style={{ display: 'flex', flex: '80%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignSelf: 'flex-end', marginLeft: '10px', marginRight: '4%' }}>
+                                                        {errorMesage && errorMesage.length > 2 && <>
+                                                            <img src={error} alt="logo" style={{ width: '25px', height: '25px', resizeMode: 'contain', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: '0px' }} />
+                                                            <label style={{ paddingLeft: '5px', color: color.red }}>{errorMesage}</label>
+                                                        </>}
+                                                    </div>
+
+                                                </div>
+                                                {formElementsComercio()}
+
+                                            </div>
+
+                                            <div style={{ marginTop: '0px', marginBottom: '12px', fontSize: ' bold', textAlign: ' center', display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', fontFamily: 'AvenirBlack', width: '100%', height: '60%' }}>
+                                                <div style={{ marginTop: '0px', marginBottom: '12px', fontSize: ' bold', display: 'flex', flex: 0.5, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', fontFamily: 'AvenirBlack', width: '50%', height: '60%', }}>
+                                                    <FlashingButton
+                                                        clicked={(e) => { onRegisterComercio(e) }}
+                                                        label={'ENVIAR'}
+                                                        style={{
+                                                            color: 'white', alignSelf: 'center', backgroundColor: '#f8bb48', borderRadius: '2px', minHeight: '40px', fontWeight: 'bold',
+                                                            textAlign: ' center',
+                                                            display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center',
+                                                        }} />
+                                                </div>
+                                            </div>
+                                        </div>}
+                                    </>
+                                }
+
+                            </div>
+                        </div>
+
+                        {[1, 2].indexOf(choice) == -1 ? <div key={'scroll'} style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', margin: '0px', position: 'absolute', bottom: '0px' }}>
+                            <img src={require("../assets/images/hand.png")} alt="logo" style={{ width: '25px', height: '25px', resizeMode: 'contain', }} />
+                            <div style={{ width: '3px', backgroundColor: 'white', height: '60px', marginTop: '10px' }} />
+
+                        </div>
+                            : null //<FooterComponent onBackClick={() => setChoice(0)} />
+                        }
+
+                    </div >
+
+                    {[1, 2].indexOf(choice) == -1 && <Description key={'description'} isAuth={props.isAuthenticated} />
+
+                    }
+
+                </div>
+
             </BrowserView>
         </>
 

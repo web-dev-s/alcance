@@ -17,3 +17,14 @@
 .listItem.span {
     text-overflow: ellipsis;
 }
+.mainBrowserContainer{
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    text-align: center;
+ /*    font-size: 1.2rem; */
+     font-family: 'AvenirBlack';
+   /*   font-family: 'AvenirBook'; */
+  /*   font-family: 'AvenirRoman'; */
+   /*  font-weight: 400; */
+}

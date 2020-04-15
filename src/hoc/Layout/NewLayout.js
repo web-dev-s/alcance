@@ -44,19 +44,21 @@ const NewLayout = props => {
     <>
       <BrowserView>
         {(!false) && <Toolbar
+          history={props.history}
           isAuth={props.isAuthenticated}
           drawerToggleClicked={sideDrawerToggleHandler}
           avatarPress={profilePicturePress}
         />}
         <SideDrawer
+          history={props.history}
           isAuth={props.isAuthenticated}
           open={sideDrawerIsVisible}
           closed={sideDrawerClosedHandler}
           avatarPress={profilePicturePress}
         />
-        <main className={classes.Content}>{props.children}</main>
+        <main className={classes.Content} style={{marginTop:'48px', paddingTop:'0'}}>{props.children}</main>
       </BrowserView>
-  
+
       <MobileView style={{ width: width, height: height, marginTop: '0px', position: 'relative' }}>
 
         {(props.isAuthenticated) &&
@@ -76,7 +78,7 @@ const NewLayout = props => {
             {props.children}
           </div>
         </main>
-       {/*  {(props.isAuthenticated) && <FooterComponent
+        {/*  {(props.isAuthenticated) && <FooterComponent
           mainContainerStyle={{ bottom: '0px' }}
           onBackClick={() => props.history.push(props.userType == 'client' ? '/client' : '/comercio')} />} */}
       </MobileView >
